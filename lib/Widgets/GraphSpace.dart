@@ -6,7 +6,7 @@ import 'package:zenwave/Consts/Values.dart';
 
 class GraphSpace extends StatefulWidget {
   // const GraphSpace({super.key});
-  String title;
+  final String title;
 
   GraphSpace(this.title);
 

@@ -9,8 +9,8 @@ class UsernmaeStamp extends StatefulWidget {
   // const UsernmaeStamp({super.key});
   
 
-  String _Title;
-  Widget PreferencePage;
+  final String _Title;
+  final Widget PreferencePage;
   UsernmaeStamp(this._Title,this.PreferencePage);
 
   @override

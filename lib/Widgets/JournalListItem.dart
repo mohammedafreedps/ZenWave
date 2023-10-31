@@ -7,10 +7,10 @@ import 'package:zenwave/Widgets/Dividers.dart';
 class journalListItem extends StatelessWidget {
   // const journalListItem({super.key});
 
-  String date;
-  String content;
-  String currently;
-  bool enableRestoreButton;
+  final String date;
+  final String content;
+  final String currently;
+  final bool enableRestoreButton;
 
   journalListItem(this.date, this.content,this.currently,this.enableRestoreButton);
 

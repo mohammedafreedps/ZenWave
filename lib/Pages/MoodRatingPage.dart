@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:zenwave/Consts/Color.dart';
 import 'package:zenwave/Consts/Values.dart';
+import 'package:zenwave/DB/sharedPreference.dart';
 import 'package:zenwave/Widgets/CutomisableButton.dart';
 import 'package:zenwave/Widgets/Dividers.dart';
 import 'package:zenwave/Widgets/ratingImot.dart';
@@ -23,18 +24,22 @@ class _MoodRatingPageState extends State<MoodRatingPage> {
     void veryGood (){
       print('Very Good');
       ClickPopper();
+      saveIsRated(true);
     }
         void Good (){
           print('Good');
           ClickPopper();
+          saveIsRated(true);
     }
         void Bad (){
           print('Bad');
           ClickPopper();
+          saveIsRated(true);
     }
         void veryBad (){
           print('Very Bad');
           ClickPopper();
+          saveIsRated(true);
     }
     return Scaffold(
       appBar: AppBar(

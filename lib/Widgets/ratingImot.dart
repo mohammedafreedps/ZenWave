@@ -5,14 +5,15 @@ import 'package:zenwave/Consts/Values.dart';
 class RatingImot extends StatelessWidget {
   // const RatingImot({super.key});
 
-  String imgPath;
-  Function SaveMood;
+  final String imgPath;
+  final Function SaveMood;
   RatingImot(this.imgPath,this.SaveMood);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: (){
+        print('save mood inside arrie');
         SaveMood();
       },
       child: Container(

@@ -4,9 +4,13 @@ import 'package:zenwave/DB/Boxes.dart';
 import 'package:zenwave/DB/journals.dart';
 import 'package:zenwave/DB/moodtracker.dart';
 import 'package:zenwave/Pages/Splashpage.dart';
+import 'package:workmanager/workmanager.dart';
+import 'package:zenwave/services/resetisRated.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  await Workmanager().initialize(resetIsRated,isInDebugMode: true);
 
   await Hive.initFlutter();
   Hive.registerAdapter(moodtrackerAdapter());
@@ -14,6 +18,7 @@ void main() async {
   Hive.registerAdapter(PersonalJournalsAdapter());
   journalBox = await Hive.openBox<moodtracker>('journalBox');
 
+ 
   runApp(const ZenWave());
 }
 

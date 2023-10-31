@@ -3,9 +3,9 @@ import 'package:zenwave/Consts/Color.dart';
 
 class ProgressCircle extends StatefulWidget {
   // const ProgressCircle({super.key});
-  double width;
-  double height;
-  double Progressvalue;
+  final double width;
+  final double height;
+  final double Progressvalue;
 
   ProgressCircle(this.width,this.height,this.Progressvalue);
 

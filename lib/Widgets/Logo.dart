@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class LogoImage extends StatelessWidget {
   // const LogoImage({super.key});
-  double Width;
+  final double Width;
   LogoImage(this.Width);
 
   @override

@@ -7,8 +7,8 @@ import 'package:zenwave/Widgets/TextFieldBorder.dart';
 
 class JournalAddPage extends StatefulWidget {
   // const JournalAddPage({super.key});
-  String setTo;
-  String buttontext;
+final String setTo;
+final  String buttontext;
   
 
   JournalAddPage(this.setTo,this.buttontext);

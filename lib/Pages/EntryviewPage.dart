@@ -6,8 +6,8 @@ import 'package:zenwave/Widgets/CutomisableButton.dart';
 
 class EntryviewPage extends StatefulWidget {
   // const EntryviewPage({super.key});
-  String _content;
-  bool needRestorButton;
+  final String _content;
+  final bool needRestorButton;
 
   EntryviewPage(this._content,this.needRestorButton);
 

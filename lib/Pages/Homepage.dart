@@ -1,7 +1,10 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:zenwave/Consts/Color.dart';
 import 'package:zenwave/Consts/Values.dart';
-import 'package:zenwave/Pages/FocusModePage.dart';
+import 'package:zenwave/DB/sharedPreference.dart';
+import 'package:zenwave/Pages/FocusTimeSetterPage.dart';
 import 'package:zenwave/Pages/JournalOptionPage.dart';
 import 'package:zenwave/Pages/MindfulnessExercises.dart';
 import 'package:zenwave/Pages/MoodGrpahDetails.dart';
@@ -12,11 +15,32 @@ import 'package:zenwave/Widgets/Dividers.dart';
 import 'package:zenwave/Widgets/GraphSpace.dart';
 import 'package:zenwave/Widgets/UsernameStamp.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+
+  
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    setState(() {
+      Timer(Duration(microseconds: 500), () {
+        setState(() {
+          getIsRated();
+        });
+       });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    bool isRated = true;
     double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       body: SafeArea(
@@ -83,7 +107,7 @@ class HomePage extends StatelessWidget {
                   "Focus Mode",
                   20,
                   true,
-                  go: FocusModePage(),
+                  go: FocusTimeSetterPage(),
                   HowToGO: 'push',
                 )
               ],

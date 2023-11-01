@@ -16,15 +16,23 @@ class PreferencePage extends StatefulWidget {
 
 class _PreferencePageState extends State<PreferencePage> {
   bool _hide = false;
+  Timer? _textDisable;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    Timer(Duration(seconds: 2), () {
+    _textDisable = Timer(Duration(seconds: 2), () {
       setState(() {
         _hide = true;
       });
      });
+  }
+  @override
+  void dispose() {
+    if (_textDisable != null) {
+      _textDisable!.cancel();
+    }
+    super.dispose();
   }
   @override
   Widget build(BuildContext context) {

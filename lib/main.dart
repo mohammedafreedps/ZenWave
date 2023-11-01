@@ -4,13 +4,15 @@ import 'package:zenwave/DB/Boxes.dart';
 import 'package:zenwave/DB/journals.dart';
 import 'package:zenwave/DB/moodtracker.dart';
 import 'package:zenwave/Pages/Splashpage.dart';
-import 'package:workmanager/workmanager.dart';
-import 'package:zenwave/services/resetisRated.dart';
+import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await Workmanager().initialize(resetIsRated,isInDebugMode: true);
+  await AndroidAlarmManager.initialize();
+
+
 
   await Hive.initFlutter();
   Hive.registerAdapter(moodtrackerAdapter());

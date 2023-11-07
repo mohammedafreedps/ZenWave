@@ -3,10 +3,10 @@ import 'package:hive/hive.dart';
 part 'moodtracker.g.dart';
 
 @HiveType(typeId: 1)
-class moodtracker {
+class moodtracker extends HiveObject{
   @HiveField(0)
-  int Mood;
+  int mood;
   @HiveField(1)
-  String Date;
-  moodtracker(this.Mood,this.Date);
+  String date;
+  moodtracker(this.mood,this.date);
 }

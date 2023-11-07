@@ -27,9 +27,9 @@ class moodtrackerAdapter extends TypeAdapter<moodtracker> {
     writer
       ..writeByte(2)
       ..writeByte(0)
-      ..write(obj.Mood)
+      ..write(obj.mood)
       ..writeByte(1)
-      ..write(obj.Date);
+      ..write(obj.date);
   }
 
   @override

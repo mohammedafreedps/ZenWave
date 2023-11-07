@@ -3,30 +3,30 @@ import 'package:hive/hive.dart';
 part 'journals.g.dart';
 
 @HiveType(typeId: 2)
-class PersonalJournals {
+class PersonalJournals extends HiveObject{
   @HiveField(0)
-  String Contents;
+  String contents;
   @HiveField(1)
-  String Date;
-  PersonalJournals(this.Contents,this.Date);
+  String date;
+  PersonalJournals(this.contents,this.date);
 }
 
 
 @HiveType(typeId: 3)
-class GratitudeJournals {
+class GratitudeJournals extends HiveObject{
   @HiveField(0)
-  String Contents;
+  String contents;
   @HiveField(1)
-  String Date;
-  GratitudeJournals(this.Contents,this.Date);
+  String date;
+  GratitudeJournals(this.contents,this.date);
 }
 
 
 @HiveType(typeId: 4)
-class DeletedJournals {
+class DeletedJournals extends HiveObject{
   @HiveField(0)
-  String Contents;
+  String contents;
   @HiveField(1)
-  String Date;
-  DeletedJournals(this.Contents,this.Date);
+  String date;
+  DeletedJournals(this.contents,this.date);
 }

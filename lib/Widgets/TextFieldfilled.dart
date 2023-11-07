@@ -3,7 +3,9 @@ import 'package:zenwave/Consts/Color.dart';
 import 'package:zenwave/Consts/Values.dart';
 
 class TextFieldFilled extends StatefulWidget {
-  const TextFieldFilled({super.key});
+  // const TextFieldFilled({super.key});
+  final TextEditingController controller;
+  TextFieldFilled(this.controller);
 
   @override
   State<TextFieldFilled> createState() => _TextFieldFilledState();
@@ -20,7 +22,7 @@ class _TextFieldFilledState extends State<TextFieldFilled> {
         child: Padding(
           padding: const EdgeInsets.only(top: 10,left: 20,right: 10,bottom: 10),
           child: TextField(
-            controller: userName,
+            controller: widget.controller,
             cursorColor: primaryColor,
             decoration: InputDecoration(
               hintText: 'Enter your Name',

@@ -27,9 +27,9 @@ class PersonalJournalsAdapter extends TypeAdapter<PersonalJournals> {
     writer
       ..writeByte(2)
       ..writeByte(0)
-      ..write(obj.Contents)
+      ..write(obj.contents)
       ..writeByte(1)
-      ..write(obj.Date);
+      ..write(obj.date);
   }
 
   @override
@@ -64,9 +64,9 @@ class GratitudeJournalsAdapter extends TypeAdapter<GratitudeJournals> {
     writer
       ..writeByte(2)
       ..writeByte(0)
-      ..write(obj.Contents)
+      ..write(obj.contents)
       ..writeByte(1)
-      ..write(obj.Date);
+      ..write(obj.date);
   }
 
   @override
@@ -101,9 +101,9 @@ class DeletedJournalsAdapter extends TypeAdapter<DeletedJournals> {
     writer
       ..writeByte(2)
       ..writeByte(0)
-      ..write(obj.Contents)
+      ..write(obj.contents)
       ..writeByte(1)
-      ..write(obj.Date);
+      ..write(obj.date);
   }
 
   @override

@@ -25,18 +25,17 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   Timer? _ratedChecker;
-  Future<bool>? _israted;
   @override
   void initState() {
      print(TimeOfDay.now());
     // TODO: implement initState
     super.initState();
-    AndroidAlarmManager.periodic(Duration(seconds: 1), 1, resetisRated);
+    AndroidAlarmManager.periodic(const Duration(seconds: 1), 1, resetisRated);
     setState(() {
-      _ratedChecker = Timer(Duration(microseconds: 1000), () {
+      _ratedChecker = Timer(const Duration(microseconds: 1000), () {
         setState(() {
-         _israted = getIsRated();
-         print(_israted);
+         getIsRated();
+         getUserName();
         });
       });
     });
@@ -72,7 +71,7 @@ _Refresh(){
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 isRated == true
-                    ? UsernmaeStamp("Afreed", PreferencePage())
+                    ? UsernmaeStamp(UserNameFromSP, const PreferencePage())
                     : CustomisableButton(
                         double.infinity,
                         bigButtonHeight,
@@ -84,17 +83,17 @@ _Refresh(){
                         go: MoodRatingPage(_Refresh),
                         HowToGO: 'push',
                       ),
-                Dividers(),
+                const Dividers(),
                 GestureDetector(
                     onTap: () {
                       print('Graph tapped');
                       Navigator.push(context,
                           MaterialPageRoute(builder: (BuildContext context) {
-                        return MoodGraphDetails();
+                        return const MoodGraphDetails();
                       }));
                     },
                     child: GraphSpace("This Week")),
-                Dividers(),
+                const Dividers(),
                 CustomisableButton(
                   double.infinity,
                   bigButtonHeight,
@@ -103,7 +102,7 @@ _Refresh(){
                   "Mindfulness Exercises",
                   20,
                   true,
-                  go: MindfulnessExercises(),
+                  go: const MindfulnessExercises(),
                   HowToGO: 'push',
                 ),
                 CustomisableButton(
@@ -114,7 +113,7 @@ _Refresh(){
                   "Journaling",
                   20,
                   true,
-                  go: JournalOptionPage(),
+                  go: const JournalOptionPage(),
                   HowToGO: 'push',
                 ),
                 CustomisableButton(
@@ -125,7 +124,7 @@ _Refresh(){
                   "Focus Mode",
                   20,
                   true,
-                  go: FocusTimeSetterPage(),
+                  go: const FocusTimeSetterPage(),
                   HowToGO: 'push',
                 )
               ],

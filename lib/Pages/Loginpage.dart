@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:zenwave/Consts/Color.dart';
 import 'package:zenwave/Consts/Values.dart';
+import 'package:zenwave/DB/sharedPreference.dart';
 import 'package:zenwave/Pages/Homepage.dart';
 import 'package:zenwave/Widgets/CutomisableButton.dart';
 import 'package:zenwave/Widgets/Logo.dart';
@@ -14,6 +15,20 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  TextEditingController _userName = TextEditingController();
+
+  _validation(){
+    if (_userName.text.isNotEmpty) {
+      saveUserName(_userName.text);
+      print('validation else case'+_userName.text);
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context){
+        return HomePage();
+      }));
+    }else{
+      print('validation else case'+_userName.text);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,8 +51,8 @@ class _LoginPageState extends State<LoginPage> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     LogoImage(90),
-                    TextFieldFilled(),
-                    CustomisableButton(170, 60, primaryColor, baseColor, 'Save', 20, false,go: HomePage(),HowToGO: 'pushReplace',)
+                    TextFieldFilled(_userName),
+                    CustomisableButton(170, 60, primaryColor, baseColor, 'Save', 20, false,toPerform: _validation,)
                   ]
                 ),
               ),

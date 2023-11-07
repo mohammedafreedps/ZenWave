@@ -67,7 +67,7 @@ class _MindfulnessExercisesState extends State<MindfulnessExercises> {
     _boxBreathingTimer = Timer.periodic(Duration(seconds: 4), (timer) {
       setState(() {
         if (progressionBar <= 1) {
-          progressionBar += 1/59;
+          progressionBar += 1 / 59;
         } else {
           print('ticker stopped');
           stopBoxBreathing();
@@ -91,13 +91,13 @@ class _MindfulnessExercisesState extends State<MindfulnessExercises> {
     });
     Timer(Duration(minutes: 4), () {
       stopBoxBreathing();
-     });
+    });
   }
 
   _startTimerTechnique() {
     _techniqueTimer = Timer.periodic(Duration(seconds: 1), (timer) {
       _counter++;
-      progressionBar += 1/19;
+      progressionBar += 1 / 19;
       setState(() {
         if (_counter <= 4) {
           _instructionText = 'In';
@@ -123,6 +123,9 @@ class _MindfulnessExercisesState extends State<MindfulnessExercises> {
   }
 
   performSelected() {
+  setState(() {
+    _instructionText = 'Redy';
+  });
     print('pass 1');
     _isSlelected = true;
     setState(() {
@@ -249,14 +252,6 @@ class _MindfulnessExercisesState extends State<MindfulnessExercises> {
                                       clipBorderRadious + 60),
                                   child:
                                       ProgressCircle(250, 250, progressionBar)),
-                              Positioned(
-                                  top: 40,
-                                  left: 109,
-                                  child: Text(
-                                    '10',
-                                    style: TextStyle(
-                                        fontSize: 30, color: primaryColor),
-                                  )),
                               Positioned(
                                   top: 95,
                                   left: 85,

@@ -59,7 +59,7 @@ class _FocusModePageState extends State<FocusModePage> {
 
     StartFocusTimer() {
       int timeShow = widget
-          ._focusTime.inMinutes; // Initialize timeShow with the initial value
+          ._focusTime.inMinutes;
 
       focusProgressBar = Timer.periodic(Duration(seconds: 1), (timer) {
         setState(() {
@@ -70,7 +70,7 @@ class _FocusModePageState extends State<FocusModePage> {
       print('timer started');
       focusTimer = Timer.periodic(Duration(minutes: 1), (timer) {
         setState(() {
-          timeShow = timeShow - 1; // Decrement timeShow
+          timeShow = timeShow - 1;
         });
 
         if (timeShow == 0) {

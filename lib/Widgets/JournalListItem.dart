@@ -7,12 +7,16 @@ import 'package:zenwave/Widgets/Dividers.dart';
 class journalListItem extends StatelessWidget {
   // const journalListItem({super.key});
 
-  final String date;
+  final int day;
+  final int month;
+  final int year;
   final String content;
   final String currently;
   final bool enableRestoreButton;
+  final int? index;
+  final Function? passingForRefresh;
 
-  journalListItem(this.date, this.content,this.currently,this.enableRestoreButton);
+  journalListItem(this.day,this.month,this.year, this.content,this.currently,this.enableRestoreButton,{this.index,this.passingForRefresh});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +24,7 @@ class journalListItem extends StatelessWidget {
       onTap: () {
         Navigator.push(context,
             MaterialPageRoute(builder: (BuildContext context) {
-          return EntryviewPage(content,enableRestoreButton);
+          return EntryviewPage(content,enableRestoreButton,index: index,forRefrsh: passingForRefresh,);
         }));
       },
       child: Padding(
@@ -45,7 +49,7 @@ class journalListItem extends StatelessWidget {
                         style: TextStyle(fontSize: 20),
                       ),
                       SizedBox(width: 100, child: Dividers()),
-                      Text(date)
+                      Text(day.toString()+'-'+month.toString()+'-'+year.toString())
                     ]),
               ),
             ),

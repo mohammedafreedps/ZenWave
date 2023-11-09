@@ -56,7 +56,7 @@ class _PreferencePageState extends State<PreferencePage> {
                   width: 300,
                   child: Padding(
                     padding: const EdgeInsets.only(bottom: 30),
-                    child: Text('Deleted journals will be here for 20 days and it will automatically delete after 20 days',textAlign: TextAlign.center,style: TextStyle(fontSize: 21),),
+                    child: Text('Deleted journals will be here for 20 days and it will automatically delete after 20 days',textAlign: TextAlign.center,style: TextStyle(fontSize: 21,color: primaryColor),),
                   ),
                 ) : SizedBox(height: 10,),
                 CustomisableButton(double.infinity, bigButtonHeight, secondaryColor, primaryColor, 'Deleted Journals', bigButtonFontSize, true,go: DeletedJournalList(),HowToGO: 'push',),

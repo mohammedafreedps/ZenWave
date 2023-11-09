@@ -1,7 +1,8 @@
+
 import 'package:flutter/material.dart';
 import 'package:zenwave/Consts/Color.dart';
 import 'package:zenwave/Consts/Values.dart';
-import 'package:zenwave/Model/Models.dart';
+import 'package:zenwave/DB/Boxes.dart';
 import 'package:zenwave/Widgets/JournalListItem.dart';
 
 class DeletedJournalList extends StatefulWidget {
@@ -12,25 +13,90 @@ class DeletedJournalList extends StatefulWidget {
 }
 
 class _DeletedJournalListState extends State<DeletedJournalList> {
+  DateTime? _selectedDate;
+
+  List _allDeletedJournals = [];
+  List _searchResuls = [];
+
+  _getDataFromDeleteJournalDB() async {
+    setState(() {
+      _allDeletedJournals = deletedJournalBox.values.toList();
+      _searchResuls = _allDeletedJournals;
+    });
+  }
+
+  _searchJournals(DateTime searchDate) {
+    int _searchDay = searchDate.day;
+    int _searchMonth = searchDate.month;
+    int _searchYear = searchDate.year;
+    print('searching block');
+    _searchResuls = _allDeletedJournals.where((journal) {
+      return journal.day == _searchDay &&
+          journal.month == _searchMonth &&
+          journal.year == _searchYear;
+    }).toList();
+  }
+
+  _deleteJournal(index) async {
+    setState(() {
+      // deletedJournalBox.put(DateTime.now().toString(), personalJournalBox.getAt(index));
+      deletedJournalBox.deleteAt(index);
+      _getDataFromDeleteJournalDB();
+    });
+  }
+
+  void _showDatePicker() {
+    showDatePicker(
+            context: context,
+            initialDate: DateTime.now(),
+            firstDate: DateTime(2000),
+            lastDate: DateTime(2040))
+        .then((value) {
+      setState(() {
+        _selectedDate = value;
+        if (_selectedDate != null) {
+          _searchJournals(_selectedDate!);
+        }
+      });
+    });
+  }
+
+  @override
+  void initState() {
+    _getDataFromDeleteJournalDB();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(backgroundColor: baseColor, iconTheme: IconThemeData(color: Colors.black), elevation: 0,),
-      body: Container(
-        width: double.infinity,
-        height: double.infinity,
-        color: baseColor,
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: PagePadding),
-          child: ListView.builder(
-            itemCount: JournalEntry.length,
-            itemBuilder: (BuildContext context, int index){
-              final jorns = JournalEntry[index];
-            return journalListItem(jorns.date,jorns.content,'Gratitude',true);
-          }),
-        )
+      appBar: AppBar(
+        backgroundColor: baseColor,
+        iconTheme: IconThemeData(color: Colors.black),
+        elevation: 0,
       ),
-      
+      body: Container(
+          width: double.infinity,
+          height: double.infinity,
+          color: baseColor,
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: PagePadding),
+            child: ListView.builder(
+                itemCount: _searchResuls.length,
+                itemBuilder: (BuildContext context, int index) {
+                  final jorns = _searchResuls[index];
+                  return journalListItem(
+                    jorns.day,
+                    jorns.month,
+                    jorns.year,
+                    jorns.content,
+                    jorns.fromWhere,
+                    true,
+                    index: index,
+                    passingForRefresh: _getDataFromDeleteJournalDB,
+                  );
+                }),
+          )),
     );
   }
 }

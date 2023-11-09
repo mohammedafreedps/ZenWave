@@ -1,35 +1,44 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'moodtracker.dart';
+part of 'deletedJournal.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class moodtrackerAdapter extends TypeAdapter<moodtracker> {
+class deletedJournalAdapter extends TypeAdapter<deletedJournal> {
   @override
-  final int typeId = 1;
+  final int typeId = 3;
 
   @override
-  moodtracker read(BinaryReader reader) {
+  deletedJournal read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return moodtracker(
-      fields[0] as int,
-      fields[1] as String,
+    return deletedJournal(
+      fields[0] as String,
+      fields[1] as int,
+      fields[2] as int,
+      fields[3] as int,
+      fields[4] as String,
     );
   }
 
   @override
-  void write(BinaryWriter writer, moodtracker obj) {
+  void write(BinaryWriter writer, deletedJournal obj) {
     writer
-      ..writeByte(2)
+      ..writeByte(5)
       ..writeByte(0)
-      ..write(obj.mood)
+      ..write(obj.content)
       ..writeByte(1)
-      ..write(obj.date);
+      ..write(obj.day)
+      ..writeByte(2)
+      ..write(obj.month)
+      ..writeByte(3)
+      ..write(obj.year)
+      ..writeByte(4)
+      ..write(obj.fromWhere);
   }
 
   @override
@@ -38,7 +47,7 @@ class moodtrackerAdapter extends TypeAdapter<moodtracker> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is moodtrackerAdapter &&
+      other is deletedJournalAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

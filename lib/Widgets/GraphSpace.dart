@@ -3,28 +3,25 @@ import 'package:flutter/material.dart';
 import 'package:zenwave/Consts/Color.dart';
 import 'package:zenwave/Consts/Values.dart';
 
-
 class GraphSpace extends StatefulWidget {
   // const GraphSpace({super.key});
   final String title;
 
   GraphSpace(this.title);
 
-
   @override
   State<GraphSpace> createState() => _GraphSpaceState();
 }
 
 class _GraphSpaceState extends State<GraphSpace> {
-
-
   double _width = double.infinity;
   double _height = 250;
 
-  Widget bottomtitles(double value, TitleMeta meta){
+  Widget bottomtitles(double value, TitleMeta meta) {
     final title = <String>['Mn', 'Te', 'Wd', 'Tu', 'Fr', 'St', 'Su'];
 
-        final Widget text = Text(
+
+    final Widget text = Text(
       title[value.toInt()],
       style: const TextStyle(
         color: const Color(0xFF435334),
@@ -33,16 +30,26 @@ class _GraphSpaceState extends State<GraphSpace> {
       ),
     );
 
-        return SideTitleWidget(
+    return SideTitleWidget(
       axisSide: meta.axisSide,
       space: 16, //margin top
       child: text,
     );
   }
 
-    Widget leftTitles(double value, TitleMeta meta) {
+      List<FlSpot> flSpots = <FlSpot> [
+      FlSpot(0, 3),
+      FlSpot(1, 2),
+      FlSpot(2, 0),
+      FlSpot(3, 2),
+      FlSpot(4, 3),
+      // FlSpot(5, 2),
+      // FlSpot(6, 1),
+    ];
+
+  Widget leftTitles(double value, TitleMeta meta) {
     const style = TextStyle(
-      color: const Color(0xFF435334),
+      color:  Color(0xFF435334),
       fontWeight: FontWeight.bold,
       fontSize: 14,
     );
@@ -55,8 +62,7 @@ class _GraphSpaceState extends State<GraphSpace> {
       text = 'Good';
     } else if (value == 3) {
       text = 'Very Good';
-      }
-    else {
+    } else {
       return Container();
     }
     return SideTitleWidget(
@@ -76,8 +82,16 @@ class _GraphSpaceState extends State<GraphSpace> {
         borderRadius: BorderRadius.circular(clipBorderRadious),
         child: Column(
           children: [
-            SizedBox(height: 20,),
-            Text(widget.title,style: TextStyle(color: primaryColor,fontWeight: FontWeight.bold,fontSize: 25),),
+            SizedBox(
+              height: 20,
+            ),
+            Text(
+              widget.title,
+              style: TextStyle(
+                  color: primaryColor,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 25),
+            ),
             Container(
               padding: EdgeInsets.all(PagePadding),
               width: _width,
@@ -85,32 +99,24 @@ class _GraphSpaceState extends State<GraphSpace> {
               color: secondaryColor,
               child: SizedBox(
                 height: 40,
-                child: LineChart(
-                  LineChartData(
+                child: LineChart(LineChartData(
                     gridData: FlGridData(show: false),
                     titlesData: FlTitlesData(
-                      show: true,
-                      rightTitles: AxisTitles(
-                        sideTitles: SideTitles(showTitles: false)
-                      ),
-                      topTitles: AxisTitles(
-                        sideTitles: SideTitles(showTitles: false)
-                      ),
-                      bottomTitles: AxisTitles(
-                        sideTitles: SideTitles(
-                          showTitles: true,
-                          reservedSize: 40,
-                          getTitlesWidget: bottomtitles
-                        )
-                      ),
-                      leftTitles: AxisTitles(
-                        sideTitles: SideTitles(
-                          showTitles: true,
-                          reservedSize: 80,
-                          getTitlesWidget: leftTitles
-                        )
-                      )
-                    ),
+                        show: true,
+                        rightTitles: AxisTitles(
+                            sideTitles: SideTitles(showTitles: false)),
+                        topTitles: AxisTitles(
+                            sideTitles: SideTitles(showTitles: false)),
+                        bottomTitles: AxisTitles(
+                            sideTitles: SideTitles(
+                                showTitles: true,
+                                reservedSize: 40,
+                                getTitlesWidget: bottomtitles)),
+                        leftTitles: AxisTitles(
+                            sideTitles: SideTitles(
+                                showTitles: true,
+                                reservedSize: 80,
+                                getTitlesWidget: leftTitles))),
                     borderData: FlBorderData(
                       show: false,
                       border: Border.all(color: primaryColor, width: 2),
@@ -119,26 +125,15 @@ class _GraphSpaceState extends State<GraphSpace> {
                     maxX: 6,
                     minY: 0,
                     maxY: 3,
-                    
                     lineBarsData: [
-                      LineChartBarData( 
-                        spots: [
-                          FlSpot(0, 3),
-                          FlSpot(1, 2),
-                          FlSpot(2, 0),
-                          FlSpot(3, 2),
-                          FlSpot(4, 3),
-                          FlSpot(5, 2),
-                          FlSpot(6, 1),
-                        ],
+                      LineChartBarData(
+                        spots: flSpots,
                         isCurved: false,
                         color: primaryColor,
                         dotData: FlDotData(show: true),
                         belowBarData: BarAreaData(show: false),
-                        
                       )
-                    ]
-                    )),
+                    ])),
               ),
             ),
           ],

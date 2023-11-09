@@ -7,7 +7,6 @@ import 'package:zenwave/Widgets/Dividers.dart';
 import 'package:zenwave/Widgets/ratingImot.dart';
 
 class MoodRatingPage extends StatefulWidget {
-  // const MoodRatingPage({super.key});
   final Function refresh;
   MoodRatingPage(this.refresh);
 

@@ -12,8 +12,9 @@ class JournalAddPage extends StatefulWidget {
   // const JournalAddPage({super.key});
   final String setTo;
   final String buttontext;
+  final Function? toperform;
 
-  JournalAddPage(this.setTo, this.buttontext);
+  JournalAddPage(this.setTo, this.buttontext, {this.toperform});
 
   @override
   State<JournalAddPage> createState() => _JournalAddPageState();
@@ -46,6 +47,11 @@ class _JournalAddPageState extends State<JournalAddPage> {
         saveGratitudeJournal();
       } else if (widget.setTo == 'Deleted') {
         print('Deleted restored');
+      } else if (widget.setTo == 'AddTask') {
+        print('to add workgin');
+        if (widget.toperform != null) {
+          widget.toperform!(jounalAddpageController.text);
+        }
       }
     }
 

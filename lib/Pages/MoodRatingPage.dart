@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:zenwave/Consts/Color.dart';
 import 'package:zenwave/Consts/Values.dart';
+import 'package:zenwave/DB/Boxes.dart';
+import 'package:zenwave/DB/journals/moodTracking.dart';
 import 'package:zenwave/DB/sharedPreference.dart';
 import 'package:zenwave/Widgets/CutomisableButton.dart';
 import 'package:zenwave/Widgets/Dividers.dart';
@@ -26,6 +28,7 @@ class _MoodRatingPageState extends State<MoodRatingPage> {
       ClickPopper();
       saveIsRated(true);
       widget.refresh();
+      moodTrackerBox.put(DateTime.now().toString(), moodTracking(DateTime.now(), 3));
     }
 
     void Good() {
@@ -33,6 +36,7 @@ class _MoodRatingPageState extends State<MoodRatingPage> {
       ClickPopper();
       saveIsRated(true);
       widget.refresh();
+      moodTrackerBox.put(DateTime.now().toString(), moodTracking(DateTime.now(), 2));
     }
 
     void Bad() {
@@ -40,6 +44,7 @@ class _MoodRatingPageState extends State<MoodRatingPage> {
       ClickPopper();
       saveIsRated(true);
       widget.refresh();
+      moodTrackerBox.put(DateTime.now().toString(), moodTracking(DateTime.now(), 1));
     }
 
     void veryBad() {
@@ -47,6 +52,7 @@ class _MoodRatingPageState extends State<MoodRatingPage> {
       ClickPopper();
       saveIsRated(true);
       widget.refresh();
+      moodTrackerBox.put(DateTime.now().toString(), moodTracking(DateTime.now(), 0));
     }
 
     return Scaffold(

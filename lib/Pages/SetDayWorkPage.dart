@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:zenwave/Consts/Color.dart';
 import 'package:zenwave/Consts/Values.dart';
+import 'package:zenwave/DB/Boxes.dart';
+import 'package:zenwave/DB/futureTask/futureTask.dart';
+import 'package:zenwave/Pages/JournalAddPage.dart';
 import 'package:zenwave/Widgets/CutomisableButton.dart';
 import 'package:zenwave/Widgets/TextFieldBorder.dart';
 
 class SetDayWorkPage extends StatefulWidget {
-  const SetDayWorkPage({super.key});
+  // const SetDayWorkPage({super.key});
+  Function refresh;
+
+  SetDayWorkPage(this.refresh);
 
   @override
   State<SetDayWorkPage> createState() => _SetDayWorkPageState();
@@ -38,6 +44,20 @@ class _SetDayWorkPageState extends State<SetDayWorkPage> {
     });
   }
 
+  _savingFutureTask(String task){
+    if (_selectedDate != null && _selectedTime != null) {
+      int _day = _selectedDate!.day;
+      int _month = _selectedDate!.month;
+      int _year = _selectedDate!.year;
+      int _min = _selectedTime!.minute;
+      int _hr = _selectedTime!.hour;
+      widget.refresh();
+      futureTaskBox.put(DateTime.now().toString(), futureTask(_day, _month, _year, _min, _hr, task));
+    }
+    
+    Navigator.pop(context);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,7 +85,7 @@ class _SetDayWorkPageState extends State<SetDayWorkPage> {
                 style: TextStyle(fontSize: 25, color: primaryColor),
               ),
               Text(
-                'Time:  ' +( _selectedTime?.hour.toString()??'')+' : ' + ' : ' +( _selectedTime?.hour.toString()??''),
+                'Time:  ' +( _selectedTime?.hour.toString()??'')+' : ' +( _selectedTime?.minute.toString()??''),
                 style: TextStyle(color: primaryColor, fontSize: 25),
               ),
               TextFieldBorder(_FutureTasks),
@@ -88,9 +108,9 @@ class _SetDayWorkPageState extends State<SetDayWorkPage> {
                 bigButtonFontSize,
                 true,
                 toPerform: _showTimePicker,
-              ),
-              CustomisableButton(290, 90, primaryColor, baseColor, 'Add task',
-                  bigButtonFontSize, true,HowToGO: 'pop',)
+              ), _selectedDate != null && _selectedTime != null ?
+              CustomisableButton(290, 90, secondaryColor, primaryColor, 'Add Task',
+                  bigButtonFontSize, true,go: JournalAddPage('AddTask','SET',toperform: _savingFutureTask,),HowToGO: 'push',):Text('')
             ],
           ),
         ),

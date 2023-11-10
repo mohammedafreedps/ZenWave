@@ -43,8 +43,8 @@ class _GraphSpaceState extends State<GraphSpace> {
       FlSpot(2, 0),
       FlSpot(3, 2),
       FlSpot(4, 3),
-      // FlSpot(5, 2),
-      // FlSpot(6, 1),
+      FlSpot(5, 2),
+      FlSpot(6, 1),
     ];
 
   Widget leftTitles(double value, TitleMeta meta) {

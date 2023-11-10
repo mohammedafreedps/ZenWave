@@ -8,7 +8,7 @@
 <!-- Androind alarm manager ED -->
 
     <application
-        android:label="zenwave"
+        android:label="Zen Wave"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

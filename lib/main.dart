@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:zenwave/DB/Boxes.dart';
-import 'package:zenwave/DB/futureTask/futureTask.dart';
-import 'package:zenwave/DB/journals/deletedJournal.dart';
-import 'package:zenwave/DB/journals/gratitudeJournal.dart';
-import 'package:zenwave/DB/journals/moodTracking.dart';
-import 'package:zenwave/DB/journals/personalJournal.dart';
-import 'package:zenwave/Pages/Splashpage.dart';
+import 'package:zenwave/data/DB/Boxes.dart';
+import 'package:zenwave/data/DB/futureTask/futureTask.dart';
+import 'package:zenwave/data/DB/journals/deletedJournal.dart';
+import 'package:zenwave/data/DB/journals/gratitudeJournal.dart';
+import 'package:zenwave/data/DB/journals/moodTracking.dart';
+import 'package:zenwave/data/DB/journals/personalJournal.dart';
+import 'package:zenwave/presentation/Pages/splash_page.dart';
 import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 
 

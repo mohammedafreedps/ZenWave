@@ -23,20 +23,46 @@ class JournalAddPage extends StatefulWidget {
 class _JournalAddPageState extends State<JournalAddPage> {
   @override
   Widget build(BuildContext context) {
-    TextEditingController jounalAddpageController = TextEditingController();
+    TextEditingController jounalAddDescriptionController =
+        TextEditingController();
+    TextEditingController jounalAddTitleController = TextEditingController();
+    DateTime? _selectedDate;
+
+    void _showDatePicker() {
+      showDatePicker(
+              context: context,
+              initialDate: DateTime.now(),
+              firstDate: DateTime(2000),
+              lastDate: DateTime.now())
+          .then((value) {
+
+          _selectedDate = value;
+          print(_selectedDate);
+
+      });
+    }
 
     savePersonalJournal() async {
-      await personalJournalBox.put(
-          DateTime.now().toString(),
-          personalJournal(jounalAddpageController.text, DateTime.now().day,
-              DateTime.now().month, DateTime.now().year));
+      if (_selectedDate == null) {
+        print('null statement add');
+        await personalJournalBox.put(
+            DateTime.now().toString(),
+            personalJournal(jounalAddDescriptionController.text,
+                DateTime.now().day, DateTime.now().month, DateTime.now().year));
+      } else if (_selectedDate != null) {
+        print('not null statement add');
+        await personalJournalBox.put(
+            DateTime.now().toString(),
+            personalJournal(jounalAddDescriptionController.text,
+                _selectedDate!.day, _selectedDate!.month, _selectedDate!.year));
+      }
     }
 
     saveGratitudeJournal() async {
       await gratitudeJournalBox.put(
           DateTime.now().toString(),
-          gratutudeJournal(jounalAddpageController.text, DateTime.now().day,
-              DateTime.now().month, DateTime.now().year));
+          gratutudeJournal(jounalAddDescriptionController.text,
+              DateTime.now().day, DateTime.now().month, DateTime.now().year));
     }
 
     saveTo() {
@@ -50,7 +76,7 @@ class _JournalAddPageState extends State<JournalAddPage> {
       } else if (widget.setTo == 'AddTask') {
         print('to add workgin');
         if (widget.toperform != null) {
-          widget.toperform!(jounalAddpageController.text);
+          widget.toperform!(jounalAddDescriptionController.text);
         }
       }
     }
@@ -86,7 +112,30 @@ class _JournalAddPageState extends State<JournalAddPage> {
                       width: double.infinity,
                       height: 780,
                       color: SECONDARY_COLOR,
-                      child: TextFieldBorder(jounalAddpageController)),
+                      child: Column(
+                        children: [
+                          CustomisableButton(
+                            200,
+                            60,
+                            BASE_COLOR,
+                            PRIMARY_COLOR,
+                            'Change Date',
+                            20,
+                            false,
+                            toPerform: _showDatePicker,
+                          ),
+                          SizedBox(
+                            height: 40,
+                          ),
+                          Text('Title'),
+                          TextFieldBorder(jounalAddTitleController),
+                          SizedBox(
+                            height: 40,
+                          ),
+                          Text('Description'),
+                          TextFieldBorder(jounalAddDescriptionController),
+                        ],
+                      )),
                 ),
               ),
               CustomisableButton(

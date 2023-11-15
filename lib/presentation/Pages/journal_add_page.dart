@@ -61,10 +61,19 @@ class _JournalAddPageState extends State<JournalAddPage> {
     }
 
     saveGratitudeJournal() async {
-      await gratitudeJournalBox.put(
-          DateTime.now().toString(),
-          gratutudeJournal(jounalAddDescriptionController.text,
-              DateTime.now().day, DateTime.now().month, DateTime.now().year));
+      if (_selectedDate == null) {
+        print('null statement add');
+        await gratitudeJournalBox.put(
+            DateTime.now().toString(),
+            gratutudeJournal(jounalAddTitleController.text,jounalAddDescriptionController.text,
+                DateTime.now().day, DateTime.now().month, DateTime.now().year,false));
+      } else if (_selectedDate != null) {
+        print('not null statement add');
+        await gratitudeJournalBox.put(
+            DateTime.now().toString(),
+            gratutudeJournal(jounalAddTitleController.text,jounalAddDescriptionController.text,
+                _selectedDate!.day, _selectedDate!.month, _selectedDate!.year,false));
+      }
     }
 
     saveTo() {

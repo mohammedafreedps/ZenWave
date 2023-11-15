@@ -38,7 +38,7 @@ class _EntryviewPageState extends State<EntryviewPage> {
         }
         if (_give.fromWhere == 'Gratitude') {
           final _giver = gratutudeJournal(
-              _give.content, _give.day, _give.month, _give.year);
+              _give.title,_give.content, _give.day, _give.month, _give.year,_give.edited);
           gratitudeJournalBox.put(DateTime.now().toString(), _giver);
           deletedJournalBox.deleteAt(widget.index!);
           widget.forRefrsh!();

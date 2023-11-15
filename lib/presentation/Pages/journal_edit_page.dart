@@ -23,6 +23,7 @@ class JournalEditPage extends StatefulWidget {
 
 class _JournalEditPageState extends State<JournalEditPage> {
   personalJournal? personaljounalEdit;
+  gratutudeJournal? gratitudeJournalEdit;
   TextEditingController jounalEditDescriptionController =
       TextEditingController();
   TextEditingController jounalEditTitleController = TextEditingController();
@@ -33,11 +34,24 @@ class _JournalEditPageState extends State<JournalEditPage> {
   _getDataFromPersonalJournalDB() async {
     if (widget.from == 'Personal') {
       _allData = await personalJournalBox.values.toList();
-      _setAllValue();
+      _setAllValuePersonal();
     }
   }
 
-  _setAllValue() {
+  _setAllValuePersonal() {
+    setState(() {
+      jounalEditDescriptionController.text = _allData[widget.index].content;
+      jounalEditTitleController.text = _allData[widget.index].title;
+    });
+  }
+    _getDataFromGratitudeJournalDB() async {
+    if (widget.from == 'Gratitude') {
+      _allData = await gratitudeJournalBox.values.toList();
+      _setAllValueGratitude();
+    }
+  }
+
+  _setAllValueGratitude() {
     setState(() {
       jounalEditDescriptionController.text = _allData[widget.index].content;
       jounalEditTitleController.text = _allData[widget.index].title;
@@ -46,7 +60,13 @@ class _JournalEditPageState extends State<JournalEditPage> {
 
   @override
   void initState() {
-    _getDataFromPersonalJournalDB();
+    if (widget.from == 'Gratitude') {
+      _getDataFromGratitudeJournalDB();
+    }
+    if (widget.from == 'Personal') {
+      _getDataFromPersonalJournalDB();
+    }
+    
 
     super.initState();
   }
@@ -90,10 +110,28 @@ class _JournalEditPageState extends State<JournalEditPage> {
     }
 
     saveGratitudeJournal() async {
-      await gratitudeJournalBox.put(
-          DateTime.now().toString(),
-          gratutudeJournal(jounalEditDescriptionController.text,
-              DateTime.now().day, DateTime.now().month, DateTime.now().year));
+ if (_selectedDate == null) {
+        print('null statement add');
+        gratitudeJournalEdit = gratitudeJournalBox.getAt(widget.index);
+        gratitudeJournalEdit!.title = jounalEditTitleController.text;
+        gratitudeJournalEdit!.content = jounalEditDescriptionController.text;
+        gratitudeJournalEdit!.edited = true;
+        gratitudeJournalEdit!.day = DateTime.now().day;
+        gratitudeJournalEdit!.month = DateTime.now().month;
+        gratitudeJournalEdit!.year = DateTime.now().year;
+        gratitudeJournalBox.putAt(widget.index, gratitudeJournalEdit);
+      } else if (_selectedDate != null) {
+        print('not null statement add');
+        gratitudeJournalEdit = gratitudeJournalBox.getAt(widget.index);
+        gratitudeJournalEdit!.title = jounalEditTitleController.text;
+        gratitudeJournalEdit!.content = jounalEditDescriptionController.text;
+        gratitudeJournalEdit!.edited = true;
+        gratitudeJournalEdit!.day = _selectedDate!.day;
+        gratitudeJournalEdit!.month = _selectedDate!.month;
+        gratitudeJournalEdit!.year = _selectedDate!.year;
+        gratitudeJournalBox.putAt(widget.index, gratitudeJournalEdit);
+      }
+
     }
 
     saveTo() {
@@ -105,6 +143,9 @@ class _JournalEditPageState extends State<JournalEditPage> {
         }
       } else if (widget.from == 'Gratitude') {
         saveGratitudeJournal();
+        if (widget.toperform != null) {
+          widget.toperform!();
+        }
       } else if (widget.from == 'Deleted') {
         print('Deleted restored');
       } else if (widget.from == 'AddTask') {

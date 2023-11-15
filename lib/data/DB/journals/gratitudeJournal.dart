@@ -4,17 +4,23 @@ part 'gratitudeJournal.g.dart';
 
 @HiveType(typeId: 2)
 class gratutudeJournal{
-  @HiveField(0)
-  String content;
+@HiveField(0)
+  String title;
 
   @HiveField(1)
+  String content;
+
+  @HiveField(2)
   int day;
 
-    @HiveField(2)
+  @HiveField(3)
   int month;
 
-    @HiveField(3)
+  @HiveField(4)
   int year;
 
-  gratutudeJournal(this.content,this.day,this.month,this.year);
+  @HiveField(5)
+  bool edited;
+
+  gratutudeJournal(this.title,this.content, this.day, this.month, this.year,this.edited);
 }

@@ -39,7 +39,6 @@ class _DeletedJournalListState extends State<DeletedJournalList> {
 
   _deleteJournal(index) async {
     setState(() {
-      // deletedJournalBox.put(DateTime.now().toString(), personalJournalBox.getAt(index));
       deletedJournalBox.deleteAt(index);
       _getDataFromDeleteJournalDB();
     });
@@ -93,7 +92,7 @@ class _DeletedJournalListState extends State<DeletedJournalList> {
                     jorns.title,
                     jorns.fromWhere,
                     true,
-                    jorns.isEdited,
+                    jorns.edited,
                     index: index,
                     passingForRefresh: _getDataFromDeleteJournalDB,
                   );

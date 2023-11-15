@@ -5,19 +5,25 @@ part 'deletedJournal.g.dart';
 @HiveType(typeId: 3)
 class deletedJournal {
   @HiveField(0)
-  String content;
+  String title;
 
   @HiveField(1)
-  int day;
+  String content;
 
   @HiveField(2)
-  int month;
+  int day;
 
   @HiveField(3)
-  int year;
+  int month;
 
   @HiveField(4)
+  int year;
+
+  @HiveField(5)
+  bool edited;
+
+  @HiveField(6)
   String fromWhere;
 
-  deletedJournal(this.content, this.day, this.month, this.year,this.fromWhere);
+  deletedJournal(this.title,this.content,this.day,this.month,this.year,this.edited,this.fromWhere);
 }

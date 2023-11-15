@@ -50,7 +50,7 @@ class _GratitudejournalListState extends State<GratitudejournalList> {
     setState(() {
       final _give = gratitudeJournalBox.getAt(index);
       final _giver = deletedJournal(
-          _give.content, _give.day, _give.month, _give.year, 'Gratitude');
+          _give.title,_give.content, _give.day, _give.month, _give.year,_give.edited, 'Gratitude');
       deletedJournalBox.put(DateTime.now().toString(), _giver);
       gratitudeJournalBox.deleteAt(index);
       _getDataFromGratitudeJournalDB();

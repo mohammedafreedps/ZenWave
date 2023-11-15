@@ -51,7 +51,7 @@ class _PersonalJournalListsState extends State<PersonalJournalLists> {
     setState(() {
       final _give = personalJournalBox.getAt(index);
       final _giver = deletedJournal(
-          _give.content, _give.day, _give.month, _give.year, 'Personal');
+          _give.title,_give.content, _give.day, _give.month, _give.year,_give.edited, 'Personal');
       deletedJournalBox.put(DateTime.now().toString(), _giver);
       personalJournalBox.deleteAt(index);
       _getDataFromPersonalJournalDB();

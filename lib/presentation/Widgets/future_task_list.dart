@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:zenwave/presentation/Consts/Color.dart';
 import 'package:zenwave/presentation/Consts/Values.dart';
 import 'package:zenwave/data/DB/Boxes.dart';
-import 'package:zenwave/presentation/Pages/entry_view_page.dart';
 
 class FutureTaskListView extends StatefulWidget {
   final int day;
@@ -11,11 +10,12 @@ class FutureTaskListView extends StatefulWidget {
   final int dmin;
   final int dhr;
   final String dcontent;
+  final String dtitle;
   final int index;
   final Function dtoPerform;
 
   FutureTaskListView(
-      this.day, this.dmonth, this.dyear, this.dmin, this.dhr, this.dcontent,this.index,this.dtoPerform);
+      this.day, this.dmonth, this.dyear, this.dmin, this.dhr, this.dcontent,this.dtitle,this.index,this.dtoPerform);
 
   @override
   State<FutureTaskListView> createState() => FutureTaskListViewState();
@@ -35,7 +35,7 @@ class FutureTaskListViewState extends State<FutureTaskListView> {
             _deleteFutrueTask(widget.index);
           },
           onTap: (){
-            Navigator.push(context, MaterialPageRoute(builder: (BuildContext context)=>EntryviewPage(widget.dcontent, false)));
+            // Navigator.push(context, MaterialPageRoute(builder: (BuildContext context)=>EntryviewPage(widget.dtitle ,widget.dcontent, false)));
           },
           child: ClipRRect(
             borderRadius: BorderRadius.circular(CLIP_BORDER_RADIOUS),

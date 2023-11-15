@@ -127,7 +127,7 @@ class _GratitudejournalListState extends State<GratitudejournalList> {
                               });
                         },
                         child: JournalListItem(jorns.day, jorns.month,
-                            jorns.year, jorns.content, 'Gratitude', false),
+                            jorns.year, jorns.content,jorns.title, 'Gratitude', false,jorns.isEdited),
                       );
                     }),
               ],

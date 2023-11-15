@@ -5,8 +5,10 @@ import 'package:zenwave/presentation/Consts/Values.dart';
 import 'package:zenwave/data/DB/Boxes.dart';
 import 'package:zenwave/data/DB/journals/deletedJournal.dart';
 import 'package:zenwave/presentation/Pages/journal_add_page.dart';
+import 'package:zenwave/presentation/Pages/journal_edit_page.dart';
 import 'package:zenwave/presentation/Widgets/customisable_button.dart';
 import 'package:zenwave/presentation/Widgets/journal_list.dart';
+import 'package:zenwave/presentation/Widgets/textfield_border.dart';
 
 class PersonalJournalLists extends StatefulWidget {
   const PersonalJournalLists({super.key});
@@ -22,6 +24,9 @@ class _PersonalJournalListsState extends State<PersonalJournalLists> {
 
   List _allPersonalJournals = [];
   List _searchResuls = [];
+
+  TextEditingController _searchTitleController = TextEditingController(); 
+
 
   _getDataFromPersonalJournalDB() async {
     _allPersonalJournals = personalJournalBox.values.toList();
@@ -53,6 +58,19 @@ class _PersonalJournalListsState extends State<PersonalJournalLists> {
     });
   }
 
+  _editJounal(index) {
+    final personalJournal = _searchResuls[index];
+    final originalIndex = _allPersonalJournals.indexOf(personalJournal);
+    Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
+      return JournalEditPage(
+        'Personal',
+        'Save',
+        originalIndex,
+        toperform: _getDataFromPersonalJournalDB,
+      );
+    }));
+  }
+
   void _serchByDate() {
     showDatePicker(
             context: context,
@@ -69,7 +87,7 @@ class _PersonalJournalListsState extends State<PersonalJournalLists> {
     });
   }
 
-  _dateRange() {
+  _serchByDateRange() {
     showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -114,19 +132,30 @@ class _PersonalJournalListsState extends State<PersonalJournalLists> {
   }
 
   _searchByRange(DateTime startDate, DateTime endDate) {
-    _searchResuls.clear();
+    List updatedResults = [];
+
     for (var i = 0; i < personalJournalBox.length; i++) {
       personalJournal entry = personalJournalBox.getAt(i);
       DateTime entryDate = DateTime(entry.year, entry.month, entry.day);
 
       if (entryDate.isAfter(startDate.subtract(Duration(days: 1))) &&
           entryDate.isBefore(endDate.add(Duration(days: 1)))) {
-        setState(() {
-          print('adding entry');
-          _searchResuls.add(entry);
-        });
+        updatedResults.add(entry);
       }
     }
+
+    setState(() {
+      _searchResuls = List.from(updatedResults);
+    });
+  }
+
+  _serchByTitle(String searchFor) {
+    setState(() {
+      _searchResuls = _allPersonalJournals
+          .where((journal) =>
+              journal.title.toLowerCase().startsWith(searchFor.toLowerCase()))
+          .toList();
+    });
   }
 
   @override
@@ -149,102 +178,110 @@ class _PersonalJournalListsState extends State<PersonalJournalLists> {
           color: BASE_COLOR,
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: PAGE_PADDING),
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    SizedBox(
-                      width: 50,
-                    ),
-                    Text(
-                      'Search by',
-                      style: TextStyle(fontSize: 20),
-                    ),
-                    IconButton(
-                        onPressed: () {
-                          _getDataFromPersonalJournalDB();
-                        },
-                        icon: Icon(Icons.refresh))
-                  ],
-                ),
-                SizedBox(
-                  height: 40,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    CustomisableButton(
-                      120,
-                      70,
-                      SECONDARY_COLOR,
-                      PRIMARY_COLOR,
-                      'Date',
-                      20,
-                      true,
-                      toPerform: _serchByDate,
-                    ),
-                    CustomisableButton(
-                      120,
-                      70,
-                      SECONDARY_COLOR,
-                      PRIMARY_COLOR,
-                      'Title',
-                      20,
-                      true,
-                    ),
-                    CustomisableButton(
-                      120,
-                      70,
-                      SECONDARY_COLOR,
-                      PRIMARY_COLOR,
-                      'Range',
-                      20,
-                      true,
-                      toPerform: _dateRange,
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 50,
-                ),
-                Container(
-                  height: 750,
-                  width: double.infinity,
-                  child: ListView.builder(
-                    physics: BouncingScrollPhysics(),
-                      itemCount: _searchResuls.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        final jorns = _searchResuls[index];
-                        return InkWell(
-                          onLongPress: () {
-                            showDialog(
-                                context: context,
-                                builder: (context) {
-                                  return AlertDialog(
-                                    title: Text('Do you want to delete'),
-                                    actions: [
-                                      TextButton(
-                                          onPressed: () {
-                                            Navigator.pop(context);
-                                          },
-                                          child: Text('Edit')),
-                                      TextButton(
-                                          onPressed: () {
-                                            Navigator.pop(context);
-                                            _deleteJournal(index);
-                                          },
-                                          child: Text('Delete'))
-                                    ],
-                                  );
-                                });
+            child: SingleChildScrollView(
+              physics: BouncingScrollPhysics(
+                  decelerationRate: ScrollDecelerationRate.fast),
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      SizedBox(
+                        width: 50,
+                      ),
+                      Text(
+                        'Search by',
+                        style: TextStyle(fontSize: 20),
+                      ),
+                      IconButton(
+                          onPressed: () {
+                            _getDataFromPersonalJournalDB();
                           },
-                          child: JournalListItem(jorns.day, jorns.month,
-                              jorns.year, jorns.content, 'Personal', false),
-                        );
-                      }),
-                ),
-              ],
+                          icon: Icon(Icons.refresh))
+                    ],
+                  ),
+                  SizedBox(
+                    height: 40,
+                  ),
+                  Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          CustomisableButton(
+                            120,
+                            70,
+                            SECONDARY_COLOR,
+                            PRIMARY_COLOR,
+                            'Date',
+                            20,
+                            true,
+                            toPerform: _serchByDate,
+                          ),
+                          CustomisableButton(
+                            120,
+                            70,
+                            SECONDARY_COLOR,
+                            PRIMARY_COLOR,
+                            'Range',
+                            20,
+                            true,
+                            toPerform: _serchByDateRange,
+                          ),
+                        ],
+                      ),
+                      TextFieldBorder(_searchTitleController ,onchangeof: _serchByTitle,)
+                    ],
+                  ),
+                  SizedBox(
+                    height: 50,
+                  ),
+                  Container(
+                    height: 700,
+                    width: double.infinity,
+                    child: ListView.builder(
+                        physics: BouncingScrollPhysics(),
+                        itemCount: _searchResuls.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          final jorns = _searchResuls[index];
+                          return InkWell(
+                            onLongPress: () {
+                              showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return AlertDialog(
+                                      title: Text('Do you want to delete'),
+                                      actions: [
+                                        TextButton(
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                              _editJounal(index);
+                                            },
+                                            child: Text('Edit')),
+                                        TextButton(
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                              _deleteJournal(index);
+                                            },
+                                            child: Text('Delete'))
+                                      ],
+                                    );
+                                  });
+                            },
+                            child: JournalListItem(
+                                jorns.day,
+                                jorns.month,
+                                jorns.year,
+                                jorns.content,
+                                jorns.title,
+                                'Personal',
+                                false,
+                                jorns.edited),
+                          );
+                        }),
+                  ),
+                ],
+              ),
             ),
           )),
       floatingActionButton: FloatingActionButton(

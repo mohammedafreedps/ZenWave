@@ -89,7 +89,7 @@ _getFutureTaskAllDataFromDB() async {
                         itemBuilder: (BuildContext context, int index) {
                           final _dats = _allTask[index];
                           print(_dats);
-                          return FutureTaskListView(_dats.day, _dats.month, _dats.year, _dats.hr, _dats.min, _dats.content,index,_getFutureTaskAllDataFromDB);
+                          return FutureTaskListView(_dats.day, _dats.month, _dats.year, _dats.hr, _dats.min, _dats.title,_dats.content,index,_getFutureTaskAllDataFromDB);
                         }),
                   )
             ],

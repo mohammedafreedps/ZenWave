@@ -90,8 +90,10 @@ class _DeletedJournalListState extends State<DeletedJournalList> {
                     jorns.month,
                     jorns.year,
                     jorns.content,
+                    jorns.title,
                     jorns.fromWhere,
                     true,
+                    jorns.isEdited,
                     index: index,
                     passingForRefresh: _getDataFromDeleteJournalDB,
                   );

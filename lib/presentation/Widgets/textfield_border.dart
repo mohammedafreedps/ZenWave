@@ -13,14 +13,21 @@ class TextFieldBorder extends StatefulWidget {
   State<TextFieldBorder> createState() => _TextFieldBorderState();
 }
 
+
 class _TextFieldBorderState extends State<TextFieldBorder> {
+  _refreshPage(){
+  setState(() {
+    
+  });
+}
+
   @override
   Widget build(BuildContext context) {
     return widget.onchangeof != null ?
     TextField(
       onChanged: (value){
         print('onchange wokring');
-        widget.onchangeof!();
+        widget.onchangeof!(value);
       },
       controller: widget.Contollerof,
       cursorColor: PRIMARY_COLOR,
@@ -30,14 +37,18 @@ class _TextFieldBorderState extends State<TextFieldBorder> {
           focusedBorder: UnderlineInputBorder(
               borderSide: BorderSide(color: PRIMARY_COLOR))),
     ) :
-    TextField(
-      controller: widget.Contollerof,
-      cursorColor: PRIMARY_COLOR,
-      decoration: InputDecoration(
-          border:
-              UnderlineInputBorder(borderSide: BorderSide(color: PRIMARY_COLOR)),
-          focusedBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: PRIMARY_COLOR))),
+    Flexible(
+      child: TextField(
+        maxLength: null,
+        controller: widget.Contollerof,
+        cursorColor: PRIMARY_COLOR,
+        decoration: InputDecoration(
+          contentPadding: EdgeInsets.symmetric(vertical: 10 ,horizontal: 10),
+            border:
+                UnderlineInputBorder(borderSide: BorderSide(color: PRIMARY_COLOR)),
+            focusedBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: PRIMARY_COLOR))),
+      ),
     );
   } 
 }

@@ -8,28 +8,51 @@ import 'package:zenwave/presentation/Pages/journal_option_page.dart';
 import 'package:zenwave/presentation/Widgets/customisable_button.dart';
 import 'package:zenwave/presentation/Widgets/textfield_border.dart';
 
-class JournalAddPage extends StatefulWidget {
-  // const JournalAddPage({super.key});
-  final String setTo;
+class JournalEditPage extends StatefulWidget {
+  // const JournalEditPage({super.key});
+  final String from;
   final String buttontext;
   final Function? toperform;
+  final int index;
 
-  JournalAddPage(this.setTo, this.buttontext, {this.toperform});
+  JournalEditPage(this.from, this.buttontext, this.index, {this.toperform});
 
   @override
-  State<JournalAddPage> createState() => _JournalAddPageState();
+  State<JournalEditPage> createState() => _JournalEditPageState();
 }
 
-class _JournalAddPageState extends State<JournalAddPage> {
+class _JournalEditPageState extends State<JournalEditPage> {
+  personalJournal? personaljounalEdit;
+  TextEditingController jounalEditDescriptionController =
+      TextEditingController();
+  TextEditingController jounalEditTitleController = TextEditingController();
+  
+  DateTime? _selectedDate;
+  List _allData = [];
+
+  _getDataFromPersonalJournalDB() async {
+    if (widget.from == 'Personal') {
+      _allData = await personalJournalBox.values.toList();
+      _setAllValue();
+    }
+  }
+
+  _setAllValue() {
+    setState(() {
+      jounalEditDescriptionController.text = _allData[widget.index].content;
+      jounalEditTitleController.text = _allData[widget.index].title;
+    });
+  }
+
+  @override
+  void initState() {
+    _getDataFromPersonalJournalDB();
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    TextEditingController jounalAddDescriptionController =
-        TextEditingController();
-    TextEditingController jounalAddTitleController = TextEditingController();
-    DateTime? _selectedDate;
-
-
-
     void _showDatePicker() {
       showDatePicker(
               context: context,
@@ -37,48 +60,57 @@ class _JournalAddPageState extends State<JournalAddPage> {
               firstDate: DateTime(2000),
               lastDate: DateTime.now())
           .then((value) {
-          _selectedDate = value;
-          print(_selectedDate);
-
+        _selectedDate = value;
+        print(_selectedDate);
       });
     }
-    
 
     savePersonalJournal() async {
       if (_selectedDate == null) {
         print('null statement add');
-        await personalJournalBox.put(
-            DateTime.now().toString(),
-            personalJournal(jounalAddTitleController.text,jounalAddDescriptionController.text,
-                DateTime.now().day, DateTime.now().month, DateTime.now().year,false));
+        personaljounalEdit = personalJournalBox.getAt(widget.index);
+        personaljounalEdit!.title = jounalEditTitleController.text;
+        personaljounalEdit!.content = jounalEditDescriptionController.text;
+        personaljounalEdit!.edited = true;
+        personaljounalEdit!.day = DateTime.now().day;
+        personaljounalEdit!.month = DateTime.now().month;
+        personaljounalEdit!.year = DateTime.now().year;
+        personalJournalBox.putAt(widget.index, personaljounalEdit);
       } else if (_selectedDate != null) {
         print('not null statement add');
-        await personalJournalBox.put(
-            DateTime.now().toString(),
-            personalJournal(jounalAddTitleController.text,jounalAddDescriptionController.text,
-                _selectedDate!.day, _selectedDate!.month, _selectedDate!.year,false));
+        personaljounalEdit = personalJournalBox.getAt(widget.index);
+        personaljounalEdit!.title = jounalEditTitleController.text;
+        personaljounalEdit!.content = jounalEditDescriptionController.text;
+        personaljounalEdit!.edited = true;
+        personaljounalEdit!.day = _selectedDate!.day;
+        personaljounalEdit!.month = _selectedDate!.month;
+        personaljounalEdit!.year = _selectedDate!.year;
+        personalJournalBox.putAt(widget.index, personaljounalEdit);
       }
     }
 
     saveGratitudeJournal() async {
       await gratitudeJournalBox.put(
           DateTime.now().toString(),
-          gratutudeJournal(jounalAddDescriptionController.text,
+          gratutudeJournal(jounalEditDescriptionController.text,
               DateTime.now().day, DateTime.now().month, DateTime.now().year));
     }
 
     saveTo() {
-      if (widget.setTo == 'Personal') {
+      if (widget.from == 'Personal') {
         print('Personal saved');
         savePersonalJournal();
-      } else if (widget.setTo == 'Gratitude') {
+        if (widget.toperform != null) {
+          widget.toperform!();
+        }
+      } else if (widget.from == 'Gratitude') {
         saveGratitudeJournal();
-      } else if (widget.setTo == 'Deleted') {
+      } else if (widget.from == 'Deleted') {
         print('Deleted restored');
-      } else if (widget.setTo == 'AddTask') {
+      } else if (widget.from == 'AddTask') {
         print('to add workgin');
         if (widget.toperform != null) {
-          widget.toperform!(jounalAddDescriptionController.text);
+          widget.toperform!(jounalEditDescriptionController.text);
         }
       }
     }
@@ -90,7 +122,7 @@ class _JournalAddPageState extends State<JournalAddPage> {
         centerTitle: true,
         iconTheme: IconThemeData(color: Colors.black),
         title: Text(
-          widget.setTo,
+          widget.from,
           style: TextStyle(color: PRIMARY_COLOR, fontSize: 28),
         ),
       ),
@@ -126,16 +158,18 @@ class _JournalAddPageState extends State<JournalAddPage> {
                             false,
                             toPerform: _showDatePicker,
                           ),
+
                           SizedBox(
                             height: 40,
                           ),
                           Text('Title'),
-                          TextFieldBorder(jounalAddTitleController),
+                          TextFieldBorder(jounalEditTitleController),
                           SizedBox(
                             height: 40,
                           ),
                           Text('Description'),
-                          TextFieldBorder(jounalAddDescriptionController),
+                          TextFieldBorder(jounalEditDescriptionController),
+
                         ],
                       )),
                 ),

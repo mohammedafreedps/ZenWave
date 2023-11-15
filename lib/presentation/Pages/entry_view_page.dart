@@ -10,11 +10,13 @@ import 'package:zenwave/presentation/Widgets/customisable_button.dart';
 class EntryviewPage extends StatefulWidget {
   // const EntryviewPage({super.key});
   final String _content;
+  final String title;
   final bool needRestorButton;
+  final bool isEdited;
   final int? index;
   final Function? forRefrsh;
 
-  EntryviewPage(this._content, this.needRestorButton,
+  EntryviewPage(this._content,this.title, this.needRestorButton,this.isEdited,
       {this.index, this.forRefrsh});
 
   @override
@@ -29,7 +31,7 @@ class _EntryviewPageState extends State<EntryviewPage> {
         final _give = deletedJournalBox.getAt(widget.index!);
         if (_give.fromWhere == 'Personal') {
           final _giver = personalJournal(
-              _give.content, _give.day, _give.month, _give.year);
+              _give.title,_give.content, _give.day, _give.month, _give.year,_give.isEdited);
           personalJournalBox.put(DateTime.now().toString(), _giver);
           deletedJournalBox.deleteAt(widget.index!);
           widget.forRefrsh!();
@@ -69,8 +71,15 @@ class _EntryviewPageState extends State<EntryviewPage> {
                 child: Container(
                   padding: EdgeInsets.all(PAGE_PADDING),
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
+                      Row(
+                        children: [
+                          widget.isEdited == true ? Text('Edited',style: TextStyle(color: Colors.red),) : Text('')
+                        ],
+                      ),
+                      SizedBox(height: 40,),
+                      Text(widget.title),
+                      SizedBox(height: 70,),
                       Text(widget._content),
                       widget.needRestorButton
                           ? CustomisableButton(

@@ -11,12 +11,14 @@ class JournalListItem extends StatelessWidget {
   final int month;
   final int year;
   final String content;
+  final String title;
   final String currently;
   final bool enableRestoreButton;
+  final bool isEdited;
   final int? index;
   final Function? passingForRefresh;
 
-  JournalListItem (this.day,this.month,this.year, this.content,this.currently,this.enableRestoreButton,{this.index,this.passingForRefresh});
+  JournalListItem (this.day,this.month,this.year, this.content,this.title,this.currently,this.enableRestoreButton,this.isEdited,{this.index,this.passingForRefresh});
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +26,7 @@ class JournalListItem extends StatelessWidget {
       onTap: () {
         Navigator.push(context,
             MaterialPageRoute(builder: (BuildContext context) {
-          return EntryviewPage(content,enableRestoreButton,index: index,forRefrsh: passingForRefresh,);
+          return EntryviewPage(content,title,enableRestoreButton,isEdited,index: index,forRefrsh: passingForRefresh,);
         }));
       },
       child: Padding(

@@ -13,7 +13,7 @@ import 'dart:io';
 class CaptureEditPage extends StatefulWidget {
   final int index;
   final Function toPerform;
-  CaptureEditPage(this.index,this.toPerform);
+  CaptureEditPage(this.index, this.toPerform);
 
   @override
   State<CaptureEditPage> createState() => _CaptureEditPageState();
@@ -86,7 +86,6 @@ class _CaptureEditPageState extends State<CaptureEditPage> {
         print(widget.index); // 0
         final _giver = captureMomentsBox.getAt(widget.index);
 
-        // Add a null check before proceeding
         if (_giver != null) {
           print('giving old path to delete fun : $_oldImagePath');
           if (await _deleteLocalPicture(_oldImagePath!)) {
@@ -107,7 +106,7 @@ class _CaptureEditPageState extends State<CaptureEditPage> {
                 _selectedDate!.month,
                 _selectedDate!.year,
                 true,
-                newImagePath); // Use newImagePath instead of _imgPath
+                newImagePath);
 
             print('saving image path hive : $newImagePath');
             flag = true;
@@ -121,6 +120,19 @@ class _CaptureEditPageState extends State<CaptureEditPage> {
       }
       print(flag);
       return flag;
+    }
+
+    _editWithoutImage() async {
+      final _giver = await captureMomentsBox.getAt(widget.index);
+      editValuesInCaptureMomentsDB(
+          widget.index,
+          _title.text,
+          _description.text,
+          _selectedDate!.day,
+          _selectedDate!.month,
+          _selectedDate!.year,
+          true,
+          _giver.imgPath);
     }
 
     return Scaffold(
@@ -196,11 +208,19 @@ class _CaptureEditPageState extends State<CaptureEditPage> {
                                 if (_selectedDate == null) {
                                   _selectedDate = DateTime.now();
                                 }
-                                if (_description.text.length != 0 &&
-                                    _title.text.length != 0) {
-                                  if (await _editImageLocally()) {
-                                    widget.toPerform();
-                                    Navigator.pop(context);
+                                if (_description.text.isNotEmpty &&
+                                    _title.text.isNotEmpty) {
+                                  if (_pickedFile == null) {
+                                    if (_selectedDate != null) {
+                                      _editWithoutImage();
+                                      Navigator.pop(context);
+                                    }
+                                  }
+                                  if (_pickedFile != null) {
+                                    if (await _editImageLocally()) {
+                                      widget.toPerform();
+                                      Navigator.pop(context);
+                                    }
                                   }
                                 }
                               }),

@@ -27,34 +27,34 @@ class _HomePageState extends State<HomePage> {
   Timer? _ratedChecker;
   @override
   void initState() {
-     print(TimeOfDay.now());
-    // TODO: implement initState
+    print(TimeOfDay.now());
     super.initState();
     AndroidAlarmManager.periodic(const Duration(seconds: 1), 1, resetisRated);
-    setState(() {
-      _ratedChecker = Timer(const Duration(microseconds: 1000), () {
+
+    _ratedChecker = Timer(const Duration(microseconds: 1000), () {
+      if (mounted) {
         setState(() {
-         getIsRated();
-         getUserName();
+          getIsRated();
+          getUserName();
         });
-      });
+      }
     });
   }
 
   @override
   void dispose() {
-    if (_ratedChecker != null) {
-      _ratedChecker!.cancel();
-    }
+    _ratedChecker!.cancel();
     super.dispose();
   }
 
-_Refresh(){
-  setState(() {
-    print('refreh worked');
-  });
-  getIsRated();
-}
+  _Refresh() {
+    if (mounted) {
+      setState(() {
+        print('refreh worked');
+      });
+      getIsRated();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -81,7 +81,7 @@ _Refresh(){
                         BIG_BUTTON_FONT_SIZE,
                         true,
                         go: MoodRatingPage(_Refresh),
-                        HowToGO: 'push',
+                        HowToGO: 'pushReplace',
                       ),
                 const Dividers(),
                 GestureDetector(

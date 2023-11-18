@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:zenwave/data/DB/Boxes.dart';
+import 'package:zenwave/data/DB/captureMoments/captureMoments.dart';
 import 'package:zenwave/data/DB/futureTask/futureTask.dart';
 import 'package:zenwave/data/DB/journals/deletedJournal.dart';
 import 'package:zenwave/data/DB/journals/gratitudeJournal.dart';
@@ -26,6 +27,8 @@ void main() async {
   moodTrackerBox = await Hive.openBox<moodTracking>('moodTrackingBox');
   Hive.registerAdapter(futureTaskAdapter());
   futureTaskBox = await Hive.openBox<futureTask>('futureTaskBox');
+  Hive.registerAdapter(captureMomentsAdapter());
+  captureMomentsBox = await Hive.openBox<captureMoments>('captureMomentsBox');
 
  
   runApp(const ZenWave());

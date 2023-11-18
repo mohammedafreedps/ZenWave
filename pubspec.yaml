@@ -43,6 +43,7 @@ dependencies:
   hive:
   hive_flutter: 
   android_alarm_manager_plus: 3.0.2
+  image_picker: ^1.0.4
 
 dev_dependencies:
   flutter_test:

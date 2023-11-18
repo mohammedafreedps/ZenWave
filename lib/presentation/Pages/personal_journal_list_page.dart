@@ -250,7 +250,7 @@ class _PersonalJournalListsState extends State<PersonalJournalLists> {
                                   context: context,
                                   builder: (context) {
                                     return AlertDialog(
-                                      title: Text('Do you want to delete'),
+                                      title: Text('Do you want to'),
                                       actions: [
                                         TextButton(
                                             onPressed: () {

@@ -4,6 +4,7 @@ import 'package:zenwave/presentation/Consts/Values.dart';
 import 'package:zenwave/data/DB/Boxes.dart';
 import 'package:zenwave/data/DB/journals/moodTracking.dart';
 import 'package:zenwave/data/DB/sharedPreference.dart';
+import 'package:zenwave/presentation/Pages/home_page.dart';
 import 'package:zenwave/presentation/Widgets/customisable_button.dart';
 import 'package:zenwave/presentation/Widgets/divider.dart';
 import 'package:zenwave/presentation/Widgets/rating_imot.dart';
@@ -20,7 +21,7 @@ class _MoodRatingPageState extends State<MoodRatingPage> {
   @override
   Widget build(BuildContext context) {
     ClickPopper() {
-      Navigator.pop(context);
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => HomePage() ));
     }
 
     void veryGood() {
@@ -110,7 +111,8 @@ class _MoodRatingPageState extends State<MoodRatingPage> {
                 'Return without rating',
                 BIG_BUTTON_FONT_SIZE,
                 true,
-                HowToGO: 'pop',
+                go: HomePage(),
+                HowToGO: 'pushReplace',
               )
             ],
           ),

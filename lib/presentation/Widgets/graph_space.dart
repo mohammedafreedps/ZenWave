@@ -1,5 +1,6 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:zenwave/data/DB/Boxes.dart';
 import 'package:zenwave/presentation/Consts/Color.dart';
 import 'package:zenwave/presentation/Consts/Values.dart';
 
@@ -17,9 +18,29 @@ class _GraphSpaceState extends State<GraphSpace> {
   double _width = double.infinity;
   double _height = 250;
 
+  
+
+  List<FlSpot> flSpots = [];
+
+_loadData() {
+  final List moodData = moodTrackerBox.values.toList();
+  print(moodData.toString() + 'cheecthis');
+  flSpots = moodData.map((data) {
+    int dayOfWeek = data.date.weekday-1;
+    print(dayOfWeek);
+    return FlSpot(dayOfWeek.toDouble(), data.mood.toDouble());
+  }).toList();
+  if (mounted) {
+    setState(() {});
+  }
+}
+
+
+
+
+
   Widget bottomtitles(double value, TitleMeta meta) {
     final title = <String>['Mn', 'Te', 'Wd', 'Tu', 'Fr', 'St', 'Su'];
-
 
     final Widget text = Text(
       title[value.toInt()],
@@ -37,19 +58,9 @@ class _GraphSpaceState extends State<GraphSpace> {
     );
   }
 
-      List<FlSpot> flSpots = <FlSpot> [
-      FlSpot(0, 3),
-      FlSpot(1, 2),
-      FlSpot(2, 0),
-      FlSpot(3, 2),
-      FlSpot(4, 3),
-      FlSpot(5, 2),
-      FlSpot(6, 1),
-    ];
-
   Widget leftTitles(double value, TitleMeta meta) {
     const style = TextStyle(
-      color:  Color(0xFF435334),
+      color: Color(0xFF435334),
       fontWeight: FontWeight.bold,
       fontSize: 14,
     );
@@ -70,6 +81,12 @@ class _GraphSpaceState extends State<GraphSpace> {
       space: 9,
       child: Text(text, style: style),
     );
+  }
+
+  @override
+  void initState() {
+    _loadData();
+    super.initState();
   }
 
   @override

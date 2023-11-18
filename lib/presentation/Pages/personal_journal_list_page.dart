@@ -71,7 +71,7 @@ class _PersonalJournalListsState extends State<PersonalJournalLists> {
     }));
   }
 
-  void _serchByDate() {
+  _serchByDate() {
     showDatePicker(
             context: context,
             initialDate: DateTime.now(),

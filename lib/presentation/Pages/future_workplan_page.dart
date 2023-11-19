@@ -1,8 +1,10 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:zenwave/data/DBFunction/futureTasks.dart';
 import 'package:zenwave/presentation/Consts/Color.dart';
 import 'package:zenwave/presentation/Consts/Values.dart';
-import 'package:zenwave/data/DB/Boxes.dart';
+import 'package:zenwave/presentation/Consts/screen_size.dart';
+import 'package:zenwave/presentation/Pages/future_task_edit_page.dart';
+import 'package:zenwave/presentation/Pages/future_task_view_page.dart';
 import 'package:zenwave/presentation/Pages/set_day_work_page.dart';
 import 'package:zenwave/presentation/Widgets/customisable_button.dart';
 import 'package:zenwave/presentation/Widgets/future_task_list.dart';
@@ -15,85 +17,236 @@ class FutureWorkPlanPage extends StatefulWidget {
 }
 
 class _FutureWorkPlanPageState extends State<FutureWorkPlanPage> {
-  List _allTask = [];
-  List _task = [];
+  DateTime? _selectedDate;
+  List _searchResuls = [];
+  @override
+  void initState() {
+    allValueInFutureTaskDB = getAllValueFromFutureTask();
+    _searchResuls = allValueInFutureTaskDB;
+    super.initState();
+  }
 
-_testRefresh() {
-  print('refresh supposed to work');
-  Future.delayed(Duration(milliseconds: 100), () {
-    setState(() {
-      _allTask = futureTaskBox.values.toList();
-    });
+  _refresh() {
+    if (mounted) {
+      setState(() {
+        allValueInFutureTaskDB = getAllValueFromFutureTask();
+        Navigator.pop(context);
+      });
+    }
+  }
+
+ _searchByPriority(int priority) {
+  setState(() {
+    _searchResuls = allValueInFutureTaskDB.where((prio) {
+      return prio.priority == priority;
+    }).toList();
   });
 }
 
 
-_getFutureTaskAllDataFromDB() async {
-  _task = await futureTaskBox.values.toList();
-  print('supposed to work');
-  _allTask = _task;
-  _testRefresh();
-}
+  _showPriorityLsit() {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Set priority'),
+            actions: [
+              TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                    _searchByPriority(3);
+                  },
+                  child: Text('Low')),
+              TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                    _searchByPriority(2);
+                  },
+                  child: Text('Medium')),
+              TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                    _searchByPriority(1);
+                  },
+                  child: Text('High')),
+            ],
+          );
+        });
+  }
 
+  _searchByDate(DateTime searchDate) {
+    int _searchDay = searchDate.day;
+    int _searchMonth = searchDate.month;
+    int _searchYear = searchDate.year;
+    print('searching block');
+    _searchResuls = allValueInFutureTaskDB.where((journal) {
+      return journal.day == _searchDay &&
+          journal.month == _searchMonth &&
+          journal.year == _searchYear;
+    }).toList();
+  }
 
+  _showCalender() {
+    showDatePicker(
+            context: context,
+            initialDate: DateTime.now(),
+            firstDate: DateTime(2000),
+            lastDate: DateTime(2040))
+        .then((value) {
+      setState(() {
+        _selectedDate = value;
+        if (_selectedDate != null) {
+          _searchByDate(_selectedDate!);
+        }
+      });
+    });
+  }
 
-  @override
-  void initState() {
-    _getFutureTaskAllDataFromDB();
-    super.initState();
+  _editValues(int index) {
+    print('ediit called');
+    Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
+      return FutureTaskEditPage(_refresh, index);
+    }));
   }
 
   @override
   Widget build(BuildContext context) {
-    print('widget rebuild sup');
     return Scaffold(
       appBar: AppBar(
+        iconTheme: IconThemeData(color: Colors.black),
         backgroundColor: BASE_COLOR,
         elevation: 0,
-        iconTheme: IconThemeData(color: PRIMARY_COLOR),
       ),
       body: Container(
-        width: double.infinity,
-        height: double.infinity,
+        width: SCREEN_WIDTH,
+        height: SCREEN_HEIGHT,
         color: BASE_COLOR,
-        child: Padding(
-          padding: EdgeInsets.all(PAGE_PADDING),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              CustomisableButton(
-                double.infinity,
-                90,
-                SECONDARY_COLOR,
-                PRIMARY_COLOR,
-                'Plan Day',
-                BIG_BUTTON_FONT_SIZE,
-                true,
-                go: SetDayWorkPage(_getFutureTaskAllDataFromDB),
-                HowToGO: 'push',
-              ),
-              _allTask.length == 0
-                  ? Center(
-                      child: Text(
-                        'Add any thing for the future',
-                        style: TextStyle(color: PRIMARY_COLOR),
-                      ),
-                    )
-                  : Container(
-                    height: 600,
-                    width: double.infinity,
-                    child: ListView.builder(
-                      physics: AlwaysScrollableScrollPhysics().applyTo(BouncingScrollPhysics()),
-                        itemCount: _allTask.length,
-                        
-                        itemBuilder: (BuildContext context, int index) {
-                          final _dats = _allTask[index];
-                          print(_dats);
-                          return FutureTaskListView(_dats.day, _dats.month, _dats.year, _dats.hr, _dats.min, _dats.title,_dats.content,index,_getFutureTaskAllDataFromDB);
-                        }),
-                  )
-            ],
+        child: SizedBox(
+          child: Padding(
+            padding: const EdgeInsets.all(PAGE_PADDING),
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    SizedBox(
+                      width: 50,
+                    ),
+                    Text(
+                      'Search by',
+                      style: TextStyle(fontSize: 20),
+                    ),
+                    IconButton(
+                        onPressed: () {
+                          setState(() {
+                            _searchResuls = allValueInFutureTaskDB;
+                          });
+                        },
+                        icon: Icon(Icons.refresh))
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    CustomisableButton(
+                      120,
+                      70,
+                      SECONDARY_COLOR,
+                      PRIMARY_COLOR,
+                      'Date',
+                      20,
+                      true,
+                      toPerform: _showCalender,
+                    ),
+                    CustomisableButton(
+                      120,
+                      70,
+                      SECONDARY_COLOR,
+                      PRIMARY_COLOR,
+                      'Priority',
+                      20,
+                      true,
+                      toPerform: _showPriorityLsit,
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 50,
+                ),
+                SizedBox(
+                  height: SCREEN_HEIGHT - 350,
+                  child: ListView.builder(
+                      itemCount: _searchResuls.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        final _giver = _searchResuls[index];
+                        final _tasks = _searchResuls[index];
+                        final _originlIndx = allValueInFutureTaskDB.indexOf(_tasks);
+                        return InkWell(
+                          onTap: () {
+                            Navigator.push(context, MaterialPageRoute(
+                                builder: (BuildContext context) {
+                              return FutureTaskViewPage(_giver.content);
+                            }));
+                          },
+                          onLongPress: () {
+                            showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    title: Text('Do you want to'),
+                                    actions: [
+                                      TextButton(
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                            _editValues(_originlIndx);
+                                          },
+                                          child: Text('Edit')),
+                                      TextButton(
+                                          onPressed: () {
+                                            setState(() {
+                                              deleteValueInFutureTask(_originlIndx);
+                                              allValueInFutureTaskDB =
+                                                  getAllValueFromFutureTask();
+                                            });
+                                            Navigator.pop(context);
+                                          },
+                                          child: Text('Delete')),
+                                    ],
+                                  );
+                                });
+                          },
+                          child: FutureTaskListView(
+                              _giver.day,
+                              _giver.month,
+                              _giver.year,
+                              _giver.min,
+                              _giver.hr,
+                              _giver.content,
+                              _originlIndx,
+                              _giver.priority),
+                        );
+                      }),
+                )
+              ],
+            ),
           ),
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        elevation: Elevetion,
+        backgroundColor: SECONDARY_COLOR,
+        onPressed: () {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (BuildContext context) {
+              return SetDayWorkPage(_refresh);
+            }),
+          );
+        },
+        child: Icon(
+          Icons.add,
+          size: 30,
+          color: PRIMARY_COLOR,
         ),
       ),
     );

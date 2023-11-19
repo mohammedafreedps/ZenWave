@@ -22,5 +22,8 @@ class futureTask {
   @HiveField(5)
   String content;
 
-  futureTask(this.day, this.month,this.year,this.min,this.hr,this.content);
+  @HiveField(6)
+  int priority;
+
+  futureTask(this.day, this.month,this.year,this.min,this.hr,this.content,this.priority);
 }

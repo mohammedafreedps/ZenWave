@@ -308,6 +308,7 @@ class _CapturePageState extends State<CapturePage> {
         child: Icon(
           Icons.add,
           size: 30,
+          color: PRIMARY_COLOR,
         ),
       ),
     );

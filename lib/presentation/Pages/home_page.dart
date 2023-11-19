@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:zenwave/presentation/Consts/Color.dart';
 import 'package:zenwave/presentation/Consts/Values.dart';
 import 'package:zenwave/data/DB/sharedPreference.dart';
+import 'package:zenwave/presentation/Consts/screen_size.dart';
 import 'package:zenwave/presentation/Pages/focus_time_setter_page.dart';
 import 'package:zenwave/presentation/Pages/journal_option_page.dart';
 import 'package:zenwave/presentation/Pages/mindfullness_exersises_page.dart';
@@ -54,6 +55,11 @@ class _HomePageState extends State<HomePage> {
       });
       getIsRated();
     }
+  }
+  @override
+  void didChangeDependencies() {
+    screenHeightInitializing(context) ;
+    super.didChangeDependencies();
   }
 
   @override

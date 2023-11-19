@@ -23,13 +23,14 @@ class futureTaskAdapter extends TypeAdapter<futureTask> {
       fields[3] as int,
       fields[4] as int,
       fields[5] as String,
+      fields[6] as int,
     );
   }
 
   @override
   void write(BinaryWriter writer, futureTask obj) {
     writer
-      ..writeByte(6)
+      ..writeByte(7)
       ..writeByte(0)
       ..write(obj.day)
       ..writeByte(1)
@@ -41,7 +42,9 @@ class futureTaskAdapter extends TypeAdapter<futureTask> {
       ..writeByte(4)
       ..write(obj.hr)
       ..writeByte(5)
-      ..write(obj.content);
+      ..write(obj.content)
+      ..writeByte(6)
+      ..write(obj.priority);
   }
 
   @override

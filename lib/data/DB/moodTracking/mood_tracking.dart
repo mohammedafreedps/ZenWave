@@ -1,6 +1,6 @@
 import 'package:hive/hive.dart';
 
-part 'moodTracking.g.dart';
+part 'mood_tracking.g.dart';
 
 @HiveType(typeId: 4)
 class moodTracking extends HiveObject{

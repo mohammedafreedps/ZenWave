@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:zenwave/data/DB/journals/gratitudeJournal.dart';
-import 'package:zenwave/presentation/Consts/Color.dart';
-import 'package:zenwave/presentation/Consts/Values.dart';
-import 'package:zenwave/data/DB/Boxes.dart';
+import 'package:zenwave/data/DBFunction/gratitude_journal.dart';
+import 'package:zenwave/presentation/Consts/color.dart';
+import 'package:zenwave/presentation/Consts/values.dart';
+import 'package:zenwave/data/DB/boxes.dart';
 import 'package:zenwave/data/DB/journals/deletedJournal.dart';
 import 'package:zenwave/presentation/Pages/journal_add_page.dart';
 import 'package:zenwave/presentation/Pages/journal_edit_page.dart';
@@ -22,15 +23,13 @@ class _GratitudejournalListState extends State<GratitudejournalList> {
   DateTime? _startingDate;
   DateTime? _endingDate;
 
-  List _allGratitudeJournal = [];
   List _searchResuls = [];
 
   TextEditingController _searchTitleController = TextEditingController();
 
-  _getDataFromGratitudeJournalDB() async {
-    _allGratitudeJournal = gratitudeJournalBox.values.toList();
+  _satValueFromDB() {
     setState(() {
-      _searchResuls = _allGratitudeJournal;
+      _searchResuls = getAllValueFromGratutudeJournal();
     });
   }
 
@@ -39,7 +38,7 @@ class _GratitudejournalListState extends State<GratitudejournalList> {
     int _searchMonth = searchDate.month;
     int _searchYear = searchDate.year;
     print('searching block');
-    _searchResuls = _allGratitudeJournal.where((journal) {
+    _searchResuls = allValueInGratitudeJournalsDB.where((journal) {
       return journal.day == _searchDay &&
           journal.month == _searchMonth &&
           journal.year == _searchYear;
@@ -49,23 +48,24 @@ class _GratitudejournalListState extends State<GratitudejournalList> {
   _deleteJournal(index) async {
     setState(() {
       final _give = gratitudeJournalBox.getAt(index);
-      final _giver = deletedJournal(
-          _give.title,_give.content, _give.day, _give.month, _give.year,_give.edited, 'Gratitude');
+      final _giver = deletedJournal(_give.title, _give.content, _give.day,
+          _give.month, _give.year, _give.edited, 'Gratitude');
       deletedJournalBox.put(DateTime.now().toString(), _giver);
       gratitudeJournalBox.deleteAt(index);
-      _getDataFromGratitudeJournalDB();
+      _satValueFromDB();
     });
   }
 
   _editJounal(index) {
     final gratitudeJournal = _searchResuls[index];
-    final originalIndex = _allGratitudeJournal.indexOf(gratitudeJournal);
+    final originalIndex =
+        allValueInGratitudeJournalsDB.indexOf(gratitudeJournal);
     Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
       return JournalEditPage(
         'Gratitude',
         'Save',
         originalIndex,
-        toperform: _getDataFromGratitudeJournalDB,
+        toperform: _satValueFromDB,
       );
     }));
   }
@@ -116,8 +116,8 @@ class _GratitudejournalListState extends State<GratitudejournalList> {
                       _endingDate = value;
                     });
                   },
-                 child: Text('Ending')),
-                 TextButton(
+                  child: Text('Ending')),
+              TextButton(
                   onPressed: () {
                     if (_startingDate != null && _endingDate != null) {
                       Navigator.pop(context);
@@ -150,7 +150,7 @@ class _GratitudejournalListState extends State<GratitudejournalList> {
 
   _serchByTitle(String searchFor) {
     setState(() {
-      _searchResuls = _allGratitudeJournal
+      _searchResuls = allValueInGratitudeJournalsDB
           .where((journal) =>
               journal.title.toLowerCase().startsWith(searchFor.toLowerCase()))
           .toList();
@@ -159,7 +159,7 @@ class _GratitudejournalListState extends State<GratitudejournalList> {
 
   @override
   void initState() {
-    _getDataFromGratitudeJournalDB();
+    _satValueFromDB();
     super.initState();
   }
 
@@ -194,7 +194,7 @@ class _GratitudejournalListState extends State<GratitudejournalList> {
                       ),
                       IconButton(
                           onPressed: () {
-                            _getDataFromGratitudeJournalDB();
+                            _satValueFromDB();
                           },
                           icon: Icon(Icons.refresh))
                     ],
@@ -229,7 +229,10 @@ class _GratitudejournalListState extends State<GratitudejournalList> {
                           ),
                         ],
                       ),
-                      TextFieldBorder(_searchTitleController ,onchangeof: _serchByTitle,)
+                      TextFieldBorder(
+                        _searchTitleController,
+                        onchangeof: _serchByTitle,
+                      )
                     ],
                   ),
                   SizedBox(
@@ -295,6 +298,7 @@ class _GratitudejournalListState extends State<GratitudejournalList> {
         child: Icon(
           Icons.add,
           size: 30,
+           color: PRIMARY_COLOR,
         ),
       ),
     );

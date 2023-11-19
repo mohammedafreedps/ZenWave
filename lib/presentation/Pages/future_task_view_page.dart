@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:zenwave/presentation/Consts/Color.dart';
+import 'package:zenwave/presentation/Consts/color.dart';
 import 'package:zenwave/presentation/Consts/Values.dart';
 import 'package:zenwave/presentation/Consts/screen_size.dart';
 import 'package:zenwave/presentation/Widgets/customisable_button.dart';

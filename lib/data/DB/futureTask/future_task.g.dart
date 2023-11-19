@@ -1,50 +1,50 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'captureMoments.dart';
+part of 'future_task.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class captureMomentsAdapter extends TypeAdapter<captureMoments> {
+class futureTaskAdapter extends TypeAdapter<futureTask> {
   @override
-  final int typeId = 6;
+  final int typeId = 5;
 
   @override
-  captureMoments read(BinaryReader reader) {
+  futureTask read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return captureMoments(
-      fields[0] as String,
-      fields[1] as String,
+    return futureTask(
+      fields[0] as int,
+      fields[1] as int,
       fields[2] as int,
       fields[3] as int,
       fields[4] as int,
-      fields[5] as bool,
-      fields[6] as String,
+      fields[5] as String,
+      fields[6] as int,
     );
   }
 
   @override
-  void write(BinaryWriter writer, captureMoments obj) {
+  void write(BinaryWriter writer, futureTask obj) {
     writer
       ..writeByte(7)
       ..writeByte(0)
-      ..write(obj.title)
-      ..writeByte(1)
-      ..write(obj.content)
-      ..writeByte(2)
       ..write(obj.day)
-      ..writeByte(3)
+      ..writeByte(1)
       ..write(obj.month)
-      ..writeByte(4)
+      ..writeByte(2)
       ..write(obj.year)
+      ..writeByte(3)
+      ..write(obj.min)
+      ..writeByte(4)
+      ..write(obj.hr)
       ..writeByte(5)
-      ..write(obj.edited)
+      ..write(obj.content)
       ..writeByte(6)
-      ..write(obj.imgPath);
+      ..write(obj.priority);
   }
 
   @override
@@ -53,7 +53,7 @@ class captureMomentsAdapter extends TypeAdapter<captureMoments> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is captureMomentsAdapter &&
+      other is futureTaskAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'moodTracking.dart';
+part of 'mood_tracking.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator

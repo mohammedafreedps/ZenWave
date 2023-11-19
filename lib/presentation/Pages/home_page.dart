@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'package:flutter/material.dart';
-import 'package:zenwave/presentation/Consts/Color.dart';
+import 'package:zenwave/presentation/Consts/color.dart';
 import 'package:zenwave/presentation/Consts/Values.dart';
-import 'package:zenwave/data/DB/sharedPreference.dart';
+import 'package:zenwave/data/DB/shared_preference.dart';
 import 'package:zenwave/presentation/Consts/screen_size.dart';
 import 'package:zenwave/presentation/Pages/focus_time_setter_page.dart';
 import 'package:zenwave/presentation/Pages/journal_option_page.dart';
@@ -15,7 +15,7 @@ import 'package:zenwave/presentation/Widgets/customisable_button.dart';
 import 'package:zenwave/presentation/Widgets/divider.dart';
 import 'package:zenwave/presentation/Widgets/graph_space.dart';
 import 'package:zenwave/presentation/Widgets/username_stamp.dart';
-import 'package:zenwave/business/services/resetisRated.dart';
+import 'package:zenwave/business/services/reset_is_rated.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

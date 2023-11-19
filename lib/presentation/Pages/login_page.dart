@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:zenwave/presentation/Consts/Color.dart';
+import 'package:zenwave/presentation/Consts/color.dart';
 import 'package:zenwave/presentation/Consts/Values.dart';
-import 'package:zenwave/data/DB/sharedPreference.dart';
+import 'package:zenwave/data/DB/shared_preference.dart';
 import 'package:zenwave/presentation/Pages/home_page.dart';
 import 'package:zenwave/presentation/Widgets/customisable_button.dart';
 import 'package:zenwave/presentation/Widgets/logo.dart';

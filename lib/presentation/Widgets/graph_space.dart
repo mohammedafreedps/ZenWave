@@ -1,7 +1,7 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:zenwave/data/DB/Boxes.dart';
-import 'package:zenwave/presentation/Consts/Color.dart';
+import 'package:zenwave/data/DB/boxes.dart';
+import 'package:zenwave/presentation/Consts/color.dart';
 import 'package:zenwave/presentation/Consts/Values.dart';
 
 class GraphSpace extends StatefulWidget {

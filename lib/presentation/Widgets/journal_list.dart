@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:zenwave/presentation/Consts/Color.dart';
-import 'package:zenwave/presentation/Consts/Values.dart';
+import 'package:zenwave/presentation/Consts/color.dart';
+import 'package:zenwave/presentation/Consts/values.dart';
 import 'package:zenwave/presentation/Pages/entry_view_page.dart';
 import 'package:zenwave/presentation/Widgets/divider.dart';
 

@@ -1,5 +1,5 @@
-import 'package:zenwave/data/DB/Boxes.dart';
-import 'package:zenwave/data/DB/captureMoments/captureMoments.dart';
+import 'package:zenwave/data/DB/boxes.dart';
+import 'package:zenwave/data/DB/captureMoments/capture_moments.dart';
 
 List allValueInCaptureMomentsInDB = [];
 captureMoments? captureMomentsEdit; 

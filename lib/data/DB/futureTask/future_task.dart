@@ -1,6 +1,6 @@
 import 'package:hive/hive.dart';
 
-part 'futureTask.g.dart';
+part 'future_task.g.dart';
 
 @HiveType(typeId: 5)
 class futureTask {

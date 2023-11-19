@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:zenwave/presentation/Consts/Color.dart';
+import 'package:zenwave/presentation/Consts/color.dart';
 import 'package:zenwave/presentation/Consts/Values.dart';
 import 'package:zenwave/presentation/Pages/delete_jounal_list_page.dart';
 import 'package:zenwave/presentation/Pages/future_workplan_page.dart';

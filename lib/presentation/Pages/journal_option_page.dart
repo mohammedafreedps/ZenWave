@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:zenwave/presentation/Consts/Color.dart';
-import 'package:zenwave/presentation/Consts/Values.dart';
+import 'package:zenwave/presentation/Consts/color.dart';
+import 'package:zenwave/presentation/Consts/values.dart';
 import 'package:zenwave/presentation/Pages/capture_page.dart';
 import 'package:zenwave/presentation/Pages/gratitude_journal_list_page.dart';
 import 'package:zenwave/presentation/Pages/personal_journal_list_page.dart';

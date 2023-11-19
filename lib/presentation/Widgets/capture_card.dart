@@ -1,8 +1,8 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:zenwave/presentation/Consts/Color.dart';
-import 'package:zenwave/presentation/Consts/Values.dart';
+import 'package:zenwave/presentation/Consts/color.dart';
+import 'package:zenwave/presentation/Consts/values.dart';
 
 class CaptureCard extends StatefulWidget {
   final String imgPath;

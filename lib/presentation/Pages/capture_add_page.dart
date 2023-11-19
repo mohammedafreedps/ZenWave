@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:zenwave/data/DBFunction/captureMoments.dart';
-import 'package:zenwave/presentation/Consts/Color.dart';
-import 'package:zenwave/presentation/Consts/Values.dart';
+import 'package:zenwave/data/DBFunction/capture_moments.dart';
+import 'package:zenwave/presentation/Consts/color.dart';
+import 'package:zenwave/presentation/Consts/values.dart';
 import 'package:zenwave/presentation/Consts/get_path.dart';
 import 'package:zenwave/presentation/Consts/screen_size.dart';
 import 'package:zenwave/presentation/Widgets/customisable_button.dart';

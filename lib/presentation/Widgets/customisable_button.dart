@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:zenwave/presentation/Consts/Color.dart';
-import 'package:zenwave/presentation/Consts/Values.dart';
+import 'package:zenwave/presentation/Consts/color.dart';
+import 'package:zenwave/presentation/Consts/values.dart';
 
 class CustomisableButton extends StatelessWidget {
   // const CustomisableButton({super.key});

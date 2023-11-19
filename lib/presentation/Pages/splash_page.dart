@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:zenwave/presentation/Consts/Color.dart';
+import 'package:zenwave/presentation/Consts/color.dart';
 import 'package:zenwave/presentation/Pages/info_page.dart';
 import 'package:zenwave/presentation/Widgets/logo.dart';
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:zenwave/data/DBFunction/futureTasks.dart';
-import 'package:zenwave/presentation/Consts/Color.dart';
+import 'package:zenwave/data/DBFunction/future_Tasks.dart';
+import 'package:zenwave/presentation/Consts/color.dart';
 import 'package:zenwave/presentation/Consts/Values.dart';
 import 'package:zenwave/presentation/Widgets/customisable_button.dart';
 import 'package:zenwave/presentation/Widgets/textfield_border.dart';

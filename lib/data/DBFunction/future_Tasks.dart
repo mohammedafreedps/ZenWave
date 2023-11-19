@@ -1,5 +1,5 @@
-import 'package:zenwave/data/DB/Boxes.dart';
-import 'package:zenwave/data/DB/futureTask/futureTask.dart';
+import 'package:zenwave/data/DB/boxes.dart';
+import 'package:zenwave/data/DB/futureTask/future_task.dart';
 
 List allValueInFutureTaskDB = [];
 futureTask? futureTaskEdit;

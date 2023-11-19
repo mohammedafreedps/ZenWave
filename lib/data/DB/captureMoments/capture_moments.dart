@@ -1,6 +1,6 @@
 import 'package:hive/hive.dart';
 
-part 'captureMoments.g.dart';
+part 'capture_moments.g.dart';
 
 @HiveType(typeId: 6)
 class captureMoments {

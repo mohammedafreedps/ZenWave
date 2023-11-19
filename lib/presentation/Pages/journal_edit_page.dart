@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:zenwave/presentation/Consts/Color.dart';
-import 'package:zenwave/presentation/Consts/Values.dart';
-import 'package:zenwave/data/DB/Boxes.dart';
+import 'package:zenwave/data/DBFunction/gratitude_journal.dart';
+import 'package:zenwave/data/DBFunction/personal_journal.dart';
+import 'package:zenwave/presentation/Consts/color.dart';
+import 'package:zenwave/presentation/Consts/values.dart';
+import 'package:zenwave/data/DB/boxes.dart';
 import 'package:zenwave/data/DB/journals/gratitudeJournal.dart';
 import 'package:zenwave/data/DB/journals/personalJournal.dart';
 import 'package:zenwave/presentation/Pages/journal_option_page.dart';
@@ -27,7 +29,7 @@ class _JournalEditPageState extends State<JournalEditPage> {
   TextEditingController jounalEditDescriptionController =
       TextEditingController();
   TextEditingController jounalEditTitleController = TextEditingController();
-  
+
   DateTime? _selectedDate;
   List _allData = [];
 
@@ -44,7 +46,8 @@ class _JournalEditPageState extends State<JournalEditPage> {
       jounalEditTitleController.text = _allData[widget.index].title;
     });
   }
-    _getDataFromGratitudeJournalDB() async {
+
+  _getDataFromGratitudeJournalDB() async {
     if (widget.from == 'Gratitude') {
       _allData = await gratitudeJournalBox.values.toList();
       _setAllValueGratitude();
@@ -66,7 +69,6 @@ class _JournalEditPageState extends State<JournalEditPage> {
     if (widget.from == 'Personal') {
       _getDataFromPersonalJournalDB();
     }
-    
 
     super.initState();
   }
@@ -87,51 +89,46 @@ class _JournalEditPageState extends State<JournalEditPage> {
 
     savePersonalJournal() async {
       if (_selectedDate == null) {
-        print('null statement add');
-        personaljounalEdit = personalJournalBox.getAt(widget.index);
-        personaljounalEdit!.title = jounalEditTitleController.text;
-        personaljounalEdit!.content = jounalEditDescriptionController.text;
-        personaljounalEdit!.edited = true;
-        personaljounalEdit!.day = DateTime.now().day;
-        personaljounalEdit!.month = DateTime.now().month;
-        personaljounalEdit!.year = DateTime.now().year;
-        personalJournalBox.putAt(widget.index, personaljounalEdit);
+        editValuesInPersonalJournal(
+            widget.index,
+            jounalEditTitleController.text,
+            jounalEditDescriptionController.text,
+            DateTime.now().day,
+            DateTime.now().month,
+            DateTime.now().year,
+            true);
       } else if (_selectedDate != null) {
-        print('not null statement add');
-        personaljounalEdit = personalJournalBox.getAt(widget.index);
-        personaljounalEdit!.title = jounalEditTitleController.text;
-        personaljounalEdit!.content = jounalEditDescriptionController.text;
-        personaljounalEdit!.edited = true;
-        personaljounalEdit!.day = _selectedDate!.day;
-        personaljounalEdit!.month = _selectedDate!.month;
-        personaljounalEdit!.year = _selectedDate!.year;
-        personalJournalBox.putAt(widget.index, personaljounalEdit);
+        editValuesInPersonalJournal(
+            widget.index,
+            jounalEditTitleController.text,
+            jounalEditDescriptionController.text,
+            _selectedDate!.day,
+            _selectedDate!.month,
+            _selectedDate!.year,
+            true);
       }
     }
 
     saveGratitudeJournal() async {
- if (_selectedDate == null) {
-        print('null statement add');
-        gratitudeJournalEdit = gratitudeJournalBox.getAt(widget.index);
-        gratitudeJournalEdit!.title = jounalEditTitleController.text;
-        gratitudeJournalEdit!.content = jounalEditDescriptionController.text;
-        gratitudeJournalEdit!.edited = true;
-        gratitudeJournalEdit!.day = DateTime.now().day;
-        gratitudeJournalEdit!.month = DateTime.now().month;
-        gratitudeJournalEdit!.year = DateTime.now().year;
-        gratitudeJournalBox.putAt(widget.index, gratitudeJournalEdit);
+      if (_selectedDate == null) {
+        editValuesInGratutudeJournal(
+            widget.index,
+            jounalEditTitleController.text,
+            jounalEditDescriptionController.text,
+            DateTime.now().day,
+            DateTime.now().month,
+            DateTime.now().year,
+            true);
       } else if (_selectedDate != null) {
-        print('not null statement add');
-        gratitudeJournalEdit = gratitudeJournalBox.getAt(widget.index);
-        gratitudeJournalEdit!.title = jounalEditTitleController.text;
-        gratitudeJournalEdit!.content = jounalEditDescriptionController.text;
-        gratitudeJournalEdit!.edited = true;
-        gratitudeJournalEdit!.day = _selectedDate!.day;
-        gratitudeJournalEdit!.month = _selectedDate!.month;
-        gratitudeJournalEdit!.year = _selectedDate!.year;
-        gratitudeJournalBox.putAt(widget.index, gratitudeJournalEdit);
+        editValuesInGratutudeJournal(
+            widget.index,
+            jounalEditTitleController.text,
+            jounalEditDescriptionController.text,
+            _selectedDate!.day,
+            _selectedDate!.month,
+            _selectedDate!.year,
+            true);
       }
-
     }
 
     saveTo() {
@@ -199,7 +196,6 @@ class _JournalEditPageState extends State<JournalEditPage> {
                             false,
                             toPerform: _showDatePicker,
                           ),
-
                           SizedBox(
                             height: 40,
                           ),
@@ -210,7 +206,6 @@ class _JournalEditPageState extends State<JournalEditPage> {
                           ),
                           Text('Description'),
                           TextFieldBorder(jounalEditDescriptionController),
-
                         ],
                       )),
                 ),

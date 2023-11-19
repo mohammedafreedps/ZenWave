@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-import 'package:zenwave/data/DB/sharedPreference.dart';
+import 'package:zenwave/data/DB/shared_preference.dart';
 
 void resetisRated(){
   print('service reset mood');

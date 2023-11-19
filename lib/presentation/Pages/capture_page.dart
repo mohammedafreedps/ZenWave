@@ -1,10 +1,10 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:zenwave/data/DB/Boxes.dart';
-import 'package:zenwave/data/DB/captureMoments/captureMoments.dart';
-import 'package:zenwave/data/DBFunction/captureMoments.dart';
-import 'package:zenwave/presentation/Consts/Color.dart';
-import 'package:zenwave/presentation/Consts/Values.dart';
+import 'package:zenwave/data/DB/boxes.dart';
+import 'package:zenwave/data/DB/captureMoments/capture_moments.dart';
+import 'package:zenwave/data/DBFunction/capture_moments.dart';
+import 'package:zenwave/presentation/Consts/color.dart';
+import 'package:zenwave/presentation/Consts/values.dart';
 import 'package:zenwave/presentation/Consts/screen_size.dart';
 import 'package:zenwave/presentation/Pages/capture_add_page.dart';
 import 'package:zenwave/presentation/Pages/capture_edit_page.dart';

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:zenwave/data/DB/journals/personalJournal.dart';
-import 'package:zenwave/presentation/Consts/Color.dart';
-import 'package:zenwave/presentation/Consts/Values.dart';
-import 'package:zenwave/data/DB/Boxes.dart';
+import 'package:zenwave/data/DBFunction/personal_journal.dart';
+import 'package:zenwave/presentation/Consts/color.dart';
+import 'package:zenwave/presentation/Consts/values.dart';
+import 'package:zenwave/data/DB/boxes.dart';
 import 'package:zenwave/data/DB/journals/deletedJournal.dart';
 import 'package:zenwave/presentation/Pages/journal_add_page.dart';
 import 'package:zenwave/presentation/Pages/journal_edit_page.dart';
@@ -22,25 +23,23 @@ class _PersonalJournalListsState extends State<PersonalJournalLists> {
   DateTime? _startingDate;
   DateTime? _endingDate;
 
-  List _allPersonalJournals = [];
   List _searchResuls = [];
 
   TextEditingController _searchTitleController = TextEditingController(); 
 
-
-  _getDataFromPersonalJournalDB() async {
-    _allPersonalJournals = personalJournalBox.values.toList();
+  _setValueFromDB(){
     setState(() {
-      _searchResuls = _allPersonalJournals;
+      _searchResuls = getAllValueFromPersonalJournal();
     });
   }
+
 
   _searchJournals(DateTime searchDate) {
     int _searchDay = searchDate.day;
     int _searchMonth = searchDate.month;
     int _searchYear = searchDate.year;
     print('searching block');
-    _searchResuls = _allPersonalJournals.where((journal) {
+    _searchResuls = allValueInPersonalJournalsDB.where((journal) {
       return journal.day == _searchDay &&
           journal.month == _searchMonth &&
           journal.year == _searchYear;
@@ -53,20 +52,20 @@ class _PersonalJournalListsState extends State<PersonalJournalLists> {
       final _giver = deletedJournal(
           _give.title,_give.content, _give.day, _give.month, _give.year,_give.edited, 'Personal');
       deletedJournalBox.put(DateTime.now().toString(), _giver);
-      personalJournalBox.deleteAt(index);
-      _getDataFromPersonalJournalDB();
+      deleteValueInPersonalJournal(index);
+      _setValueFromDB();
     });
   }
 
   _editJounal(index) {
     final personalJournal = _searchResuls[index];
-    final originalIndex = _allPersonalJournals.indexOf(personalJournal);
+    final originalIndex = allValueInPersonalJournalsDB.indexOf(personalJournal);
     Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
       return JournalEditPage(
         'Personal',
         'Save',
         originalIndex,
-        toperform: _getDataFromPersonalJournalDB,
+        toperform: _setValueFromDB,
       );
     }));
   }
@@ -151,7 +150,7 @@ class _PersonalJournalListsState extends State<PersonalJournalLists> {
 
   _serchByTitle(String searchFor) {
     setState(() {
-      _searchResuls = _allPersonalJournals
+      _searchResuls = allValueInPersonalJournalsDB
           .where((journal) =>
               journal.title.toLowerCase().startsWith(searchFor.toLowerCase()))
           .toList();
@@ -160,7 +159,7 @@ class _PersonalJournalListsState extends State<PersonalJournalLists> {
 
   @override
   void initState() {
-    _getDataFromPersonalJournalDB();
+    _searchResuls  =  getAllValueFromPersonalJournal();
     super.initState();
   }
 
@@ -195,7 +194,7 @@ class _PersonalJournalListsState extends State<PersonalJournalLists> {
                       ),
                       IconButton(
                           onPressed: () {
-                            _getDataFromPersonalJournalDB();
+                            _setValueFromDB();
                           },
                           icon: Icon(Icons.refresh))
                     ],
@@ -296,6 +295,7 @@ class _PersonalJournalListsState extends State<PersonalJournalLists> {
         child: Icon(
           Icons.add,
           size: 30,
+          color: PRIMARY_COLOR,
         ),
       ),
     );

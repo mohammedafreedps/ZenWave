@@ -19,7 +19,8 @@ class _LoginPageState extends State<LoginPage> {
 
   _validation(){
     if (_userName.text.isNotEmpty) {
-      saveUserName(_userName.text);
+      saveUserName(_userName.text.trim());
+      saveIsUserLogin(true);
       print('validation else case'+_userName.text);
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context){
         return HomePage();

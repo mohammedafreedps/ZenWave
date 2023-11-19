@@ -64,12 +64,11 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       body: SafeArea(
         child: Container(
-          width: double.infinity,
-          height: screenHeight,
+          width: SCREEN_WIDTH,
+          height: SCREEN_HEIGHT,
           color: BASE_COLOR,
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: PAGE_PADDING),

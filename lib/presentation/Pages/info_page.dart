@@ -20,7 +20,7 @@ class _InfoPageState extends State<InfoPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    Timer(Duration(seconds: 1), () {
+    Timer(Duration(seconds: 10), () {
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context){
         return LoginPage();
       }));

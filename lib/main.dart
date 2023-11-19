@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:zenwave/data/DB/boxes.dart';
@@ -7,6 +9,7 @@ import 'package:zenwave/data/DB/journals/deletedJournal.dart';
 import 'package:zenwave/data/DB/journals/gratitudeJournal.dart';
 import 'package:zenwave/data/DB/journals/moodTracking.dart';
 import 'package:zenwave/data/DB/journals/personalJournal.dart';
+import 'package:zenwave/data/DB/shared_preference.dart';
 import 'package:zenwave/presentation/Pages/splash_page.dart';
 import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 
@@ -14,8 +17,11 @@ import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await AndroidAlarmManager.initialize();
+  if (Platform.isAndroid) {
+     await AndroidAlarmManager.initialize();
 
+  }
+ 
   await Hive.initFlutter();
   Hive.registerAdapter(personalJournalAdapter());
   personalJournalBox = await Hive.openBox<personalJournal>('personalJournalBox');
@@ -30,6 +36,7 @@ void main() async {
   Hive.registerAdapter(captureMomentsAdapter());
   captureMomentsBox = await Hive.openBox<captureMoments>('captureMomentsBox');
 
+  getIsUserLogin();
  
   runApp(const ZenWave());
 }

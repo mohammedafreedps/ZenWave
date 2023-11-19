@@ -18,9 +18,8 @@ class _PreferencePageState extends State<PreferencePage> {
   Timer? _textDisable;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    _textDisable = Timer(Duration(seconds: 2), () {
+    _textDisable = Timer(Duration(seconds: 5), () {
       setState(() {
         _hide = true;
       });

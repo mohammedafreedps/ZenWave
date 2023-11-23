@@ -14,7 +14,7 @@ void main() async {
   }
   initialiseDataBase();
 
-  getIsUserLogin();
+  await getIsUserLogin();
  
   runApp(const ZenWave());
 }

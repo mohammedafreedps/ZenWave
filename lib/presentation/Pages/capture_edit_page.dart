@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:zenwave/business/services/hapticfeedback.dart';
 import 'package:zenwave/data/DB/boxes.dart';
 import 'package:zenwave/data/DBFunction/capture_moments.dart';
 import 'package:zenwave/presentation/Consts/color.dart';
@@ -218,6 +219,7 @@ class _CaptureEditPageState extends State<CaptureEditPage> {
                                   }
                                   if (_pickedFile != null) {
                                     if (await _editImageLocally()) {
+                                      hapticFeedback('s');
                                       widget.toPerform();
                                       Navigator.pop(context);
                                     }

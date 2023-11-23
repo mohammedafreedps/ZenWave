@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:zenwave/business/Functions/navigate_page.dart';
+import 'package:zenwave/business/services/hapticfeedback.dart';
 import 'package:zenwave/data/DB/shared_preference.dart';
 import 'package:zenwave/presentation/Widgets/textfield_border.dart';
 
@@ -18,6 +19,7 @@ changeUserName(BuildContext context, {Function? toPerform}) {
                     await saveUserName(_newName.text);
                     if (toPerform != null) {
                       toPerform();
+                      hapticFeedback('selection');
                       navigateTo(context: context, goLike: 'pop');
                     }
                   }

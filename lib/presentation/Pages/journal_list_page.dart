@@ -4,6 +4,7 @@ import 'package:zenwave/business/Functions/search_by_date.dart';
 import 'package:zenwave/business/Functions/search_by_date_range.dart';
 import 'package:zenwave/business/Functions/search_by_title.dart';
 import 'package:zenwave/business/Functions/show_picker_date.dart';
+import 'package:zenwave/business/services/hapticfeedback.dart';
 import 'package:zenwave/data/DBFunction/gratitude_journal.dart';
 import 'package:zenwave/data/DBFunction/personal_journal.dart';
 import 'package:zenwave/presentation/Consts/color.dart';
@@ -223,6 +224,7 @@ class _JournalListPageState extends State<JournalListPage> {
                       ),
                       IconButton(
                           onPressed: () {
+                            hapticFeedback('s');
                             _setValueFromDB();
                           },
                           icon: Icon(Icons.refresh))
@@ -287,12 +289,14 @@ class _JournalListPageState extends State<JournalListPage> {
                                       actions: [
                                         TextButton(
                                             onPressed: () {
+                                              hapticFeedback('l');
                                               Navigator.pop(context);
                                               _editJounal(index);
                                             },
                                             child: Text('Edit')),
                                         TextButton(
                                             onPressed: () {
+                                              hapticFeedback('s');
                                               Navigator.pop(context);
                                               _deleteJournal(index);
                                             },
@@ -331,6 +335,7 @@ class _JournalListPageState extends State<JournalListPage> {
         elevation: Elevetion,
         backgroundColor: SECONDARY_COLOR,
         onPressed: () {
+          hapticFeedback('s');
           navigateTo(
               context: context,
               goLike: 'pushReplacement',

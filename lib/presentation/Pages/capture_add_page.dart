@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:zenwave/business/services/hapticfeedback.dart';
 import 'package:zenwave/data/DBFunction/capture_moments.dart';
 import 'package:zenwave/presentation/Consts/color.dart';
 import 'package:zenwave/presentation/Consts/values.dart';
@@ -148,6 +149,7 @@ class _CaptureAddPageState extends State<CaptureAddPage> {
                                     _selectedDate != null &&
                                     _imgPath != null) {
                                   if (await _saveImageLocally()) {
+                                    hapticFeedback('s');
                                     Navigator.pop(context);
                                   }
                                 }

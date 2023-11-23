@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:zenwave/business/services/hapticfeedback.dart';
 import 'package:zenwave/presentation/Consts/color.dart';
 import 'package:zenwave/presentation/Consts/values.dart';
 import 'package:zenwave/presentation/Pages/entry_view_page.dart';
@@ -24,6 +25,7 @@ class JournalListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
+        hapticFeedback('m');
         Navigator.push(context,
             MaterialPageRoute(builder: (BuildContext context) {
           return EntryviewPage(content,title,enableRestoreButton,isEdited,index: index,forRefrsh: passingForRefresh,);

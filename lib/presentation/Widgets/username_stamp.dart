@@ -1,5 +1,7 @@
 
 import 'package:flutter/material.dart';
+import 'package:zenwave/business/Functions/navigate_page.dart';
+import 'package:zenwave/business/services/hapticfeedback.dart';
 import 'package:zenwave/presentation/Consts/color.dart';
 import 'package:zenwave/presentation/Consts/Values.dart';
 import 'package:zenwave/presentation/Widgets/logo.dart';
@@ -25,9 +27,8 @@ class _UsernmaeStampState extends State<UsernmaeStamp> {
 
     return InkWell(
         onTap: () {
-          Navigator.push(context, MaterialPageRoute(builder: (BuildContext context){
-            return widget.PreferencePage;
-          }));
+          hapticFeedback('m');
+          navigateTo(context: context, goLike: 'push', goPage: widget.PreferencePage);
         },
         child: PhysicalModel(
           color: SECONDARY_COLOR,

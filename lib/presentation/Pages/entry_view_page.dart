@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:zenwave/business/services/hapticfeedback.dart';
 import 'package:zenwave/presentation/Consts/color.dart';
 import 'package:zenwave/presentation/Consts/screen_size.dart';
 import 'package:zenwave/presentation/Consts/values.dart';
@@ -28,6 +29,7 @@ class _EntryviewPageState extends State<EntryviewPage> {
   @override
   Widget build(BuildContext context) {
     Resoter() {
+      hapticFeedback('s');
       if (widget.index != null) {
         final _give = deletedJournalBox.getAt(widget.index!);
         if (_give.fromWhere == 'Personal') {

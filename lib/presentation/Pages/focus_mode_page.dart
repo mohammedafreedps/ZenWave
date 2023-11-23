@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:zenwave/business/services/hapticfeedback.dart';
 import 'package:zenwave/presentation/Consts/color.dart';
 import 'package:zenwave/presentation/Consts/Values.dart';
 import 'package:zenwave/presentation/Consts/screen_size.dart';
@@ -42,6 +43,7 @@ class _FocusModePageState extends State<FocusModePage> {
   Widget build(BuildContext context) {
     StopfocusTimers() {
       if (focusTimer != null && focusProgressBar != null) {
+        hapticFeedback('s');
         setState(() {
           _isActive = false;
           _progressBar = 0.0;

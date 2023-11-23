@@ -3,6 +3,7 @@ import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:zenwave/business/Functions/change_name.dart';
 import 'package:zenwave/business/Functions/navigate_page.dart';
+import 'package:zenwave/business/services/hapticfeedback.dart';
 import 'package:zenwave/data/DBFunction/delete_all_data.dart';
 import 'package:zenwave/presentation/Consts/color.dart';
 import 'package:zenwave/presentation/Consts/Values.dart';
@@ -66,14 +67,14 @@ class _HomePageState extends State<HomePage> {
       drawer: Drawer(
         backgroundColor: BASE_COLOR,
         child: Padding(
-          padding: EdgeInsets.only(top: 50),
+          padding: const EdgeInsets.only(top: 50),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  cusText(
+                  const cusText(
                     content: 'Haptic Feedback',
                     fontSize: 20,
                   ),
@@ -85,7 +86,6 @@ class _HomePageState extends State<HomePage> {
                       value: hapticOn,
                       onChanged: (value) {
                         setState(() {
-                          print(value);
                           hapticOn = value;
                           setHapticFeedback(value);
                         });
@@ -96,18 +96,24 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   cusTextButton(() {
                     changeUserName(context, toPerform: _refresh);
+                    hapticFeedback('m');
                   }, 'Change Name'),
                   cusTextButton(() {
-                    navigateTo(context: context, goLike: 'push', goPage: PrivacyPolicy());
+                    hapticFeedback('m');
+                    navigateTo(
+                        context: context,
+                        goLike: 'push',
+                        goPage: const PrivacyPolicy());
                   }, 'Privacy and Policy'),
                   cusTextButton(
                     () {
+                      hapticFeedback('s');
                       clearAllDataFromDB(context);
                     },
                     'Delete Everything',
                     color: Colors.red,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 40,
                   )
                 ],
@@ -122,14 +128,14 @@ class _HomePageState extends State<HomePage> {
           height: SCREEN_HEIGHT,
           color: BASE_COLOR,
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: PAGE_PADDING),
+            padding: const EdgeInsets.symmetric(horizontal: PAGE_PADDING),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 isRated == true
                     ? UsernmaeStamp(UserNameFromSP, const PreferencePage())
                     : CustomisableButton(
-                        double.infinity,
+                        SCREEN_WIDTH,
                         BIG_BUTTON_HEIGHT,
                         PRIMARY_COLOR,
                         BASE_COLOR,
@@ -143,7 +149,7 @@ class _HomePageState extends State<HomePage> {
                 GraphSpace("This Week"),
                 const Dividers(),
                 CustomisableButton(
-                  double.infinity,
+                  SCREEN_WIDTH,
                   BIG_BUTTON_HEIGHT,
                   SECONDARY_COLOR,
                   PRIMARY_COLOR,
@@ -154,7 +160,7 @@ class _HomePageState extends State<HomePage> {
                   HowToGO: 'push',
                 ),
                 CustomisableButton(
-                  double.infinity,
+                  SCREEN_WIDTH,
                   BIG_BUTTON_HEIGHT,
                   SECONDARY_COLOR,
                   PRIMARY_COLOR,
@@ -165,7 +171,7 @@ class _HomePageState extends State<HomePage> {
                   HowToGO: 'push',
                 ),
                 CustomisableButton(
-                  double.infinity,
+                  SCREEN_WIDTH,
                   BIG_BUTTON_HEIGHT,
                   SECONDARY_COLOR,
                   PRIMARY_COLOR,

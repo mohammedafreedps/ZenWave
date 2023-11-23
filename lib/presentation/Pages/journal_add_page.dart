@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:zenwave/business/services/hapticfeedback.dart';
 import 'package:zenwave/presentation/Consts/color.dart';
 import 'package:zenwave/presentation/Consts/screen_size.dart';
 import 'package:zenwave/presentation/Consts/values.dart';
@@ -45,6 +46,7 @@ class _JournalAddPageState extends State<JournalAddPage> {
     
 
     savePersonalJournal() async {
+      hapticFeedback('s');
       if (_selectedDate == null) {
         print('null statement add');
         await personalJournalBox.put(
@@ -61,6 +63,7 @@ class _JournalAddPageState extends State<JournalAddPage> {
     }
 
     saveGratitudeJournal() async {
+      hapticFeedback('s');
       if (_selectedDate == null) {
         print('null statement add');
         await gratitudeJournalBox.put(

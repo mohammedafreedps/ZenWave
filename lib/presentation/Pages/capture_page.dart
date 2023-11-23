@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:zenwave/business/services/hapticfeedback.dart';
 import 'package:zenwave/data/DB/boxes.dart';
 import 'package:zenwave/data/DB/captureMoments/capture_moments.dart';
 import 'package:zenwave/data/DBFunction/capture_moments.dart';
@@ -193,6 +194,7 @@ class _CapturePageState extends State<CapturePage> {
                     ),
                     IconButton(
                         onPressed: () {
+                          hapticFeedback('s');
                           _refreshValueList();
                         },
                         icon: Icon(Icons.refresh))
@@ -298,6 +300,7 @@ class _CapturePageState extends State<CapturePage> {
         elevation: Elevetion,
         backgroundColor: SECONDARY_COLOR,
         onPressed: () {
+          hapticFeedback('m');
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(builder: (BuildContext context) {

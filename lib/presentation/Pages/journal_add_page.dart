@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:zenwave/presentation/Consts/color.dart';
+import 'package:zenwave/presentation/Consts/screen_size.dart';
 import 'package:zenwave/presentation/Consts/values.dart';
 import 'package:zenwave/data/DB/boxes.dart';
 import 'package:zenwave/data/DB/journals/gratitudeJournal.dart';
@@ -9,7 +10,6 @@ import 'package:zenwave/presentation/Widgets/customisable_button.dart';
 import 'package:zenwave/presentation/Widgets/textfield_border.dart';
 
 class JournalAddPage extends StatefulWidget {
-  // const JournalAddPage({super.key});
   final String setTo;
   final String buttontext;
   final Function? toperform;
@@ -103,14 +103,13 @@ class _JournalAddPageState extends State<JournalAddPage> {
           style: TextStyle(color: PRIMARY_COLOR, fontSize: 28),
         ),
       ),
-      body: SingleChildScrollView(
-        child: Container(
-          width: double.infinity,
-          height: 990,
-          padding: EdgeInsets.all(PAGE_PADDING),
-          color: BASE_COLOR,
+      body: Container(
+        width: SCREEN_WIDTH,
+        height: SCREEN_HEIGHT,
+        padding: EdgeInsets.all(PAGE_PADDING),
+        color: BASE_COLOR,
+        child: SingleChildScrollView(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               PhysicalModel(
                 color: SECONDARY_COLOR,
@@ -149,6 +148,7 @@ class _JournalAddPageState extends State<JournalAddPage> {
                       )),
                 ),
               ),
+              SizedBox(height: 40,),
               CustomisableButton(
                 240,
                 69,

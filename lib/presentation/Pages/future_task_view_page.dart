@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:zenwave/presentation/Consts/color.dart';
 import 'package:zenwave/presentation/Consts/Values.dart';
 import 'package:zenwave/presentation/Consts/screen_size.dart';
-import 'package:zenwave/presentation/Widgets/customisable_button.dart';
 
 class FutureTaskViewPage extends StatefulWidget {
   final String task;
@@ -42,8 +41,6 @@ class _FutureTaskViewPageState extends State<FutureTaskViewPage> {
                   Text(widget.task),
                 ],
               ),
-              CustomisableButton(150, 40, SECONDARY_COLOR, PRIMARY_COLOR,
-                  'Completed', 20, false)
             ],
           ),
         ),

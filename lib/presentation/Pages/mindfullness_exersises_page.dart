@@ -3,7 +3,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:zenwave/presentation/Consts/color.dart';
 import 'package:zenwave/presentation/Consts/Values.dart';
-import 'package:zenwave/presentation/Pages/gratitude_journal_list_page.dart';
+import 'package:zenwave/presentation/Consts/screen_size.dart';
+import 'package:zenwave/presentation/Pages/journal_list_page.dart';
+import 'package:zenwave/presentation/Widgets/cusText.dart';
 import 'package:zenwave/presentation/Widgets/customisable_button.dart';
 import 'package:zenwave/presentation/Widgets/progress_circle.dart';
 
@@ -117,26 +119,21 @@ class _MindfulnessExercisesState extends State<MindfulnessExercises> {
           stopTechnique();
         }
       });
-
-      print(_counter);
     });
   }
 
   performSelected() {
-  setState(() {
-    _instructionText = 'Redy';
-  });
-    print('pass 1');
+    setState(() {
+      _instructionText = 'Ready';
+    });
     _isSlelected = true;
     setState(() {
       if (_boxbreathing == false && _technique == false) {
       } else if (_boxbreathing != false && _technique == false) {
         _iStart = true;
-        print('boxing');
         _startTimerBoxBreatheing();
       } else if (_boxbreathing == false && _technique != false) {
         _iStart = true;
-        print('techinicking');
         _startTimerTechnique();
       }
     });
@@ -172,7 +169,6 @@ class _MindfulnessExercisesState extends State<MindfulnessExercises> {
       _instructionText = '';
       _isSlelected = false;
       if (_techniqueTimer != null) {
-        print('stopoping techniqe test ');
         _techniqueTimer!.cancel();
       }
     });
@@ -187,8 +183,8 @@ class _MindfulnessExercisesState extends State<MindfulnessExercises> {
         iconTheme: IconThemeData(color: PRIMARY_COLOR),
       ),
       body: Container(
-        width: double.infinity,
-        height: double.infinity,
+        width: SCREEN_WIDTH,
+        height: SCREEN_HEIGHT,
         color: BASE_COLOR,
         child: Padding(
           padding: EdgeInsets.all(PAGE_PADDING),
@@ -236,9 +232,9 @@ class _MindfulnessExercisesState extends State<MindfulnessExercises> {
                           SizedBox(
                             height: 40,
                           ),
-                          Text(
-                            _choice,
-                            style: TextStyle(color: PRIMARY_COLOR, fontSize: 25),
+                          cusText(
+                            content: _choice,
+                            fontSize: 25,
                           ),
                           SizedBox(
                             height: 40,
@@ -255,12 +251,11 @@ class _MindfulnessExercisesState extends State<MindfulnessExercises> {
                               Positioned(
                                   top: 95,
                                   left: 85,
-                                  child: Text(
-                                    'Breath' + '\n' + _instructionText,
-                                    style: TextStyle(
-                                        color: PRIMARY_COLOR, fontSize: 30),
+                                  child: cusText(
+                                    content: 'Breath' + '\n' + _instructionText,
+                                    fontSize: 30,
                                     textAlign: TextAlign.center,
-                                  )),
+                                  ))
                             ],
                           ),
                           SizedBox(
@@ -301,7 +296,7 @@ class _MindfulnessExercisesState extends State<MindfulnessExercises> {
                 'Gratitude Journaling',
                 BIG_BUTTON_FONT_SIZE,
                 true,
-                go: GratitudejournalList(),
+                go: JournalListPage('Gratitude'),
                 HowToGO: 'pushReplace',
               )
             ],

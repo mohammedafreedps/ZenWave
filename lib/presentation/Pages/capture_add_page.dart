@@ -52,7 +52,6 @@ class _CaptureAddPageState extends State<CaptureAddPage> {
         final imageDirectoryPath = await getAppImageDirectoryPath();
         final File imageFile = File(_pickedFile!.path);
 
-        // Save the picked image to the "images" directory
         final String newImagePath =
             '$imageDirectoryPath/${DateTime.now().millisecondsSinceEpoch}.jpg';
         await imageFile.copy(newImagePath);

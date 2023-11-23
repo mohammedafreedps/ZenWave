@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:zenwave/data/DBFunction/future_Tasks.dart';
 import 'package:zenwave/presentation/Consts/color.dart';
 import 'package:zenwave/presentation/Consts/Values.dart';
+import 'package:zenwave/presentation/Consts/screen_size.dart';
 import 'package:zenwave/presentation/Widgets/customisable_button.dart';
 import 'package:zenwave/presentation/Widgets/textfield_border.dart';
 
@@ -103,8 +104,8 @@ class _FutureTaskEditPageState extends State<FutureTaskEditPage> {
         iconTheme: IconThemeData(color: PRIMARY_COLOR),
       ),
       body: Container(
-        width: double.infinity,
-        height: double.infinity,
+        width: SCREEN_WIDTH,
+        height: SCREEN_HEIGHT,
         color: BASE_COLOR,
         child: Padding(
           padding: EdgeInsets.all(PAGE_PADDING),

@@ -1,8 +1,8 @@
-
 import 'package:flutter/material.dart';
+import 'package:zenwave/data/DBFunction/deleted_journals.dart';
 import 'package:zenwave/presentation/Consts/color.dart';
 import 'package:zenwave/presentation/Consts/Values.dart';
-import 'package:zenwave/data/DB/boxes.dart';
+import 'package:zenwave/presentation/Consts/screen_size.dart';
 import 'package:zenwave/presentation/Widgets/journal_list.dart';
 
 class DeletedJournalList extends StatefulWidget {
@@ -13,50 +13,11 @@ class DeletedJournalList extends StatefulWidget {
 }
 
 class _DeletedJournalListState extends State<DeletedJournalList> {
-  DateTime? _selectedDate;
-
-  List _allDeletedJournals = [];
   List _searchResuls = [];
 
   _getDataFromDeleteJournalDB() async {
     setState(() {
-      _allDeletedJournals = deletedJournalBox.values.toList();
-      _searchResuls = _allDeletedJournals;
-    });
-  }
-
-  _searchJournals(DateTime searchDate) {
-    int _searchDay = searchDate.day;
-    int _searchMonth = searchDate.month;
-    int _searchYear = searchDate.year;
-    print('searching block');
-    _searchResuls = _allDeletedJournals.where((journal) {
-      return journal.day == _searchDay &&
-          journal.month == _searchMonth &&
-          journal.year == _searchYear;
-    }).toList();
-  }
-
-  _deleteJournal(index) async {
-    setState(() {
-      deletedJournalBox.deleteAt(index);
-      _getDataFromDeleteJournalDB();
-    });
-  }
-
-  void _showDatePicker() {
-    showDatePicker(
-            context: context,
-            initialDate: DateTime.now(),
-            firstDate: DateTime(2000),
-            lastDate: DateTime(2040))
-        .then((value) {
-      setState(() {
-        _selectedDate = value;
-        if (_selectedDate != null) {
-          _searchJournals(_selectedDate!);
-        }
-      });
+      _searchResuls = getallValueFromDeletedJournal();
     });
   }
 
@@ -75,8 +36,8 @@ class _DeletedJournalListState extends State<DeletedJournalList> {
         elevation: 0,
       ),
       body: Container(
-          width: double.infinity,
-          height: double.infinity,
+          width: SCREEN_WIDTH,
+          height: SCREEN_HEIGHT,
           color: BASE_COLOR,
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: PAGE_PADDING),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:zenwave/data/DBFunction/gratitude_journal.dart';
 import 'package:zenwave/data/DBFunction/personal_journal.dart';
 import 'package:zenwave/presentation/Consts/color.dart';
+import 'package:zenwave/presentation/Consts/screen_size.dart';
 import 'package:zenwave/presentation/Consts/values.dart';
 import 'package:zenwave/data/DB/boxes.dart';
 import 'package:zenwave/data/DB/journals/gratitudeJournal.dart';
@@ -166,8 +167,8 @@ class _JournalEditPageState extends State<JournalEditPage> {
       ),
       body: SingleChildScrollView(
         child: Container(
-          width: double.infinity,
-          height: 990,
+          width: SCREEN_WIDTH,
+          height: SCREEN_HEIGHT,
           padding: EdgeInsets.all(PAGE_PADDING),
           color: BASE_COLOR,
           child: Column(

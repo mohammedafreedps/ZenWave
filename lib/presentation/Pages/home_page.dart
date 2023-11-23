@@ -1,6 +1,9 @@
 import 'dart:async';
 import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:zenwave/business/Functions/change_name.dart';
+import 'package:zenwave/business/Functions/navigate_page.dart';
+import 'package:zenwave/data/DBFunction/delete_all_data.dart';
 import 'package:zenwave/presentation/Consts/color.dart';
 import 'package:zenwave/presentation/Consts/Values.dart';
 import 'package:zenwave/data/DB/shared_preference.dart';
@@ -8,9 +11,11 @@ import 'package:zenwave/presentation/Consts/screen_size.dart';
 import 'package:zenwave/presentation/Pages/focus_time_setter_page.dart';
 import 'package:zenwave/presentation/Pages/journal_option_page.dart';
 import 'package:zenwave/presentation/Pages/mindfullness_exersises_page.dart';
-import 'package:zenwave/presentation/Pages/mood_graph_page.dart';
 import 'package:zenwave/presentation/Pages/mood_rating_page.dart';
 import 'package:zenwave/presentation/Pages/preference_page.dart';
+import 'package:zenwave/presentation/Pages/privacy_policy_page.dart';
+import 'package:zenwave/presentation/Widgets/cusText.dart';
+import 'package:zenwave/presentation/Widgets/cusTextButton.dart';
 import 'package:zenwave/presentation/Widgets/customisable_button.dart';
 import 'package:zenwave/presentation/Widgets/divider.dart';
 import 'package:zenwave/presentation/Widgets/graph_space.dart';
@@ -26,12 +31,11 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   Timer? _ratedChecker;
+
   @override
   void initState() {
-    print(TimeOfDay.now());
     super.initState();
     AndroidAlarmManager.periodic(const Duration(seconds: 1), 1, resetisRated);
-
     _ratedChecker = Timer(const Duration(microseconds: 1000), () {
       if (mounted) {
         setState(() {
@@ -48,23 +52,70 @@ class _HomePageState extends State<HomePage> {
     super.dispose();
   }
 
-  _Refresh() {
+  _refresh() {
     if (mounted) {
-      setState(() {
-        print('refreh worked');
-      });
+      setState(() {});
       getIsRated();
+      getUserName();
     }
-  }
-  @override
-  void didChangeDependencies() {
-    screenHeightInitializing(context) ;
-    super.didChangeDependencies();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: Drawer(
+        backgroundColor: BASE_COLOR,
+        child: Padding(
+          padding: EdgeInsets.only(top: 50),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  cusText(
+                    content: 'Haptic Feedback',
+                    fontSize: 20,
+                  ),
+                  Switch(
+                      activeColor: PRIMARY_COLOR,
+                      activeTrackColor: SECONDARY_COLOR,
+                      inactiveThumbColor: SECONDARY_COLOR,
+                      inactiveTrackColor: PRIMARY_COLOR,
+                      value: hapticOn,
+                      onChanged: (value) {
+                        setState(() {
+                          print(value);
+                          hapticOn = value;
+                          setHapticFeedback(value);
+                        });
+                      }),
+                ],
+              ),
+              Column(
+                children: [
+                  cusTextButton(() {
+                    changeUserName(context, toPerform: _refresh);
+                  }, 'Change Name'),
+                  cusTextButton(() {
+                    navigateTo(context: context, goLike: 'push', goPage: PrivacyPolicy());
+                  }, 'Privacy and Policy'),
+                  cusTextButton(
+                    () {
+                      clearAllDataFromDB(context);
+                    },
+                    'Delete Everything',
+                    color: Colors.red,
+                  ),
+                  SizedBox(
+                    height: 40,
+                  )
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
       body: SafeArea(
         child: Container(
           width: SCREEN_WIDTH,
@@ -85,19 +136,11 @@ class _HomePageState extends State<HomePage> {
                         'Rate your day',
                         BIG_BUTTON_FONT_SIZE,
                         true,
-                        go: MoodRatingPage(_Refresh),
+                        go: MoodRatingPage(_refresh),
                         HowToGO: 'pushReplace',
                       ),
                 const Dividers(),
-                GestureDetector(
-                    onTap: () {
-                      print('Graph tapped');
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (BuildContext context) {
-                        return const MoodGraphDetails();
-                      }));
-                    },
-                    child: GraphSpace("This Week")),
+                GraphSpace("This Week"),
                 const Dividers(),
                 CustomisableButton(
                   double.infinity,

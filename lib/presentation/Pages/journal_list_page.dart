@@ -1,89 +1,124 @@
 import 'package:flutter/material.dart';
-import 'package:zenwave/data/DB/journals/personalJournal.dart';
+import 'package:zenwave/business/Functions/navigate_page.dart';
+import 'package:zenwave/business/Functions/search_by_date.dart';
+import 'package:zenwave/business/Functions/search_by_date_range.dart';
+import 'package:zenwave/business/Functions/search_by_title.dart';
+import 'package:zenwave/business/Functions/show_picker_date.dart';
+import 'package:zenwave/data/DBFunction/gratitude_journal.dart';
 import 'package:zenwave/data/DBFunction/personal_journal.dart';
 import 'package:zenwave/presentation/Consts/color.dart';
+import 'package:zenwave/presentation/Consts/screen_size.dart';
 import 'package:zenwave/presentation/Consts/values.dart';
 import 'package:zenwave/data/DB/boxes.dart';
 import 'package:zenwave/data/DB/journals/deletedJournal.dart';
 import 'package:zenwave/presentation/Pages/journal_add_page.dart';
 import 'package:zenwave/presentation/Pages/journal_edit_page.dart';
+import 'package:zenwave/presentation/Widgets/cusText.dart';
 import 'package:zenwave/presentation/Widgets/customisable_button.dart';
 import 'package:zenwave/presentation/Widgets/journal_list.dart';
 import 'package:zenwave/presentation/Widgets/textfield_border.dart';
 
-class PersonalJournalLists extends StatefulWidget {
-  const PersonalJournalLists({super.key});
+class JournalListPage extends StatefulWidget {
+  final String pageToList;
+  const JournalListPage(this.pageToList);
 
   @override
-  State<PersonalJournalLists> createState() => _PersonalJournalListsState();
+  State<JournalListPage> createState() => _JournalListPageState();
 }
 
-class _PersonalJournalListsState extends State<PersonalJournalLists> {
+class _JournalListPageState extends State<JournalListPage> {
   DateTime? _selectedDate;
   DateTime? _startingDate;
   DateTime? _endingDate;
 
   List _searchResuls = [];
 
-  TextEditingController _searchTitleController = TextEditingController(); 
+  TextEditingController _searchTitleController = TextEditingController();
 
-  _setValueFromDB(){
+  _setValueFromDB() {
     setState(() {
-      _searchResuls = getAllValueFromPersonalJournal();
+      if (widget.pageToList == 'Personal') {
+        _searchResuls = getAllValueFromPersonalJournal();
+      }
+      if (widget.pageToList == 'Gratitude') {
+        _searchResuls = getAllValueFromGratutudeJournal();
+      }
     });
-  }
-
-
-  _searchJournals(DateTime searchDate) {
-    int _searchDay = searchDate.day;
-    int _searchMonth = searchDate.month;
-    int _searchYear = searchDate.year;
-    print('searching block');
-    _searchResuls = allValueInPersonalJournalsDB.where((journal) {
-      return journal.day == _searchDay &&
-          journal.month == _searchMonth &&
-          journal.year == _searchYear;
-    }).toList();
   }
 
   _deleteJournal(index) async {
-    setState(() {
-      final _give = personalJournalBox.getAt(index);
-      final _giver = deletedJournal(
-          _give.title,_give.content, _give.day, _give.month, _give.year,_give.edited, 'Personal');
-      deletedJournalBox.put(DateTime.now().toString(), _giver);
-      deleteValueInPersonalJournal(index);
-      _setValueFromDB();
-    });
+    if (widget.pageToList == 'Personal') {
+      setState(() {
+        final _give = personalJournalBox.getAt(index);
+        final _giver = deletedJournal(_give.title, _give.content, _give.day,
+            _give.month, _give.year, _give.edited, 'Personal');
+        deletedJournalBox.put(DateTime.now().toString(), _giver);
+        deleteValueInPersonalJournal(index);
+        _setValueFromDB();
+      });
+    }
+    if (widget.pageToList == 'Gratitude') {
+      setState(() {
+        final _give = gratitudeJournalBox.getAt(index);
+        final _giver = deletedJournal(_give.title, _give.content, _give.day,
+            _give.month, _give.year, _give.edited, 'Gratitude');
+        deletedJournalBox.put(DateTime.now().toString(), _giver);
+        deleteValueInGratutudeJournal(index);
+        _setValueFromDB();
+      });
+    }
   }
 
   _editJounal(index) {
-    final personalJournal = _searchResuls[index];
-    final originalIndex = allValueInPersonalJournalsDB.indexOf(personalJournal);
-    Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
-      return JournalEditPage(
-        'Personal',
-        'Save',
-        originalIndex,
-        toperform: _setValueFromDB,
-      );
-    }));
+    if (widget.pageToList == 'Personal') {
+      final personalJournal = _searchResuls[index];
+      final originalIndex =
+          allValueInPersonalJournalsDB.indexOf(personalJournal);
+      navigateTo(
+          context: context,
+          goLike: 'push',
+          goPage: JournalEditPage(
+            'Personal',
+            'Save',
+            originalIndex,
+            toperform: _setValueFromDB(),
+          ));
+    }
+    if (widget.pageToList == 'Gratitude') {
+      final gratitudeJournal = _searchResuls[index];
+      final originalIndex =
+          allValueInGratitudeJournalsDB.indexOf(gratitudeJournal);
+      navigateTo(
+          context: context,
+          goLike: 'push',
+          goPage: JournalEditPage(
+            'Gratitude',
+            'Save',
+            originalIndex,
+            toperform: _setValueFromDB(),
+          ));
+    }
   }
 
-  _serchByDate() {
-    showDatePicker(
-            context: context,
-            initialDate: DateTime.now(),
-            firstDate: DateTime(2000),
-            lastDate: DateTime(2040))
-        .then((value) {
-      setState(() {
-        _selectedDate = value;
-        if (_selectedDate != null) {
-          _searchJournals(_selectedDate!);
-        }
-      });
-    });
+  _searchByDate() async {
+    if (widget.pageToList == 'Personal') {
+      _selectedDate = await showPickerDate(context);
+      if (_selectedDate != null) {
+        setState(() {
+          _searchResuls = searchJournalsByDate(
+              _selectedDate!, allValueInPersonalJournalsDB);
+        });
+      }
+    }
+    if (widget.pageToList == 'Gratitude') {
+      _selectedDate = await showPickerDate(context);
+      if (_selectedDate != null) {
+        setState(() {
+          _searchResuls = searchJournalsByDate(
+              _selectedDate!, allValueInGratitudeJournalsDB);
+        });
+      }
+    }
   }
 
   _serchByDateRange() {
@@ -91,36 +126,24 @@ class _PersonalJournalListsState extends State<PersonalJournalLists> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text('Set Range'),
+            title: cusText(
+              content: 'Set Range',
+            ),
             actions: [
               TextButton(
-                  onPressed: () {
-                    showDatePicker(
-                            context: context,
-                            initialDate: DateTime.now(),
-                            firstDate: DateTime(2000),
-                            lastDate: DateTime.now())
-                        .then((value) {
-                      _startingDate = value;
-                    });
+                  onPressed: () async {
+                    _startingDate = await showPickerDate(context);
                   },
                   child: Text('Starting')),
               TextButton(
-                  onPressed: () {
-                    showDatePicker(
-                            context: context,
-                            initialDate: DateTime.now(),
-                            firstDate: DateTime(2000),
-                            lastDate: DateTime.now())
-                        .then((value) {
-                      _endingDate = value;
-                    });
+                  onPressed: () async {
+                    _endingDate = await showPickerDate(context);
                   },
                   child: Text('Ending')),
               TextButton(
                   onPressed: () {
                     if (_startingDate != null && _endingDate != null) {
-                      Navigator.pop(context);
+                      navigateTo(context: context, goLike: 'pop');
                       _searchByRange(_startingDate!, _endingDate!);
                     }
                   },
@@ -131,35 +154,41 @@ class _PersonalJournalListsState extends State<PersonalJournalLists> {
   }
 
   _searchByRange(DateTime startDate, DateTime endDate) {
-    List updatedResults = [];
-
-    for (var i = 0; i < personalJournalBox.length; i++) {
-      personalJournal entry = personalJournalBox.getAt(i);
-      DateTime entryDate = DateTime(entry.year, entry.month, entry.day);
-
-      if (entryDate.isAfter(startDate.subtract(Duration(days: 1))) &&
-          entryDate.isBefore(endDate.add(Duration(days: 1)))) {
-        updatedResults.add(entry);
-      }
+    if (widget.pageToList == 'Personal') {
+      setState(() {
+        _searchResuls =
+            searchBydateRange(personalJournalBox, _startingDate!, _endingDate!);
+      });
     }
-
-    setState(() {
-      _searchResuls = List.from(updatedResults);
-    });
+    if (widget.pageToList == 'Gratitude') {
+      setState(() {
+        _searchResuls = searchBydateRange(
+            gratitudeJournalBox, _startingDate!, _endingDate!);
+      });
+    }
   }
 
   _serchByTitle(String searchFor) {
-    setState(() {
-      _searchResuls = allValueInPersonalJournalsDB
-          .where((journal) =>
-              journal.title.toLowerCase().startsWith(searchFor.toLowerCase()))
-          .toList();
-    });
+    if (widget.pageToList == 'Personal') {
+      setState(() {
+        _searchResuls = searchByTitle(allValueInPersonalJournalsDB, searchFor);
+      });
+    }
+    if (widget.pageToList == 'Gratitude') {
+      setState(() {
+        _searchResuls = searchByTitle(allValueInGratitudeJournalsDB, searchFor);
+      });
+    }
   }
 
   @override
   void initState() {
-    _searchResuls  =  getAllValueFromPersonalJournal();
+    if (widget.pageToList == 'Personal') {
+      _searchResuls = getAllValueFromPersonalJournal();
+    }
+    if (widget.pageToList == 'Gratitude') {
+      _searchResuls = getAllValueFromGratutudeJournal();
+    }
     super.initState();
   }
 
@@ -172,8 +201,8 @@ class _PersonalJournalListsState extends State<PersonalJournalLists> {
         elevation: 0,
       ),
       body: Container(
-          width: double.infinity,
-          height: double.infinity,
+          width: SCREEN_WIDTH,
+          height: SCREEN_HEIGHT,
           color: BASE_COLOR,
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: PAGE_PADDING),
@@ -215,7 +244,9 @@ class _PersonalJournalListsState extends State<PersonalJournalLists> {
                             'Date',
                             20,
                             true,
-                            toPerform: _serchByDate,
+                            toPerform: () {
+                              _searchByDate();
+                            },
                           ),
                           CustomisableButton(
                             120,
@@ -229,7 +260,10 @@ class _PersonalJournalListsState extends State<PersonalJournalLists> {
                           ),
                         ],
                       ),
-                      TextFieldBorder(_searchTitleController ,onchangeof: _serchByTitle,)
+                      TextFieldBorder(
+                        _searchTitleController,
+                        onchangeof: _serchByTitle,
+                      )
                     ],
                   ),
                   SizedBox(
@@ -267,15 +301,25 @@ class _PersonalJournalListsState extends State<PersonalJournalLists> {
                                     );
                                   });
                             },
-                            child: JournalListItem(
-                                jorns.day,
-                                jorns.month,
-                                jorns.year,
-                                jorns.content,
-                                jorns.title,
-                                'Personal',
-                                false,
-                                jorns.edited),
+                            child: widget.pageToList == 'Personal'
+                                ? JournalListItem(
+                                    jorns.day,
+                                    jorns.month,
+                                    jorns.year,
+                                    jorns.content,
+                                    jorns.title,
+                                    'Personal',
+                                    false,
+                                    jorns.edited)
+                                : JournalListItem(
+                                    jorns.day,
+                                    jorns.month,
+                                    jorns.year,
+                                    jorns.content,
+                                    jorns.title,
+                                    'Gratitude',
+                                    false,
+                                    jorns.edited),
                           );
                         }),
                   ),
@@ -287,10 +331,10 @@ class _PersonalJournalListsState extends State<PersonalJournalLists> {
         elevation: Elevetion,
         backgroundColor: SECONDARY_COLOR,
         onPressed: () {
-          Navigator.pushReplacement(context,
-              MaterialPageRoute(builder: (BuildContext context) {
-            return JournalAddPage('Personal', 'SAVE');
-          }));
+          navigateTo(
+              context: context,
+              goLike: 'pushReplacement',
+              goPage: widget.pageToList == 'Personal'? JournalAddPage('Personal', 'SAVE'):JournalAddPage('Gratitude', 'SAVE')); 
         },
         child: Icon(
           Icons.add,

@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:zenwave/presentation/Consts/color.dart';
+import 'package:zenwave/presentation/Consts/screen_size.dart';
 import 'package:zenwave/presentation/Consts/values.dart';
 import 'package:zenwave/data/DB/boxes.dart';
 import 'package:zenwave/data/DB/journals/gratitudeJournal.dart';
@@ -31,7 +32,7 @@ class _EntryviewPageState extends State<EntryviewPage> {
         final _give = deletedJournalBox.getAt(widget.index!);
         if (_give.fromWhere == 'Personal') {
           final _giver = personalJournal(
-              _give.title,_give.content, _give.day, _give.month, _give.year,_give.isEdited);
+              _give.title,_give.content, _give.day, _give.month, _give.year,_give.edited);
           personalJournalBox.put(DateTime.now().toString(), _giver);
           deletedJournalBox.deleteAt(widget.index!);
           widget.forRefrsh!();
@@ -53,8 +54,8 @@ class _EntryviewPageState extends State<EntryviewPage> {
         iconTheme: IconThemeData(color: Colors.black),
       ),
       body: Container(
-        width: double.infinity,
-        height: double.infinity,
+        width: SCREEN_WIDTH,
+        height: SCREEN_HEIGHT,
         color: BASE_COLOR,
         child: Padding(
           padding: EdgeInsets.all(PAGE_PADDING),

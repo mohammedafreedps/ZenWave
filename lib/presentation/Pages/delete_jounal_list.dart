@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:zenwave/presentation/Consts/color.dart';
 import 'package:zenwave/presentation/Consts/Values.dart';
 import 'package:zenwave/data/DB/boxes.dart';
+import 'package:zenwave/presentation/Consts/screen_size.dart';
 import 'package:zenwave/presentation/Widgets/journal_list.dart';
 
 class DeletedJournalList extends StatefulWidget {
@@ -76,8 +77,8 @@ class _DeletedJournalListState extends State<DeletedJournalList> {
         elevation: 0,
       ),
       body: Container(
-          width: double.infinity,
-          height: double.infinity,
+          width: SCREEN_WIDTH,
+          height: SCREEN_HEIGHT,
           color: BASE_COLOR,
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: PAGE_PADDING),

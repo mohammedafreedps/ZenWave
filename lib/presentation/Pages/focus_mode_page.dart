@@ -2,6 +2,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:zenwave/presentation/Consts/color.dart';
 import 'package:zenwave/presentation/Consts/Values.dart';
+import 'package:zenwave/presentation/Consts/screen_size.dart';
+import 'package:zenwave/presentation/Widgets/cusText.dart';
 import 'package:zenwave/presentation/Widgets/customisable_button.dart';
 import 'package:zenwave/presentation/Widgets/progress_circle.dart';
 
@@ -58,8 +60,7 @@ class _FocusModePageState extends State<FocusModePage> {
     }
 
     StartFocusTimer() {
-      int timeShow = widget
-          ._focusTime.inMinutes;
+      int timeShow = widget._focusTime.inMinutes;
 
       focusProgressBar = Timer.periodic(Duration(seconds: 1), (timer) {
         setState(() {
@@ -78,7 +79,6 @@ class _FocusModePageState extends State<FocusModePage> {
           StopfocusTimers();
         }
 
-        // Update the TimeIndcator
         setState(() {
           TimeIndcator = timeShow.toString();
         });
@@ -104,7 +104,7 @@ class _FocusModePageState extends State<FocusModePage> {
     }
 
     return WillPopScope(
-      onWillPop: ()async{
+      onWillPop: () async {
         return _isBackLock;
       },
       child: Scaffold(
@@ -115,8 +115,8 @@ class _FocusModePageState extends State<FocusModePage> {
         ),
         body: Container(
           color: BASE_COLOR,
-          width: double.infinity,
-          height: double.infinity,
+          width: SCREEN_WIDTH,
+          height: SCREEN_HEIGHT,
           child: Padding(
             padding: EdgeInsets.all(PAGE_PADDING),
             child: Center(
@@ -133,46 +133,41 @@ class _FocusModePageState extends State<FocusModePage> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        _isActive == false ?
-                        CustomisableButton(
-                          190,
-                          60,
-                          BASE_COLOR,
-                          PRIMARY_COLOR,
-                          'SET TIME',
-                          20,
-                          true,
-                          HowToGO: 'pop',
-                        ):
-                        CustomisableButton(
-                          190,
-                          60,
-                          BASE_COLOR,
-                          PRIMARY_COLOR,
-                          'SET TIME',
-                          20,
-                          false,
-                        ),
-                        
+                        _isActive == false
+                            ? CustomisableButton(
+                                190,
+                                60,
+                                BASE_COLOR,
+                                PRIMARY_COLOR,
+                                'SET TIME',
+                                20,
+                                true,
+                                HowToGO: 'pop',
+                              )
+                            : CustomisableButton(
+                                190,
+                                60,
+                                BASE_COLOR,
+                                PRIMARY_COLOR,
+                                'SET TIME',
+                                20,
+                                false,
+                              ),
                         Stack(
                           children: [
                             ProgressCircle(250, 250, _progressBar),
                             Positioned(
                                 top: 60,
                                 left: TimeIndcator.length == 2 ? 80 : 105,
-                                child: Text(
-                                  TimeIndcator,
-                                  style: TextStyle(
-                                      fontSize: 85, color: PRIMARY_COLOR),
+                                child: cusText(
+                                  content: TimeIndcator,
+                                  fontSize: 85,
                                 )),
                             Positioned(
                                 top: 150,
                                 left: 115,
-                                child: Text(
-                                  'min',
-                                  style: TextStyle(
-                                      fontSize: 15, color: PRIMARY_COLOR),
-                                ))
+                                child: cusText(content: 'min',fontSize: 15,) 
+                               )
                           ],
                         ),
                         _isActive == false

@@ -3,7 +3,6 @@ import 'package:zenwave/presentation/Consts/color.dart';
 import 'package:zenwave/presentation/Consts/values.dart';
 
 class CustomisableButton extends StatelessWidget {
-  // const CustomisableButton({super.key});
   final double _width;
   final double _height;
   final double _fontSize;

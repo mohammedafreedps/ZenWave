@@ -3,6 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 bool? isRated;
 String UserNameFromSP = '';
 bool? IsUserLogin;
+bool hapticOn = false;
 
 Future<void> saveIsRated(bool value) async {
   print('save data arrie sp $value');
@@ -41,4 +42,18 @@ Future<String> getUserName() async {
   UserNameFromSP = prefs.getString('UserName')?? '';
   print('current name in sp $UserNameFromSP');
   return UserNameFromSP;
+}
+
+Future<void> setHapticFeedback(bool option)async{
+  SharedPreferences  prefs = await SharedPreferences.getInstance();
+  prefs.setBool('hapticFeedback',option);
+  print('haptic $option');
+}
+Future<bool> isHapticFeedback()async{
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  if (prefs.getBool('hapticFeedback') != null) {
+    hapticOn = prefs.getBool('hapticFeedback')!;
+  }
+  print('getting haptic $hapticOn');
+  return hapticOn;
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:zenwave/business/Functions/navigate_page.dart';
 import 'package:zenwave/data/DBFunction/deleted_journals.dart';
 import 'package:zenwave/presentation/Consts/color.dart';
 import 'package:zenwave/presentation/Consts/Values.dart';
@@ -18,6 +19,22 @@ class _DeletedJournalListState extends State<DeletedJournalList> {
   _getDataFromDeleteJournalDB() async {
     setState(() {
       _searchResuls = getallValueFromDeletedJournal();
+    });
+  }
+
+  _deletePermenently(int index) {
+    showDialog(context: context, builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text('Delete'),
+        content: Text('It will delete permenently'),
+        actions: [TextButton(onPressed: (){
+          deleteValueInDeletedJournal(index);
+          navigateTo(context: context, goLike: 'pop');
+          setState(() {
+            _getDataFromDeleteJournalDB();
+          });
+        }, child: Text('Delete'))],
+      );
     });
   }
 
@@ -45,17 +62,22 @@ class _DeletedJournalListState extends State<DeletedJournalList> {
                 itemCount: _searchResuls.length,
                 itemBuilder: (BuildContext context, int index) {
                   final jorns = _searchResuls[index];
-                  return JournalListItem(
-                    jorns.day,
-                    jorns.month,
-                    jorns.year,
-                    jorns.content,
-                    jorns.title,
-                    jorns.fromWhere,
-                    true,
-                    jorns.edited,
-                    index: index,
-                    passingForRefresh: _getDataFromDeleteJournalDB,
+                  return InkWell(
+                    onLongPress: () {
+                      _deletePermenently(index);
+                    },
+                    child: JournalListItem(
+                      jorns.day,
+                      jorns.month,
+                      jorns.year,
+                      jorns.content,
+                      jorns.title,
+                      jorns.fromWhere,
+                      true,
+                      jorns.edited,
+                      index: index,
+                      passingForRefresh: _getDataFromDeleteJournalDB,
+                    ),
                   );
                 }),
           )),

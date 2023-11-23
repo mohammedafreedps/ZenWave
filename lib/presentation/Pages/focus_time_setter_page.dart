@@ -16,14 +16,14 @@ class FocusTimeSetterPage extends StatefulWidget {
 class _FocusTimeSetterPageState extends State<FocusTimeSetterPage> {
   TextEditingController CustomFocusTime = TextEditingController();
   int cusTime = 1;
-  textfieldConverter() {
+  textfieldConverter(String value) {
     print('converter worked');
-    if (CustomFocusTime.text.isNotEmpty) {
-      int? parsedValue = int.tryParse(CustomFocusTime.text.trim());
+    if (value.isNotEmpty) {
+      int? parsedValue = int.tryParse(value.trim());
 
       if (parsedValue != null) {
         setState(() {
-          cusTime = int.parse(CustomFocusTime.text.trim());
+          cusTime = int.parse(value.trim());
         });
       }
     }
@@ -94,8 +94,7 @@ class _FocusTimeSetterPageState extends State<FocusTimeSetterPage> {
                             20,
                             true,
                             HowToGO: 'push',
-                            go: FocusModePage(
-                                Duration(hours: 1, minutes: 30)),
+                            go: FocusModePage(Duration(hours: 1, minutes: 30)),
                           ),
                           SizedBox(
                             height: 10,
@@ -105,7 +104,9 @@ class _FocusTimeSetterPageState extends State<FocusTimeSetterPage> {
                     ),
                   ),
                 ),
-                SizedBox(height: 50,),
+                SizedBox(
+                  height: 50,
+                ),
                 PhysicalModel(
                   color: SECONDARY_COLOR,
                   elevation: Elevetion,
@@ -121,8 +122,8 @@ class _FocusTimeSetterPageState extends State<FocusTimeSetterPage> {
                         children: [
                           Text(
                             'Custom Time',
-                            style: TextStyle(
-                                fontSize: 35, color: PRIMARY_COLOR),
+                            style:
+                                TextStyle(fontSize: 35, color: PRIMARY_COLOR),
                           ),
                           Text('In miniuts',
                               style: TextStyle(
@@ -133,11 +134,10 @@ class _FocusTimeSetterPageState extends State<FocusTimeSetterPage> {
                                 CustomFocusTime,
                                 onchangeof: textfieldConverter,
                               )),
-                          CustomisableButton(160, 65, BASE_COLOR,
-                              PRIMARY_COLOR, 'SET TIMER', 18, true,
+                          CustomisableButton(160, 65, BASE_COLOR, PRIMARY_COLOR,
+                              'SET TIMER', 18, true,
                               HowToGO: 'push',
-                              go: FocusModePage(
-                                  Duration(minutes: cusTime))),
+                              go: FocusModePage(Duration(minutes: cusTime))),
                         ],
                       ),
                     ),

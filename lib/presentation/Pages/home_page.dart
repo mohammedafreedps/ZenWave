@@ -88,6 +88,7 @@ class _HomePageState extends State<HomePage> {
                         setState(() {
                           hapticOn = value;
                           setHapticFeedback(value);
+                          hapticFeedback('s');
                         });
                       }),
                 ],

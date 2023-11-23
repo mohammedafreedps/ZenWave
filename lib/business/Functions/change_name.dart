@@ -19,7 +19,7 @@ changeUserName(BuildContext context, {Function? toPerform}) {
                     await saveUserName(_newName.text);
                     if (toPerform != null) {
                       toPerform();
-                      hapticFeedback('selection');
+                      hapticFeedback('s');
                       navigateTo(context: context, goLike: 'pop');
                     }
                   }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:zenwave/business/Functions/navigate_page.dart';
+import 'package:zenwave/business/Functions/screen_media_query.dart';
 import 'package:zenwave/business/Functions/search_by_date.dart';
 import 'package:zenwave/business/Functions/search_by_date_range.dart';
 import 'package:zenwave/business/Functions/search_by_title.dart';
@@ -239,24 +240,24 @@ class _JournalListPageState extends State<JournalListPage> {
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           CustomisableButton(
-                            120,
-                            70,
+                            PLANWORK_BUTTON_WIDTH!,
+                            PLANWORK_BUTTON_HEIGHT!,
                             SECONDARY_COLOR,
                             PRIMARY_COLOR,
                             'Date',
-                            20,
+                            SETDAY_BUTTON_FONTSIZE!,
                             true,
                             toPerform: () {
                               _searchByDate();
                             },
                           ),
                           CustomisableButton(
-                            120,
-                            70,
+                            PLANWORK_BUTTON_WIDTH!,
+                            PLANWORK_BUTTON_HEIGHT!,
                             SECONDARY_COLOR,
                             PRIMARY_COLOR,
                             'Range',
-                            20,
+                            SETDAY_BUTTON_FONTSIZE!,
                             true,
                             toPerform: _serchByDateRange,
                           ),

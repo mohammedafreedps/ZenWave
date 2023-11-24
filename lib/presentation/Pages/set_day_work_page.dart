@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:zenwave/business/Functions/screen_media_query.dart';
 import 'package:zenwave/data/DBFunction/future_Tasks.dart';
 import 'package:zenwave/presentation/Consts/color.dart';
 import 'package:zenwave/presentation/Consts/Values.dart';
@@ -130,12 +131,12 @@ class _SetDayWorkPageState extends State<SetDayWorkPage> {
               ),
               _selectedDate == null
                   ? CustomisableButton(
-                      190,
-                      60,
+                      PLANWORK_BUTTON_WIDTH!,
+                      PLANWORK_BUTTON_HEIGHT!,
                       SECONDARY_COLOR,
                       PRIMARY_COLOR,
                       'Select Date',
-                      20,
+                      SETDAY_BUTTON_FONTSIZE!,
                       true,
                       toPerform: _showDatePicker,
                     )
@@ -154,12 +155,12 @@ class _SetDayWorkPageState extends State<SetDayWorkPage> {
               ),
               _selectedTime == null
                   ? CustomisableButton(
-                      190,
-                      60,
+                      PLANWORK_BUTTON_WIDTH!,
+                      PLANWORK_BUTTON_HEIGHT!,
                       SECONDARY_COLOR,
                       PRIMARY_COLOR,
                       'Select Time',
-                      20,
+                      SETDAY_BUTTON_FONTSIZE!,
                       true,
                       toPerform: _showTimePicker,
                     )
@@ -178,12 +179,12 @@ class _SetDayWorkPageState extends State<SetDayWorkPage> {
                 height: 50,
               ),
               CustomisableButton(
-                190,
-                60,
+                PLANWORK_BUTTON_WIDTH!,
+                PLANWORK_BUTTON_HEIGHT!,
                 SECONDARY_COLOR,
                 PRIMARY_COLOR,
                 'Save',
-                20,
+                SETDAY_BUTTON_FONTSIZE!,
                 true,
                 toPerform: _saveData,
               ),

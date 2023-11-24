@@ -3,6 +3,7 @@ import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:zenwave/business/Functions/change_name.dart';
 import 'package:zenwave/business/Functions/navigate_page.dart';
+import 'package:zenwave/business/Functions/screen_media_query.dart';
 import 'package:zenwave/business/services/hapticfeedback.dart';
 import 'package:zenwave/data/DBFunction/delete_all_data.dart';
 import 'package:zenwave/presentation/Consts/color.dart';
@@ -35,6 +36,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
+    screenResponsive();
     super.initState();
     AndroidAlarmManager.periodic(const Duration(seconds: 1), 1, resetisRated);
     _ratedChecker = Timer(const Duration(microseconds: 1000), () {
@@ -123,8 +125,9 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       ),
-      body: SafeArea(
+      body: SingleChildScrollView(
         child: Container(
+          padding: EdgeInsets.only(top: 30),
           width: SCREEN_WIDTH,
           height: SCREEN_HEIGHT,
           color: BASE_COLOR,
@@ -134,50 +137,51 @@ class _HomePageState extends State<HomePage> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 isRated == true
-                    ? UsernmaeStamp(UserNameFromSP, const PreferencePage())
+                    ? UsernmaeStamp(UserNameFromSP, const PreferencePage(),
+                        HOME_BUTTONS_HEIGHT!, HOME_BUTTONS_WIDTH!)
                     : CustomisableButton(
-                        SCREEN_WIDTH,
-                        BIG_BUTTON_HEIGHT,
+                        HOME_BUTTONS_WIDTH!,
+                        HOME_BUTTONS_HEIGHT!,
                         PRIMARY_COLOR,
                         BASE_COLOR,
                         'Rate your day',
-                        BIG_BUTTON_FONT_SIZE,
+                        HOME_BUTTONS_FONTSIZE!,
                         true,
                         go: MoodRatingPage(_refresh),
                         HowToGO: 'pushReplace',
                       ),
                 const Dividers(),
-                GraphSpace("This Week"),
+                GraphSpace("This Week",HOME_BUTTONS_HEIGHT!,HOME_BUTTONS_WIDTH!),
                 const Dividers(),
                 CustomisableButton(
-                  SCREEN_WIDTH,
-                  BIG_BUTTON_HEIGHT,
+                  HOME_BUTTONS_WIDTH!,
+                  HOME_BUTTONS_HEIGHT!,
                   SECONDARY_COLOR,
                   PRIMARY_COLOR,
                   "Mindfulness Exercises",
-                  20,
+                  HOME_BUTTONS_FONTSIZE!,
                   true,
                   go: const MindfulnessExercises(),
                   HowToGO: 'push',
                 ),
                 CustomisableButton(
-                  SCREEN_WIDTH,
-                  BIG_BUTTON_HEIGHT,
+                  HOME_BUTTONS_WIDTH!,
+                  HOME_BUTTONS_HEIGHT!,
                   SECONDARY_COLOR,
                   PRIMARY_COLOR,
                   "Journaling",
-                  20,
+                  HOME_BUTTONS_FONTSIZE!,
                   true,
                   go: const JournalOptionPage(),
                   HowToGO: 'push',
                 ),
                 CustomisableButton(
-                  SCREEN_WIDTH,
-                  BIG_BUTTON_HEIGHT,
+                  HOME_BUTTONS_WIDTH!,
+                  HOME_BUTTONS_HEIGHT!,
                   SECONDARY_COLOR,
                   PRIMARY_COLOR,
                   "Focus Mode",
-                  20,
+                  HOME_BUTTONS_FONTSIZE!,
                   true,
                   go: const FocusTimeSetterPage(),
                   HowToGO: 'push',

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:zenwave/business/Functions/login_validation.dart';
+import 'package:zenwave/business/Functions/screen_media_query.dart';
 import 'package:zenwave/presentation/Consts/color.dart';
 import 'package:zenwave/presentation/Consts/Values.dart';
 import 'package:zenwave/presentation/Consts/screen_size.dart';
@@ -32,15 +33,15 @@ class _LoginPageState extends State<LoginPage> {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(CLIP_BORDER_RADIOUS),
               child: Container(
-                width: 430,
-                height: 450,
+                width: LOGIN_CONTAINER_WIDTH,
+                height: LOGIN_CONTAINER_HEIGHT,
                 color: SECONDARY_COLOR,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     LogoImage(90),
                     TextFieldFilled(_userName),
-                    CustomisableButton(170, 60, PRIMARY_COLOR, BASE_COLOR, 'Save', 20, false,toPerform: (){
+                    CustomisableButton(LGOIN_BUTTON_WIDTH!, LGOIN_BUTTON_HEIGHT!, PRIMARY_COLOR, BASE_COLOR, 'Save',  LOGIN_CONTAINER_WIDTH!*0.05, false,toPerform: (){
                       loginValidation(context, _userName.text);
                     })
                   ]

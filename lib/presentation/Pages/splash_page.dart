@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:zenwave/business/Functions/navigate_page.dart';
+import 'package:zenwave/business/Functions/screen_media_query.dart';
 import 'package:zenwave/data/DB/shared_preference.dart';
 import 'package:zenwave/presentation/Consts/color.dart';
 import 'package:zenwave/presentation/Consts/screen_size.dart';
@@ -18,6 +19,7 @@ class SplashPage extends StatefulWidget {
 class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
+    screenResponsive();
     super.initState();
     if (IsUserLogin == true) {
       isHapticFeedback();

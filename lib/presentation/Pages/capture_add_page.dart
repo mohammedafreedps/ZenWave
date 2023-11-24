@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:zenwave/business/Functions/screen_media_query.dart';
 import 'package:zenwave/business/services/hapticfeedback.dart';
 import 'package:zenwave/data/DBFunction/capture_moments.dart';
 import 'package:zenwave/presentation/Consts/color.dart';
@@ -102,44 +103,49 @@ class _CaptureAddPageState extends State<CaptureAddPage> {
                         child: Container(
                           width: SCREEN_WIDTH,
                           padding: EdgeInsets.all(PAGE_PADDING),
-                          height: SCREEN_HEIGHT - 500,
+                          height: CAPTURE_ADDPAGE_CONTAINER_HEIGHT,
                           color: SECONDARY_COLOR,
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               CustomisableButton(
-                                160,
-                                60,
+                                PLANWORK_BUTTON_WIDTH!,
+                                PLANWORK_BUTTON_HEIGHT!,
                                 BASE_COLOR,
                                 PRIMARY_COLOR,
                                 'Select Date',
-                                20,
+                                SETDAY_BUTTON_FONTSIZE!,
                                 true,
                                 toPerform: _showDatePicker,
                               ),
+                              SizedBox(height: 30,),
                               CustomisableButton(
-                                160,
-                                60,
+                                PLANWORK_BUTTON_WIDTH!,
+                                PLANWORK_BUTTON_HEIGHT!,
                                 BASE_COLOR,
                                 PRIMARY_COLOR,
                                 'Select Picture',
-                                20,
+                                SETDAY_BUTTON_FONTSIZE!,
                                 true,
                                 toPerform: () {
                                   _pickImage(ImageSource.gallery);
                                 },
                               ),
+                              SizedBox(height: 30,),
                               Text('Title'),
+                              
                               TextFieldBorder(_title),
+                              SizedBox(height: 30,),
                               Text('Description'),
                               TextFieldBorder(_description),
+                              SizedBox(height: 30,),
                               CustomisableButton(
-                                  160,
-                                  60,
+                                  PLANWORK_BUTTON_WIDTH!,
+                                  PLANWORK_BUTTON_HEIGHT!,
                                   BASE_COLOR,
                                   PRIMARY_COLOR,
                                   'Save',
-                                  20,
+                                  SETDAY_BUTTON_FONTSIZE!,
                                   true, toPerform: () async {
                                 if (_selectedDate == null) {
                                   _selectedDate = DateTime.now();

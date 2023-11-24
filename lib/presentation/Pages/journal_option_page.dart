@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:zenwave/business/Functions/screen_media_query.dart';
 import 'package:zenwave/presentation/Consts/color.dart';
 import 'package:zenwave/presentation/Consts/screen_size.dart';
 import 'package:zenwave/presentation/Consts/values.dart';
@@ -40,9 +41,9 @@ class JournalOptionPage extends StatelessWidget {
                       ),
                       Text('Journaling',style: TextStyle(color: PRIMARY_COLOR,fontSize: 45),),
                       SizedBox(height: 40,),
-                      CustomisableButton(300, 80, BASE_COLOR, PRIMARY_COLOR, 'Personal', 25, true,go: JournalListPage('Personal'),HowToGO: 'push',),
-                      CustomisableButton(300, 80, BASE_COLOR, PRIMARY_COLOR, 'Gratitude', 25, true,go: JournalListPage('Gratitude'),HowToGO: 'push',),
-                      CustomisableButton(300, 80, BASE_COLOR, PRIMARY_COLOR, 'Capture', 25, true,go: CapturePage(),HowToGO: 'push',),
+                      CustomisableButton(JOURNAL_OPTIONPAGE_BUTTON_WIDTH!, HOME_BUTTONS_HEIGHT!, BASE_COLOR, PRIMARY_COLOR, 'Personal', HOME_BUTTONS_FONTSIZE!, true,go: JournalListPage('Personal'),HowToGO: 'push',),
+                      CustomisableButton(JOURNAL_OPTIONPAGE_BUTTON_WIDTH!, HOME_BUTTONS_HEIGHT!, BASE_COLOR, PRIMARY_COLOR, 'Gratitude', HOME_BUTTONS_FONTSIZE!, true,go: JournalListPage('Gratitude'),HowToGO: 'push',),
+                      CustomisableButton(JOURNAL_OPTIONPAGE_BUTTON_WIDTH!, HOME_BUTTONS_HEIGHT!, BASE_COLOR, PRIMARY_COLOR, 'Capture', HOME_BUTTONS_FONTSIZE!, true,go: CapturePage(),HowToGO: 'push',),
                     ],
                   ),
                 ),

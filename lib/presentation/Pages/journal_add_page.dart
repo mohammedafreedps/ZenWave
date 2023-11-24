@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:zenwave/business/Functions/screen_media_query.dart';
 import 'package:zenwave/business/services/hapticfeedback.dart';
 import 'package:zenwave/presentation/Consts/color.dart';
 import 'package:zenwave/presentation/Consts/screen_size.dart';
@@ -109,7 +110,7 @@ class _JournalAddPageState extends State<JournalAddPage> {
       body: Container(
         width: SCREEN_WIDTH,
         height: SCREEN_HEIGHT,
-        padding: EdgeInsets.all(PAGE_PADDING),
+        padding: EdgeInsets.symmetric(horizontal: PAGE_PADDING),
         color: BASE_COLOR,
         child: SingleChildScrollView(
           child: Column(
@@ -122,18 +123,18 @@ class _JournalAddPageState extends State<JournalAddPage> {
                   borderRadius: BorderRadius.circular(CLIP_BORDER_RADIOUS),
                   child: Container(
                       padding: EdgeInsets.all(PAGE_PADDING + 10),
-                      width: double.infinity,
-                      height: 780,
+                      width: JOURNAL_ADDPAGE_CONTAINER_WIDTH,
+                      height: JOURNAL_ADDPAGE_CONTAINER_HEIGHT,
                       color: SECONDARY_COLOR,
                       child: Column(
                         children: [
                           CustomisableButton(
-                            200,
-                            60,
+                            PLANWORK_BUTTON_WIDTH!,
+                            PLANWORK_BUTTON_HEIGHT!,
                             BASE_COLOR,
                             PRIMARY_COLOR,
                             'Change Date',
-                            20,
+                            SETDAY_BUTTON_FONTSIZE!,
                             false,
                             toPerform: _showDatePicker,
                           ),
@@ -151,14 +152,14 @@ class _JournalAddPageState extends State<JournalAddPage> {
                       )),
                 ),
               ),
-              SizedBox(height: 40,),
+              SizedBox(height: 25,),
               CustomisableButton(
-                240,
-                69,
+                HOME_BUTTONS_WIDTH!,
+                HOME_BUTTONS_HEIGHT!,
                 SECONDARY_COLOR,
                 PRIMARY_COLOR,
                 widget.buttontext,
-                20,
+                HOME_BUTTONS_FONTSIZE!,
                 true,
                 toPerform: saveTo,
                 go: JournalOptionPage(),

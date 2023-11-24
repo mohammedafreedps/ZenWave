@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:zenwave/business/Functions/screen_media_query.dart';
 import 'package:zenwave/presentation/Consts/color.dart';
 import 'package:zenwave/presentation/Consts/Values.dart';
 import 'package:zenwave/presentation/Consts/screen_size.dart';
@@ -32,12 +33,12 @@ class _PreferencePageState extends State<PreferencePage> {
           child: Column(
             children: [
               CustomisableButton(
-                double.infinity,
-                BIG_BUTTON_HEIGHT,
+                HOME_BUTTONS_WIDTH!,
+                HOME_BUTTONS_HEIGHT!,
                 SECONDARY_COLOR,
                 PRIMARY_COLOR,
                 'Deleted Journals',
-                BIG_BUTTON_FONT_SIZE,
+                HOME_BUTTONS_FONTSIZE!,
                 true,
                 go: DeletedJournalList(),
                 HowToGO: 'push',
@@ -46,12 +47,12 @@ class _PreferencePageState extends State<PreferencePage> {
                 height: 40,
               ),
               CustomisableButton(
-                double.infinity,
-                BIG_BUTTON_HEIGHT,
+                HOME_BUTTONS_WIDTH!,
+                HOME_BUTTONS_HEIGHT!,
                 SECONDARY_COLOR,
                 PRIMARY_COLOR,
                 'Plan Work',
-                BIG_BUTTON_FONT_SIZE,
+                HOME_BUTTONS_FONTSIZE!,
                 true,
                 go: FutureWorkPlanPage(),
                 HowToGO: 'push',

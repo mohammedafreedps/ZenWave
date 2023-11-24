@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:zenwave/business/Functions/screen_media_query.dart';
 import 'package:zenwave/business/services/hapticfeedback.dart';
 import 'package:zenwave/presentation/Consts/color.dart';
 import 'package:zenwave/presentation/Consts/Values.dart';
@@ -120,7 +121,7 @@ class _FocusModePageState extends State<FocusModePage> {
           width: SCREEN_WIDTH,
           height: SCREEN_HEIGHT,
           child: Padding(
-            padding: EdgeInsets.all(PAGE_PADDING),
+            padding: EdgeInsets.symmetric(horizontal: PAGE_PADDING),
             child: Center(
               child: PhysicalModel(
                 color: SECONDARY_COLOR,
@@ -129,30 +130,30 @@ class _FocusModePageState extends State<FocusModePage> {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(CLIP_BORDER_RADIOUS),
                   child: Container(
-                    width: double.infinity,
-                    height: 630,
+                    width: SCREEN_WIDTH,
+                    height: FOCUSMODE_TIMER_CONTAINER_HEIGHT,
                     color: SECONDARY_COLOR,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         _isActive == false
                             ? CustomisableButton(
-                                190,
-                                60,
+                                PLANWORK_BUTTON_WIDTH!,
+                                PLANWORK_BUTTON_HEIGHT!,
                                 BASE_COLOR,
                                 PRIMARY_COLOR,
                                 'SET TIME',
-                                20,
+                                SETDAY_BUTTON_FONTSIZE!,
                                 true,
                                 HowToGO: 'pop',
                               )
                             : CustomisableButton(
-                                190,
-                                60,
+                                PLANWORK_BUTTON_WIDTH!,
+                                PLANWORK_BUTTON_HEIGHT!,
                                 BASE_COLOR,
                                 PRIMARY_COLOR,
                                 'SET TIME',
-                                20,
+                                SETDAY_BUTTON_FONTSIZE!,
                                 false,
                               ),
                         Stack(
@@ -174,22 +175,22 @@ class _FocusModePageState extends State<FocusModePage> {
                         ),
                         _isActive == false
                             ? CustomisableButton(
-                                190,
-                                60,
+                                PLANWORK_BUTTON_WIDTH!,
+                                PLANWORK_BUTTON_HEIGHT!,
                                 BASE_COLOR,
                                 PRIMARY_COLOR,
                                 'FOCUS',
-                                20,
+                                SETDAY_BUTTON_FONTSIZE!,
                                 true,
                                 toPerform: StartFocus,
                               )
                             : CustomisableButton(
-                                190,
-                                60,
+                                PLANWORK_BUTTON_WIDTH!,
+                                PLANWORK_BUTTON_HEIGHT!,
                                 BASE_COLOR,
                                 PRIMARY_COLOR,
                                 '',
-                                20,
+                                SETDAY_BUTTON_FONTSIZE!,
                                 false,
                                 toPerform: StopfocusTimers,
                               )

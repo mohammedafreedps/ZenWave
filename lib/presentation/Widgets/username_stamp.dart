@@ -1,9 +1,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:zenwave/business/Functions/navigate_page.dart';
+import 'package:zenwave/business/Functions/screen_media_query.dart';
 import 'package:zenwave/business/services/hapticfeedback.dart';
 import 'package:zenwave/presentation/Consts/color.dart';
 import 'package:zenwave/presentation/Consts/Values.dart';
+import 'package:zenwave/presentation/Consts/screen_size.dart';
 import 'package:zenwave/presentation/Widgets/logo.dart';
 
 
@@ -13,7 +15,9 @@ class UsernmaeStamp extends StatefulWidget {
 
   final String _Title;
   final Widget PreferencePage;
-  UsernmaeStamp(this._Title,this.PreferencePage);
+  final double height;
+  final double width;
+  UsernmaeStamp(this._Title,this.PreferencePage,this.height,this.width);
 
   @override
   State<UsernmaeStamp> createState() => _UsernmaeStampState();
@@ -37,8 +41,8 @@ class _UsernmaeStampState extends State<UsernmaeStamp> {
           child: ClipRRect(
             borderRadius: BorderRadius.circular(CLIP_BORDER_RADIOUS),
             child: Container(
-              width: double.infinity,
-              height: 105,
+              width: widget.width,
+              height: widget.height,
               color: SECONDARY_COLOR,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -49,10 +53,10 @@ class _UsernmaeStampState extends State<UsernmaeStamp> {
                   ),
                   Text(
                     widget._Title,
-                    style: TextStyle(fontSize: 20, color: PRIMARY_COLOR),
+                    style: TextStyle(fontSize: HOME_BUTTONS_FONTSIZE!, color: PRIMARY_COLOR,overflow: TextOverflow.ellipsis),
                   ),
                   SizedBox(
-                    width: 100,
+                    width: SCREEN_WIDTH * 0.09,
                   )
                 ],
               ),

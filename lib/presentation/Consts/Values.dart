@@ -4,7 +4,7 @@ const Offset DROP_OFFSET = Offset(4, 8); //0,1
 const double DROP_BLUR_RADIOUS = 1; //10
 const double DROP_SPREAD = -15;
 
-const double CLIP_BORDER_RADIOUS = 40;
+const double CLIP_BORDER_RADIOUS = 60;
 
 TextEditingController userName = TextEditingController();
 

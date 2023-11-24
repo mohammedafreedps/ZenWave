@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:zenwave/business/Functions/screen_media_query.dart';
 import 'package:zenwave/presentation/Consts/color.dart';
 import 'package:zenwave/presentation/Consts/Values.dart';
 import 'package:zenwave/presentation/Consts/screen_size.dart';
@@ -44,7 +45,7 @@ class _FocusTimeSetterPageState extends State<FocusTimeSetterPage> {
         child: SingleChildScrollView(
           physics: AlwaysScrollableScrollPhysics(),
           child: Padding(
-            padding: const EdgeInsets.all(PAGE_PADDING),
+            padding: const EdgeInsets.symmetric(horizontal: PAGE_PADDING),
             child: Column(
               children: [
                 PhysicalModel(
@@ -54,8 +55,8 @@ class _FocusTimeSetterPageState extends State<FocusTimeSetterPage> {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(CLIP_BORDER_RADIOUS),
                     child: Container(
-                      width: double.infinity,
-                      height: 400,
+                      width: SCREEN_WIDTH,
+                      height: FOCUSMODE_CONTAINER_TOP_HEIGHT,
                       color: SECONDARY_COLOR,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -64,34 +65,34 @@ class _FocusTimeSetterPageState extends State<FocusTimeSetterPage> {
                             height: 10,
                           ),
                           CustomisableButton(
-                            160,
-                            65,
+                            PLANWORK_BUTTON_WIDTH!,
+                            PLANWORK_BUTTON_HEIGHT!,
                             BASE_COLOR,
                             PRIMARY_COLOR,
                             '15 min',
-                            20,
+                            SETDAY_BUTTON_FONTSIZE!,
                             true,
                             HowToGO: 'push',
                             go: FocusModePage(Duration(minutes: 15)),
                           ),
                           CustomisableButton(
-                            160,
-                            65,
+                            PLANWORK_BUTTON_WIDTH!,
+                            PLANWORK_BUTTON_HEIGHT!,
                             BASE_COLOR,
                             PRIMARY_COLOR,
                             '1 hr',
-                            20,
+                            SETDAY_BUTTON_FONTSIZE!,
                             true,
                             HowToGO: 'push',
                             go: FocusModePage(Duration(hours: 1)),
                           ),
                           CustomisableButton(
-                            160,
-                            65,
+                            PLANWORK_BUTTON_WIDTH!,
+                            PLANWORK_BUTTON_HEIGHT!,
                             BASE_COLOR,
                             PRIMARY_COLOR,
                             '1hr 30min',
-                            20,
+                            SETDAY_BUTTON_FONTSIZE!,
                             true,
                             HowToGO: 'push',
                             go: FocusModePage(Duration(hours: 1, minutes: 30)),
@@ -114,8 +115,8 @@ class _FocusTimeSetterPageState extends State<FocusTimeSetterPage> {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(CLIP_BORDER_RADIOUS),
                     child: Container(
-                      width: double.infinity,
-                      height: 270,
+                      width: SCREEN_WIDTH,
+                      height: FOCUSMODE_CONTAINER_BOTTOM_HEIGHT,
                       color: SECONDARY_COLOR,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -123,19 +124,19 @@ class _FocusTimeSetterPageState extends State<FocusTimeSetterPage> {
                           Text(
                             'Custom Time',
                             style:
-                                TextStyle(fontSize: 35, color: PRIMARY_COLOR),
+                                TextStyle(fontSize: FONT_SIZE, color: PRIMARY_COLOR,fontWeight: FontWeight.bold),
                           ),
                           Text('In miniuts',
                               style: TextStyle(
-                                  fontSize: 15, color: PRIMARY_COLOR)),
+                                  fontSize: 15, color: PRIMARY_COLOR,)),
                           SizedBox(
-                              width: 360,
+                              width: SCREEN_WIDTH * 0.7,
                               child: TextFieldBorder(
                                 CustomFocusTime,
                                 onchangeof: textfieldConverter,
                               )),
-                          CustomisableButton(160, 65, BASE_COLOR, PRIMARY_COLOR,
-                              'SET TIMER', 18, true,
+                          CustomisableButton(PLANWORK_BUTTON_WIDTH!, PLANWORK_BUTTON_HEIGHT!, BASE_COLOR, PRIMARY_COLOR,
+                              'SET TIMER', SETDAY_BUTTON_FONTSIZE!, true,
                               HowToGO: 'push',
                               go: FocusModePage(Duration(minutes: cusTime))),
                         ],

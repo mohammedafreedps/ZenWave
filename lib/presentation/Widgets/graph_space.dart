@@ -3,11 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:zenwave/data/DB/boxes.dart';
 import 'package:zenwave/presentation/Consts/color.dart';
 import 'package:zenwave/presentation/Consts/Values.dart';
+import 'package:zenwave/presentation/Consts/screen_size.dart';
 
 class GraphSpace extends StatefulWidget {
   final String title;
+  final double width;
+  final double height;
 
-  GraphSpace(this.title);
+  GraphSpace(this.title,this.height,this.width);
 
   @override
   State<GraphSpace> createState() => _GraphSpaceState();
@@ -43,10 +46,10 @@ _loadData() {
 
     final Widget text = Text(
       title[value.toInt()],
-      style: const TextStyle(
+      style:  TextStyle(
         color: const Color(0xFF435334),
         fontWeight: FontWeight.bold,
-        fontSize: 14,
+        fontSize: SCREEN_WIDTH*0.03,
       ),
     );
 
@@ -58,10 +61,10 @@ _loadData() {
   }
 
   Widget leftTitles(double value, TitleMeta meta) {
-    const style = TextStyle(
+    final style = TextStyle(
       color: Color(0xFF435334),
       fontWeight: FontWeight.bold,
-      fontSize: 14,
+      fontSize: SCREEN_WIDTH*0.03,
     );
     String text;
     if (value == 0) {
@@ -77,7 +80,7 @@ _loadData() {
     }
     return SideTitleWidget(
       axisSide: meta.axisSide,
-      space: 9,
+      space: SCREEN_WIDTH*0.03,
       child: Text(text, style: style),
     );
   }
@@ -99,17 +102,17 @@ _loadData() {
         child: Column(
           children: [
             SizedBox(
-              height: 20,
+              height: 10,
             ),
             Text(
               widget.title,
               style: TextStyle(
                   color: PRIMARY_COLOR,
                   fontWeight: FontWeight.bold,
-                  fontSize: 25),
+                  fontSize: SCREEN_WIDTH*0.05),
             ),
             Container(
-              padding: EdgeInsets.all(PAGE_PADDING),
+              padding: EdgeInsets.all(20),
               width: _width,
               height: _height,
               color: SECONDARY_COLOR,

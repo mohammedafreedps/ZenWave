@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:zenwave/business/Functions/screen_media_query.dart';
 import 'package:zenwave/business/services/hapticfeedback.dart';
 import 'package:zenwave/data/DB/boxes.dart';
 import 'package:zenwave/data/DB/captureMoments/capture_moments.dart';
@@ -179,7 +180,7 @@ class _CapturePageState extends State<CapturePage> {
           height: SCREEN_HEIGHT,
           color: BASE_COLOR,
           child: Padding(
-            padding: const EdgeInsets.all(PAGE_PADDING),
+            padding: const EdgeInsets.symmetric(horizontal: PAGE_PADDING),
             child: Column(
               children: [
                 Row(
@@ -200,26 +201,27 @@ class _CapturePageState extends State<CapturePage> {
                         icon: Icon(Icons.refresh))
                   ],
                 ),
+                SizedBox(height: 40),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     CustomisableButton(
-                      120,
-                      70,
+                      PLANWORK_BUTTON_WIDTH!,
+                      PLANWORK_BUTTON_HEIGHT!,
                       SECONDARY_COLOR,
                       PRIMARY_COLOR,
                       'Date',
-                      20,
+                      SETDAY_BUTTON_FONTSIZE!,
                       true,
                       toPerform: _serchByDateCalender,
                     ),
                     CustomisableButton(
-                      120,
-                      70,
+                      PLANWORK_BUTTON_WIDTH!,
+                      PLANWORK_BUTTON_HEIGHT!,
                       SECONDARY_COLOR,
                       PRIMARY_COLOR,
                       'Range',
-                      20,
+                      SETDAY_BUTTON_FONTSIZE!,
                       true,
                       toPerform: _serchByDateRangeCalender,
                     ),

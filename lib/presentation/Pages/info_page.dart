@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:zenwave/business/Functions/navigate_page.dart';
+import 'package:zenwave/business/Functions/screen_media_query.dart';
 import 'package:zenwave/presentation/Consts/color.dart';
 import 'package:zenwave/presentation/Consts/Values.dart';
 import 'package:zenwave/presentation/Consts/screen_size.dart';
@@ -18,8 +19,9 @@ class InfoPage extends StatefulWidget {
 class _InfoPageState extends State<InfoPage> {
   @override
   void initState() {
+    screenResponsive();
     super.initState();
-    Timer(const Duration(seconds: 10), () {
+    Timer(const Duration(seconds: 1), () {
       navigateTo(
           context: context, goLike: 'pushReplacement', goPage: const LoginPage());
     });
@@ -32,29 +34,31 @@ class _InfoPageState extends State<InfoPage> {
         width: SCREEN_WIDTH,
         height: SCREEN_HEIGHT,
         color: BASE_COLOR,
-        child: Column(
-          children: [
-            PhysicalModel(
-              color: PRIMARY_COLOR,
-              elevation: Elevetion + 3,
-              child: Container(
-                width: SCREEN_WIDTH,
-                height: 450,
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              PhysicalModel(
                 color: PRIMARY_COLOR,
-                child: Center(child: LogoImage(120)),
+                elevation: Elevetion + 3,
+                child: Container(
+                  width: SCREEN_WIDTH,
+                  height: TOP_PART_HEIGHT,
+                  color: PRIMARY_COLOR,
+                  child: Center(child: LogoImage(120)),
+                ),
               ),
-            ),
-            const SizedBox(
-              height: 250,
-            ),
-            SizedBox(
-                width: 390,
-                child: cusText(
-                  content: INFORTEXT,
-                  textAlign: TextAlign.center,
-                  fontSize: 21,
-                )),
-          ],
+               SizedBox(
+                height: SIZED_BOX_HEIGHT,
+              ),
+              SizedBox(
+                  width: 390,
+                  child: cusText(
+                    content: INFORTEXT,
+                    textAlign: TextAlign.center,
+                    fontSize: FONT_SIZE,
+                  )),
+            ],
+          ),
         ),
       ),
     );

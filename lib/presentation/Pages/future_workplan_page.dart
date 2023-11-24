@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:zenwave/business/Functions/screen_media_query.dart';
 import 'package:zenwave/data/DBFunction/future_Tasks.dart';
 import 'package:zenwave/presentation/Consts/color.dart';
 import 'package:zenwave/presentation/Consts/Values.dart';
@@ -149,22 +150,22 @@ class _FutureWorkPlanPageState extends State<FutureWorkPlanPage> {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     CustomisableButton(
-                      120,
-                      70,
+                      PLANWORK_BUTTON_WIDTH!,
+                      PLANWORK_BUTTON_HEIGHT!,
                       SECONDARY_COLOR,
                       PRIMARY_COLOR,
                       'Date',
-                      20,
+                      SETDAY_BUTTON_FONTSIZE!,
                       true,
                       toPerform: _showCalender,
                     ),
                     CustomisableButton(
-                      120,
-                      70,
+                      PLANWORK_BUTTON_WIDTH!,
+                      PLANWORK_BUTTON_HEIGHT!,
                       SECONDARY_COLOR,
                       PRIMARY_COLOR,
                       'Priority',
-                      20,
+                      SETDAY_BUTTON_FONTSIZE!,
                       true,
                       toPerform: _showPriorityLsit,
                     ),

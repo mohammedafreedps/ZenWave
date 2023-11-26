@@ -20,6 +20,8 @@ class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
     screenResponsive();
+    getIsRated();
+    getUserName();
     super.initState();
     if (IsUserLogin == true) {
       isHapticFeedback();

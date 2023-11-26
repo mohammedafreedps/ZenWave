@@ -1,12 +1,15 @@
 import 'dart:io';
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:zenwave/data/DB/shared_preference.dart';
 import 'package:zenwave/data/DBFunction/inisialise_database.dart';
 import 'package:zenwave/presentation/Pages/splash_page.dart';
 import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 
 void main() async {
+  SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   WidgetsFlutterBinding.ensureInitialized();
 
   if (Platform.isAndroid) {
@@ -16,8 +19,7 @@ void main() async {
 
   await getIsUserLogin();
 
-  runApp(
-      DevicePreview(enabled: false, builder: (context) => ZenWave()));
+  runApp(DevicePreview(enabled: false, builder: (context) => ZenWave()));
 }
 
 class ZenWave extends StatelessWidget {

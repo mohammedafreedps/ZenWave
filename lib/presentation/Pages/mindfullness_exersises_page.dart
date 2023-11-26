@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:zenwave/business/Functions/screen_media_query.dart';
 import 'package:zenwave/business/services/hapticfeedback.dart';
@@ -67,7 +66,7 @@ class _MindfulnessExercisesState extends State<MindfulnessExercises> {
     });
   }
 
-  _startTimerBoxBreatheing() {
+  startTimerBoxBreatheing() {
     _boxBreathingTimer = Timer.periodic(Duration(seconds: 4), (timer) {
       hapticFeedback('m');
       setState(() {
@@ -99,7 +98,7 @@ class _MindfulnessExercisesState extends State<MindfulnessExercises> {
     });
   }
 
-  _startTimerTechnique() {
+  startTimerTechnique() {
     _techniqueTimer = Timer.periodic(Duration(seconds: 1), (timer) {
       _counter++;
       progressionBar += 1 / 19;
@@ -142,13 +141,13 @@ class _MindfulnessExercisesState extends State<MindfulnessExercises> {
         setState(() {
           _instructionText = 'Ready';
         });
-        _startTimerBoxBreatheing();
+        startTimerBoxBreatheing();
       } else if (_boxbreathing == false && _technique != false) {
         setState(() {
           _instructionText = 'Ready';
         });
         _iStart = true;
-        _startTimerTechnique();
+        startTimerTechnique();
       }
     });
   }

@@ -39,14 +39,6 @@ class _HomePageState extends State<HomePage> {
     screenResponsive();
     super.initState();
     AndroidAlarmManager.periodic(const Duration(seconds: 1), 1, resetisRated);
-    _ratedChecker = Timer(const Duration(microseconds: 1000), () {
-      if (mounted) {
-        setState(() {
-          getIsRated();
-          getUserName();
-        });
-      }
-    });
   }
 
   @override

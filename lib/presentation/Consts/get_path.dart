@@ -8,6 +8,5 @@ import 'dart:io';
       if (!imageDirectory.existsSync()) {
         await imageDirectory.create();
       }
-      print(imageDirectoryPath);
       return imageDirectoryPath;
     }

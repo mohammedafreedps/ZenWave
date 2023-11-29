@@ -34,8 +34,6 @@ class _CaptureEditPageState extends State<CaptureEditPage> {
     _description.text = _giver.content;
     _imgPath = _giver.imgPath;
     _oldImagePath = _giver.imgPath;
-    print('old path ; $_oldImagePath');
-    print('new path : $_imgPath');
     super.initState();
   }
 
@@ -59,13 +57,11 @@ class _CaptureEditPageState extends State<CaptureEditPage> {
       if (_pickedFile != null) {
         setState(() {
           _imgPath = _pickedFile!.path;
-          print('image picked : $_imgPath');
         });
       }
     }
 
     Future<bool> _deleteLocalPicture(String imagePath) async {
-      print('image path to delete : $imagePath');
       bool flag = false;
       final File _imageFile = File(imagePath);
       if (_imageFile.existsSync()) {
@@ -73,10 +69,8 @@ class _CaptureEditPageState extends State<CaptureEditPage> {
         if (!_imageFile.existsSync()) {
           flag = true;
         }
-        print('pic exists and deleted in delete local fun');
         allValueInCaptureMomentsInDB = getAllValueFromCaptureMomentsDB();
       } else {
-        print('File does not exist at path: $imagePath');
       }
       return flag;
     }
@@ -84,20 +78,15 @@ class _CaptureEditPageState extends State<CaptureEditPage> {
     Future<bool> _editImageLocally() async {
       bool flag = false;
       if (_pickedFile != null) {
-        print(widget.index); // 0
         final _giver = captureMomentsBox.getAt(widget.index);
 
         if (_giver != null) {
-          print('giving old path to delete fun : $_oldImagePath');
           if (await _deleteLocalPicture(_oldImagePath!)) {
             final imageDirectoryPath = await getAppImageDirectoryPath();
             final File imageFile = File(_pickedFile!.path);
             final String newImagePath =
                 '$imageDirectoryPath/${DateTime.now().millisecondsSinceEpoch}.jpg';
-
-            print('copy befor : $newImagePath');
             await imageFile.copy(newImagePath);
-            print('copy After : $newImagePath');
 
             editValuesInCaptureMomentsDB(
                 widget.index,
@@ -109,17 +98,13 @@ class _CaptureEditPageState extends State<CaptureEditPage> {
                 true,
                 newImagePath);
 
-            print('saving image path hive : $newImagePath');
             flag = true;
           } else {
-            print('no image selected');
             flag = false;
           }
         } else {
-          print('Item at index ${widget.index} is null');
         }
       }
-      print(flag);
       return flag;
     }
 

@@ -98,7 +98,6 @@ class _SetDayWorkPageState extends State<SetDayWorkPage> {
                       onChanged: (value) {
                         setState(() {
                           _selectedValue = value as int;
-                          print(_selectedValue);
                         });
                       }),
                   Text('High'),
@@ -109,7 +108,6 @@ class _SetDayWorkPageState extends State<SetDayWorkPage> {
                       onChanged: (value) {
                         setState(() {
                           _selectedValue = value as int;
-                          print(_selectedValue);
                         });
                       }),
                   Text('Medium'),
@@ -120,7 +118,6 @@ class _SetDayWorkPageState extends State<SetDayWorkPage> {
                       onChanged: (value) {
                         setState(() {
                           _selectedValue = value as int;
-                          print(_selectedValue);
                         });
                       }),
                   Text('Low'),

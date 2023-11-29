@@ -40,7 +40,6 @@ class _JournalAddPageState extends State<JournalAddPage> {
               lastDate: DateTime.now())
           .then((value) {
           _selectedDate = value;
-          print(_selectedDate);
 
       });
     }
@@ -49,13 +48,11 @@ class _JournalAddPageState extends State<JournalAddPage> {
     savePersonalJournal() async {
       hapticFeedback('s');
       if (_selectedDate == null) {
-        print('null statement add');
         await personalJournalBox.put(
             DateTime.now().toString(),
             personalJournal(jounalAddTitleController.text,jounalAddDescriptionController.text,
                 DateTime.now().day, DateTime.now().month, DateTime.now().year,false));
       } else if (_selectedDate != null) {
-        print('not null statement add');
         await personalJournalBox.put(
             DateTime.now().toString(),
             personalJournal(jounalAddTitleController.text,jounalAddDescriptionController.text,
@@ -66,13 +63,11 @@ class _JournalAddPageState extends State<JournalAddPage> {
     saveGratitudeJournal() async {
       hapticFeedback('s');
       if (_selectedDate == null) {
-        print('null statement add');
         await gratitudeJournalBox.put(
             DateTime.now().toString(),
             gratutudeJournal(jounalAddTitleController.text,jounalAddDescriptionController.text,
                 DateTime.now().day, DateTime.now().month, DateTime.now().year,false));
       } else if (_selectedDate != null) {
-        print('not null statement add');
         await gratitudeJournalBox.put(
             DateTime.now().toString(),
             gratutudeJournal(jounalAddTitleController.text,jounalAddDescriptionController.text,
@@ -82,14 +77,11 @@ class _JournalAddPageState extends State<JournalAddPage> {
 
     saveTo() {
       if (widget.setTo == 'Personal') {
-        print('Personal saved');
         savePersonalJournal();
       } else if (widget.setTo == 'Gratitude') {
         saveGratitudeJournal();
       } else if (widget.setTo == 'Deleted') {
-        print('Deleted restored');
       } else if (widget.setTo == 'AddTask') {
-        print('to add workgin');
         if (widget.toperform != null) {
           widget.toperform!(jounalAddDescriptionController.text);
         }

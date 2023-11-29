@@ -56,7 +56,6 @@ class _FocusModePageState extends State<FocusModePage> {
           });
         });
 
-        print('timer stoped');
         focusTimer!.cancel();
         focusProgressBar!.cancel();
       }
@@ -71,14 +70,12 @@ class _FocusModePageState extends State<FocusModePage> {
         });
       });
 
-      print('timer started');
       focusTimer = Timer.periodic(Duration(minutes: 1), (timer) {
         setState(() {
           timeShow = timeShow - 1;
         });
 
         if (timeShow == 0) {
-          print('if worked');
           StopfocusTimers();
         }
 
@@ -93,7 +90,6 @@ class _FocusModePageState extends State<FocusModePage> {
         _isActive = true;
       });
       _isBackLock = false;
-      print('startfocus pressed');
       StartFocusTimer();
     }
 

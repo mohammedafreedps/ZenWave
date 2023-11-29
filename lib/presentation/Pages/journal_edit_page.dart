@@ -84,7 +84,6 @@ class _JournalEditPageState extends State<JournalEditPage> {
               lastDate: DateTime.now())
           .then((value) {
         _selectedDate = value;
-        print(_selectedDate);
       });
     }
 
@@ -134,7 +133,6 @@ class _JournalEditPageState extends State<JournalEditPage> {
 
     saveTo() {
       if (widget.from == 'Personal') {
-        print('Personal saved');
         savePersonalJournal();
         if (widget.toperform != null) {
           widget.toperform!();
@@ -145,9 +143,7 @@ class _JournalEditPageState extends State<JournalEditPage> {
           widget.toperform!();
         }
       } else if (widget.from == 'Deleted') {
-        print('Deleted restored');
       } else if (widget.from == 'AddTask') {
-        print('to add workgin');
         if (widget.toperform != null) {
           widget.toperform!(jounalEditDescriptionController.text);
         }

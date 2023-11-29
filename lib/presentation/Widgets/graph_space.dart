@@ -26,10 +26,8 @@ class _GraphSpaceState extends State<GraphSpace> {
 
 _loadData() {
   final List moodData = moodTrackerBox.values.toList();
-  print(moodData.toString() + 'cheecthis');
   flSpots = moodData.map((data) {
     int dayOfWeek = data.date.weekday-1;
-    print(dayOfWeek);
     return FlSpot(dayOfWeek.toDouble(), data.mood.toDouble());
   }).toList();
   if (mounted) {

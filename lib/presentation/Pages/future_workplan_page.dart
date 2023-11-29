@@ -79,7 +79,6 @@ class _FutureWorkPlanPageState extends State<FutureWorkPlanPage> {
     int _searchDay = searchDate.day;
     int _searchMonth = searchDate.month;
     int _searchYear = searchDate.year;
-    print('searching block');
     _searchResuls = allValueInFutureTaskDB.where((journal) {
       return journal.day == _searchDay &&
           journal.month == _searchMonth &&
@@ -104,7 +103,6 @@ class _FutureWorkPlanPageState extends State<FutureWorkPlanPage> {
   }
 
   _editValues(int index) {
-    print('ediit called');
     Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
       return FutureTaskEditPage(_refresh, index);
     }));
@@ -186,7 +184,7 @@ class _FutureWorkPlanPageState extends State<FutureWorkPlanPage> {
                           onTap: () {
                             Navigator.push(context, MaterialPageRoute(
                                 builder: (BuildContext context) {
-                              return FutureTaskViewPage(_giver.content);
+                              return FutureTaskViewPage(task: _giver.content,day: _giver.day,month: _giver.month, year: _giver.year,hour: _giver.hr,minutes: _giver.min,);
                             }));
                           },
                           onLongPress: () {

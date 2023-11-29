@@ -122,7 +122,6 @@ class _FutureTaskEditPageState extends State<FutureTaskEditPage> {
                       onChanged: (value) {
                         setState(() {
                           _selectedValue = value as int;
-                          print(_selectedValue);
                         });
                       }),
                   Text('High'),
@@ -133,7 +132,6 @@ class _FutureTaskEditPageState extends State<FutureTaskEditPage> {
                       onChanged: (value) {
                         setState(() {
                           _selectedValue = value as int;
-                          print(_selectedValue);
                         });
                       }),
                   Text('Medium'),
@@ -144,7 +142,6 @@ class _FutureTaskEditPageState extends State<FutureTaskEditPage> {
                       onChanged: (value) {
                         setState(() {
                           _selectedValue = value as int;
-                          print(_selectedValue);
                         });
                       }),
                   Text('Low'),

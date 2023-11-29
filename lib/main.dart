@@ -8,8 +8,6 @@ import 'package:zenwave/presentation/Pages/splash_page.dart';
 import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 
 void main() async {
-  SystemChrome.setPreferredOrientations(
-      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   WidgetsFlutterBinding.ensureInitialized();
 
   if (Platform.isAndroid) {
@@ -18,6 +16,9 @@ void main() async {
   await initialiseDataBase();
 
   await getIsUserLogin();
+
+  SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 
   runApp(DevicePreview(enabled: false, builder: (context) => ZenWave()));
 }

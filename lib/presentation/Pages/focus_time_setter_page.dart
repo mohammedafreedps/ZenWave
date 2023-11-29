@@ -18,7 +18,6 @@ class _FocusTimeSetterPageState extends State<FocusTimeSetterPage> {
   TextEditingController CustomFocusTime = TextEditingController();
   int cusTime = 1;
   textfieldConverter(String value) {
-    print('converter worked');
     if (value.isNotEmpty) {
       int? parsedValue = int.tryParse(value.trim());
 

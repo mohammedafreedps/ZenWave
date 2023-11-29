@@ -6,7 +6,6 @@ bool? IsUserLogin;
 bool hapticOn = false;
 
 Future<void> saveIsRated(bool value) async {
-  print('save data arrie sp $value');
   SharedPreferences prefs = await SharedPreferences.getInstance();
   prefs.setBool('isRated', value);
 }
@@ -14,12 +13,10 @@ Future<void> saveIsRated(bool value) async {
 Future<bool> getIsRated() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   isRated = prefs.getBool('isRated') ?? false;
-  print('current value in sp $isRated');
   return isRated!;
 }
 
 Future<void> saveIsUserLogin(bool value) async {
-  print('save name arrie sp $value');
   SharedPreferences prefs = await SharedPreferences.getInstance();
   prefs.setBool('isUserLogin', value);
 }
@@ -27,12 +24,10 @@ Future<void> saveIsUserLogin(bool value) async {
 Future<bool> getIsUserLogin() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   IsUserLogin = prefs.getBool('isUserLogin')?? false;
-  print('current name in sp $IsUserLogin');
   return IsUserLogin!;
 }
 
 Future<void> saveUserName(String value) async {
-  print('save name arrie sp $value');
   SharedPreferences prefs = await SharedPreferences.getInstance();
   prefs.setString('UserName', value);
 }
@@ -40,20 +35,17 @@ Future<void> saveUserName(String value) async {
 Future<String> getUserName() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   UserNameFromSP = prefs.getString('UserName')?? '';
-  print('current name in sp $UserNameFromSP');
   return UserNameFromSP;
 }
 
 Future<void> setHapticFeedback(bool option)async{
   SharedPreferences  prefs = await SharedPreferences.getInstance();
   prefs.setBool('hapticFeedback',option);
-  print('haptic $option');
 }
 Future<bool> isHapticFeedback()async{
   SharedPreferences prefs = await SharedPreferences.getInstance();
   if (prefs.getBool('hapticFeedback') != null) {
     hapticOn = prefs.getBool('hapticFeedback')!;
   }
-  print('getting haptic $hapticOn');
   return hapticOn;
 }

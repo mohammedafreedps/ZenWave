@@ -73,12 +73,10 @@ class _MindfulnessExercisesState extends State<MindfulnessExercises> {
         if (progressionBar <= 1) {
           progressionBar += 1 / 59;
         } else {
-          print('ticker stopped');
           stopBoxBreathing();
         }
       });
 
-      print('timer ticking');
       if (_instructionText == '') {
         setState(() {
           _instructionText = 'In';

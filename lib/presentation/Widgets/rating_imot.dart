@@ -13,7 +13,6 @@ class RatingImot extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: (){
-        print('save mood inside arrie');
         SaveMood();
       },
       child: Container(

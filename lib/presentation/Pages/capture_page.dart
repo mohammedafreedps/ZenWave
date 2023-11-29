@@ -163,7 +163,6 @@ class _CapturePageState extends State<CapturePage> {
       setState(() {
         allValueInCaptureMomentsInDB = getAllValueFromCaptureMomentsDB();
         Navigator.pop(context);
-        print('refresh called');
       });
     }
 
@@ -238,7 +237,6 @@ class _CapturePageState extends State<CapturePage> {
                     itemCount: _searchResuls.length,
                     itemBuilder: (BuildContext context, int index) {
                       final _giver = _searchResuls[index];
-                      print('imgpatj' + _giver.imgPath);
                       return InkWell(
                         onTap: () {
                           Navigator.push(context, MaterialPageRoute(

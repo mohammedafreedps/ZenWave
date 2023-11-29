@@ -69,7 +69,7 @@ class _HomePageState extends State<HomePage> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   const cusText(
-                    content: 'Haptic Feedback',
+                    content: 'test (haptic feed back)',
                     fontSize: 20,
                   ),
                   Switch(
